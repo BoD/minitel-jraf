@@ -121,6 +121,9 @@ fun main() {
         )
 
         minitel.connect {
+          screen.disableAcknowledgement()
+          screen.clearScreenAndHome()
+          screen.scroll(true)
           MainScreen()
         }
       }
