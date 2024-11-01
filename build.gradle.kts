@@ -1,7 +1,5 @@
+
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
-import java.io.FileInputStream
-import java.util.Base64
-import java.util.Properties
 
 plugins {
   kotlin("jvm")
@@ -23,6 +21,7 @@ kotlin {
 
 application {
   mainClass.set("org.jraf.miniteljraf.main.MainKt")
+//  mainClass.set("org.jraf.miniteljraf.main.minitel.app.MinitelAppKt")
 }
 
 dependencies {

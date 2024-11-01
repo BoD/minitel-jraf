@@ -25,9 +25,14 @@
 
 package org.jraf.miniteljraf.main.minitel
 
-object Resources {
-  val logo3615Lines = Resources::class.java.getResourceAsStream("/logo_3615.vdt")!!.bufferedReader().readLines().dropLastWhile{it.isEmpty()}
-  val logoJrafLines = Resources::class.java.getResourceAsStream("/logo_jraf.txt")!!.bufferedReader().readLines().dropLastWhile{it.isEmpty()}
+import org.jraf.klibminitel.core.Minitel
+import org.jraf.miniteljraf.main.minitel.app.MinitelApp
 
-  val logoHeight = Resources.logo3615Lines.size
+abstract class JrafScreen(
+  protected val context: MinitelApp.Context,
+  protected val connection: Minitel.Connection,
+) {
+  abstract suspend fun start()
+
+  abstract suspend fun onKeyboard(e: Minitel.KeyboardEvent)
 }

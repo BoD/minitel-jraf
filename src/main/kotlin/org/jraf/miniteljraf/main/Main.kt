@@ -48,7 +48,7 @@ import kotlinx.io.RawSource
 import kotlinx.io.buffered
 import kotlinx.serialization.json.Json
 import org.jraf.klibminitel.core.Minitel
-import org.jraf.miniteljraf.main.minitel.MainScreen
+import org.jraf.miniteljraf.main.minitel.app.MinitelApp
 import java.io.File
 
 private const val DEFAULT_PORT = 8080
@@ -114,17 +114,13 @@ fun main() {
           override fun close() {}
         }
 
-
         val minitel = Minitel(
           keyboard = keyboardSource.buffered(),
           screen = screenSink.buffered(),
         )
 
         minitel.connect {
-          screen.disableAcknowledgement()
-          screen.clearScreenAndHome()
-          screen.scroll(true)
-          MainScreen()
+          MinitelApp(this).start()
         }
       }
     }
