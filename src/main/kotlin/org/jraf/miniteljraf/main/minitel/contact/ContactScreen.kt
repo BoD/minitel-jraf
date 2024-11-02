@@ -84,7 +84,7 @@ class ContactScreen(
     moveCursor(0, SCREEN_HEIGHT_NORMAL - 1)
     colorForeground(5)
     colorBackground(1)
-    print(" back to the main screen.")
+    print(" back to the home screen.")
     clearEndOfLine()
   }
 

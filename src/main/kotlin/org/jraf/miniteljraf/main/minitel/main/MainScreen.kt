@@ -43,6 +43,7 @@ class MainScreen(
   connection: Minitel.Connection,
   private val startMode: StartMode,
   private val onNavigateToContact: suspend () -> Unit,
+  private val onNavigateToProjects: suspend () -> Unit,
 ) : JrafScreen(context, connection) {
 
   enum class StartMode {
@@ -114,7 +115,7 @@ class MainScreen(
     menuItem("1", "Contact")
 
     moveCursor(24, 12)
-    menuItem("2", "GitHub")
+    menuItem("2", "Projects")
 
     moveCursor(5, 16)
     menuItem("3", "Play Store")
@@ -140,6 +141,7 @@ class MainScreen(
     if (e !is Minitel.KeyboardEvent.CharacterEvent) return
     when (e.char) {
       '1' -> onNavigateToContact()
+      '2' -> onNavigateToProjects()
     }
   }
 }

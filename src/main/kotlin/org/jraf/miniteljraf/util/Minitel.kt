@@ -33,3 +33,34 @@ suspend fun Minitel.Screen.printCentered(s: String) {
   repeatCharacter(' ', padding.length)
   print(s)
 }
+
+fun String.wrappedLines(maxWidth: Int = SCREEN_WIDTH_NORMAL): List<String> {
+  val words = split(" ")
+  val lines = mutableListOf<String>()
+  var currentLine = ""
+  for (word in words) {
+    if (currentLine.isEmpty()) {
+      currentLine = word
+    } else {
+      val newLine = "$currentLine $word"
+      if (newLine.length > maxWidth) {
+        lines.add(currentLine.abbreviate(maxWidth))
+        currentLine = word
+      } else {
+        currentLine = newLine
+      }
+    }
+  }
+  if (currentLine.isNotEmpty()) {
+    lines.add(currentLine)
+  }
+  return lines
+}
+
+fun String.abbreviate(maxWidth: Int = SCREEN_WIDTH_NORMAL): String {
+  return if (length > maxWidth) {
+    substring(0, maxWidth - 3) + "..."
+  } else {
+    this
+  }
+}

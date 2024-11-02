@@ -1,10 +1,10 @@
-
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 plugins {
   kotlin("jvm")
   id("application")
   id("com.bmuschko.docker-java-application")
+  id("com.apollographql.apollo")
 }
 
 group = "org.jraf"
@@ -20,8 +20,8 @@ kotlin {
 }
 
 application {
-  mainClass.set("org.jraf.miniteljraf.main.MainKt")
-//  mainClass.set("org.jraf.miniteljraf.main.minitel.app.MinitelAppKt")
+//  mainClass.set("org.jraf.miniteljraf.main.MainKt")
+  mainClass.set("org.jraf.miniteljraf.main.minitel.app.MinitelAppKt")
 }
 
 dependencies {
@@ -36,6 +36,10 @@ dependencies {
 
   // Minitel
   implementation("org.jraf:klibminitel:_")
+
+  // Apollo
+  // implementation(ApolloGraphQL.runtime) // <- points to v3, see https://github.com/Splitties/refreshVersions/issues/722
+  implementation("com.apollographql.apollo:apollo-runtime:_")
 
   // Logback
   runtimeOnly("ch.qos.logback:logback-classic:_")
@@ -60,6 +64,20 @@ tasks.withType<DockerBuildImage> {
 
 tasks.withType<com.bmuschko.gradle.docker.tasks.image.Dockerfile> {
   environmentVariable("MALLOC_ARENA_MAX", "4")
+}
+
+apollo {
+  service("github") {
+    packageName.set("org.jraf.miniteljraf.github")
+
+    introspection {
+      endpointUrl.set("https://api.github.com/graphql")
+      schemaFile.set(file("src/main/graphql/schema.graphqls"))
+      // Add `githubOauthKey` to your ~/.gradle/gradle.properties file
+      val githubOauthKey = project.findProperty("githubOauthKey")?.toString() ?: ""
+      headers.put("Authorization", "Bearer $githubOauthKey")
+    }
+  }
 }
 
 // `./gradlew distZip` to create a zip distribution

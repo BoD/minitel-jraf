@@ -32,6 +32,7 @@ import org.jraf.klibminitel.core.Minitel
 import org.jraf.miniteljraf.main.minitel.JrafScreen
 import org.jraf.miniteljraf.main.minitel.contact.ContactScreen
 import org.jraf.miniteljraf.main.minitel.main.MainScreen
+import org.jraf.miniteljraf.main.minitel.projects.ProjectsScreen
 
 class MinitelApp(private val connection: Minitel.Connection) {
   class Context {
@@ -42,15 +43,29 @@ class MinitelApp(private val connection: Minitel.Connection) {
   private lateinit var currentScreen: JrafScreen
 
   suspend fun start() {
-//    connection.screen.disableAcknowledgement()
+    connection.screen.disableAcknowledgement()
     connection.screen.localEcho(false)
     connection.screen.scroll(true)
-    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
+//    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
 //    onNavigateToContact()
+    onNavigateToProjects()
 
     connection.keyboard.collect { key ->
       currentScreen.onKeyboard(key)
     }
+  }
+
+  private suspend fun onNavigateToMain(
+    mode: MainScreen.StartMode,
+  ) {
+    currentScreen = MainScreen(
+      context = context,
+      connection = connection,
+      startMode = mode,
+      onNavigateToContact = ::onNavigateToContact,
+      onNavigateToProjects = ::onNavigateToProjects,
+    )
+    currentScreen.start()
   }
 
   private suspend fun onNavigateToContact() {
@@ -64,14 +79,13 @@ class MinitelApp(private val connection: Minitel.Connection) {
     currentScreen.start()
   }
 
-  private suspend fun onNavigateToMain(
-    mode: MainScreen.StartMode,
-  ) {
-    currentScreen = MainScreen(
+  private suspend fun onNavigateToProjects() {
+    currentScreen = ProjectsScreen(
       context = context,
       connection = connection,
-      startMode = mode,
-      onNavigateToContact = ::onNavigateToContact,
+      onNavigateToMain = {
+        onNavigateToMain(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+      },
     )
     currentScreen.start()
   }
