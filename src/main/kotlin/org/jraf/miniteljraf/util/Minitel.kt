@@ -25,6 +25,7 @@
 
 package org.jraf.miniteljraf.util
 
+import org.jraf.klibminitel.core.CharacterSize
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
 
@@ -44,7 +45,7 @@ fun String.wrappedLines(maxWidth: Int = SCREEN_WIDTH_NORMAL): List<String> {
     } else {
       val newLine = "$currentLine $word"
       if (newLine.length > maxWidth) {
-        lines.add(currentLine.abbreviate(maxWidth))
+        lines.add(currentLine)
         currentLine = word
       } else {
         currentLine = newLine
@@ -52,7 +53,7 @@ fun String.wrappedLines(maxWidth: Int = SCREEN_WIDTH_NORMAL): List<String> {
     }
   }
   if (currentLine.isNotEmpty()) {
-    lines.add(currentLine)
+    lines.add(currentLine.abbreviate(maxWidth))
   }
   return lines
 }
@@ -63,4 +64,62 @@ fun String.abbreviate(maxWidth: Int = SCREEN_WIDTH_NORMAL): String {
   } else {
     this
   }
+}
+
+fun String.split(maxWidth: Int, firstLineMaxWidth: Int): List<String> {
+  val lines = mutableListOf<String>()
+  var currentLine = ""
+  var currentMaxWidth = firstLineMaxWidth
+  for (c in this) {
+    if (currentLine.length + 1 > currentMaxWidth) {
+      lines += currentLine
+      currentLine = c.toString()
+      currentMaxWidth = maxWidth
+    } else {
+      currentLine += c
+    }
+  }
+  lines += currentLine
+  return lines
+}
+
+data class Line(
+  val text: String,
+  val characterSize: CharacterSize,
+  val foregroundColor: Int,
+) {
+  val needsNewLine = text.length < characterSize.maxCharactersHorizontal
+}
+
+fun Line.wrapped(maxWidth: Int = SCREEN_WIDTH_NORMAL): List<Line> {
+  val actualMaxWidth = maxWidth / characterSize.characterWidth
+  if (text.length <= actualMaxWidth) {
+    return listOf(this)
+  }
+  val lines = mutableListOf<Line>()
+  val words = text.split(" ").toMutableList()
+  var currentLine = ""
+  while (words.isNotEmpty()) {
+    val word = words.removeAt(0)
+    if (currentLine.isEmpty()) {
+      currentLine = word
+    } else {
+      val newLine = "$currentLine $word"
+      if (newLine.length > actualMaxWidth) {
+        if (word.length > actualMaxWidth) {
+          words.addAll(0, word.split(actualMaxWidth, actualMaxWidth - currentLine.length - 1))
+          continue
+        } else {
+          lines.add(copy(text = currentLine))
+          currentLine = word
+        }
+      } else {
+        currentLine = newLine
+      }
+    }
+  }
+  if (currentLine.isNotEmpty()) {
+    lines.add(copy(text = currentLine))
+  }
+  return lines
 }

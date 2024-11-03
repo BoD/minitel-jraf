@@ -29,9 +29,11 @@ import kotlinx.io.asSink
 import kotlinx.io.asSource
 import kotlinx.io.buffered
 import org.jraf.klibminitel.core.Minitel
+import org.jraf.miniteljraf.github.GetRepositoriesQuery
 import org.jraf.miniteljraf.main.minitel.JrafScreen
 import org.jraf.miniteljraf.main.minitel.contact.ContactScreen
 import org.jraf.miniteljraf.main.minitel.main.MainScreen
+import org.jraf.miniteljraf.main.minitel.projects.ProjectScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectsScreen
 
 class MinitelApp(private val connection: Minitel.Connection) {
@@ -40,7 +42,23 @@ class MinitelApp(private val connection: Minitel.Connection) {
 
   private val context = Context()
 
-  private lateinit var currentScreen: JrafScreen
+  private val screenStack = mutableListOf<JrafScreen<*>>()
+
+  private suspend fun <P, S : JrafScreen<P>> pushScreen(screen: S, startParameters: P) {
+    screenStack.add(screen)
+    screen.start(startParameters)
+  }
+
+  private suspend fun <P, S : JrafScreen<P>> popScreen(startParameters: P, count: Int = 1) {
+    repeat(count) {
+      screenStack.removeLast()
+    }
+    @Suppress("UNCHECKED_CAST")
+    (currentScreen as S).start(startParameters)
+  }
+
+  private val currentScreen: JrafScreen<*>
+    get() = screenStack.last()
 
   suspend fun start() {
     connection.screen.disableAcknowledgement()
@@ -58,36 +76,55 @@ class MinitelApp(private val connection: Minitel.Connection) {
   private suspend fun onNavigateToMain(
     mode: MainScreen.StartMode,
   ) {
-    currentScreen = MainScreen(
-      context = context,
-      connection = connection,
-      startMode = mode,
-      onNavigateToContact = ::onNavigateToContact,
-      onNavigateToProjects = ::onNavigateToProjects,
+    pushScreen(
+      MainScreen(
+        context = context,
+        connection = connection,
+        onNavigateToContact = ::onNavigateToContact,
+        onNavigateToProjects = ::onNavigateToProjects,
+      ),
+      mode,
     )
-    currentScreen.start()
   }
 
   private suspend fun onNavigateToContact() {
-    currentScreen = ContactScreen(
-      context = context,
-      connection = connection,
-      onNavigateToMain = {
-        onNavigateToMain(MainScreen.StartMode.CLEAR_AND_KEEP_LOGO)
-      },
+    pushScreen(
+      ContactScreen(
+        context = context,
+        connection = connection,
+        onBack = {
+          popScreen(MainScreen.StartMode.CLEAR_AND_KEEP_LOGO)
+        },
+      ),
+      Unit,
     )
-    currentScreen.start()
   }
 
   private suspend fun onNavigateToProjects() {
-    currentScreen = ProjectsScreen(
-      context = context,
-      connection = connection,
-      onNavigateToMain = {
-        onNavigateToMain(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
-      },
+    pushScreen(
+      ProjectsScreen(
+        context = context,
+        connection = connection,
+        onBack = {
+          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+        },
+        onNavigateToProject = ::onNavigateToProject,
+      ),
+      false,
     )
-    currentScreen.start()
+  }
+
+  private suspend fun onNavigateToProject(repository: GetRepositoriesQuery.Node) {
+    pushScreen(
+      ProjectScreen(
+        context = context,
+        connection = connection,
+        onBack = {
+          popScreen(true)
+        },
+      ),
+      repository,
+    )
   }
 }
 

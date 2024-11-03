@@ -26,13 +26,25 @@
 package org.jraf.miniteljraf.main.minitel.projects
 
 import com.apollographql.apollo.ApolloClient
+import kotlinx.coroutines.withContext
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.jraf.miniteljraf.github.GetRepositoriesQuery
 
-class GitHubApi {
+object GitHubApi {
   private val apolloClient = ApolloClient.Builder()
     .serverUrl("https://api.github.com/graphql")
     .addHttpHeader("Authorization", "Bearer ${System.getenv("githubOauthKey")}")
     .build()
+
+  private val okHttpClient = OkHttpClient.Builder()
+    .build()
+
+  private val json = Json {
+    ignoreUnknownKeys = true
+  }
 
   private var repositories: List<GetRepositoriesQuery.Node>? = null
 
@@ -46,4 +58,27 @@ class GitHubApi {
     }
     return repositories!!.dropWhile { it != after }.drop(1)
   }
+
+  suspend fun getReadme(repositoryName: String): String {
+    return withContext(kotlinx.coroutines.Dispatchers.IO) {
+      val apiResponse = okHttpClient.newCall(
+        Request.Builder()
+          .url("https://api.github.com/repos/BoD/${repositoryName}/readme")
+          .header("Authorization", "Bearer ${System.getenv("githubOauthKey")}")
+          .build(),
+      ).execute()
+      val readmeUrl = json.decodeFromString<ReadmeResult>(apiResponse.body!!.string()).download_url
+      val readmeResponse = okHttpClient.newCall(
+        Request.Builder()
+          .url(readmeUrl)
+          .build(),
+      ).execute()
+      readmeResponse.body!!.string()
+    }
+  }
+
+  @Serializable
+  class ReadmeResult(
+    val download_url: String,
+  )
 }

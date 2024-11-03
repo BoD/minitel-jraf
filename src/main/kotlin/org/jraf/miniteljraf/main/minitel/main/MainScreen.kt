@@ -41,10 +41,9 @@ import kotlin.random.Random
 class MainScreen(
   context: MinitelApp.Context,
   connection: Minitel.Connection,
-  private val startMode: StartMode,
   private val onNavigateToContact: suspend () -> Unit,
   private val onNavigateToProjects: suspend () -> Unit,
-) : JrafScreen(context, connection) {
+) : JrafScreen<MainScreen.StartMode>(context, connection) {
 
   enum class StartMode {
     CLEAR_AND_ANIMATE_LOGO,
@@ -52,11 +51,11 @@ class MainScreen(
     CLEAR_AND_KEEP_LOGO,
   }
 
-  override suspend fun start() {
-    connection.screen.drawScreen()
+  override suspend fun start(startParameters: StartMode) {
+    connection.screen.drawScreen(startParameters)
   }
 
-  private suspend fun Minitel.Screen.drawScreen() {
+  private suspend fun Minitel.Screen.drawScreen(startMode: StartMode) {
     when (startMode) {
       CLEAR_AND_ANIMATE_LOGO -> {
         clearScreenAndHome()

@@ -25,16 +25,15 @@
 
 package org.jraf.miniteljraf.main
 
-import io.ktor.http.HttpStatusCode
+import io.ktor.http.CacheControl
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
-import io.ktor.server.http.content.staticFiles
+import io.ktor.server.http.content.staticResources
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.defaultheaders.DefaultHeaders
 import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.response.respondText
 import io.ktor.server.routing.routing
 import io.ktor.server.websocket.WebSockets
 import io.ktor.server.websocket.webSocket
@@ -49,7 +48,6 @@ import kotlinx.io.buffered
 import kotlinx.serialization.json.Json
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.miniteljraf.main.minitel.app.MinitelApp
-import java.io.File
 
 private const val DEFAULT_PORT = 8080
 
@@ -66,18 +64,16 @@ fun main() {
         },
       )
     }
-    install(StatusPages) {
-      status(HttpStatusCode.NotFound) { call, status ->
-        call.respondText(
-          text = "Usage: ${call.request.local.scheme}://${call.request.local.serverHost}:${call.request.local.serverPort}/<Domain>/<Email:ApiToken>/<Page id>\n\nSee https://github.com/BoD/confluence-to-bookmarks for more info.",
-          status = status,
-        )
-      }
-    }
+    install(StatusPages)
     install(WebSockets)
 
     routing {
-      staticFiles("/", File("/Users/bod/gitrepo/miedit"))
+      staticResources("/", "/static") {
+        enableAutoHeadResponse()
+        cacheControl {
+          listOf(CacheControl.MaxAge(3600))
+        }
+      }
 
       webSocket("/ws") {
         val keyboardSource = object : RawSource {

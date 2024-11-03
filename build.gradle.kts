@@ -5,6 +5,7 @@ plugins {
   id("application")
   id("com.bmuschko.docker-java-application")
   id("com.apollographql.apollo")
+  kotlin("plugin.serialization")
 }
 
 group = "org.jraf"
@@ -43,6 +44,12 @@ dependencies {
 
   // Logback
   runtimeOnly("ch.qos.logback:logback-classic:_")
+
+  // JSON
+  implementation(KotlinX.serialization.json)
+
+  // Markdown
+  implementation("org.jetbrains:markdown:_")
 }
 
 docker {

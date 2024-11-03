@@ -26,8 +26,10 @@
 package org.jraf.miniteljraf.main.minitel
 
 object Resources {
-  val logo3615Lines = Resources::class.java.getResourceAsStream("/logo_3615.vdt")!!.bufferedReader().readLines().dropLastWhile{it.isEmpty()}
-  val logoJrafLines = Resources::class.java.getResourceAsStream("/logo_jraf.txt")!!.bufferedReader().readLines().dropLastWhile{it.isEmpty()}
+  val logo3615Lines =
+    Resources::class.java.getResourceAsStream("/videotex/logo_3615.vdt")!!.bufferedReader().readLines().dropLastWhile { it.isEmpty() }
+  val logoJrafLines =
+    Resources::class.java.getResourceAsStream("/videotex/logo_jraf.txt")!!.bufferedReader().readLines().dropLastWhile { it.isEmpty() }
 
   val logoHeight = Resources.logo3615Lines.size
 }

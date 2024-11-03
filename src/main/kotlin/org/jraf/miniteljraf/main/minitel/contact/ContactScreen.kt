@@ -29,16 +29,16 @@ import org.jraf.klibminitel.core.CharacterSize
 import org.jraf.klibminitel.core.FunctionKey
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
-import org.jraf.miniteljraf.main.minitel.JrafScreen
+import org.jraf.miniteljraf.main.minitel.ParameterlessJrafScreen
 import org.jraf.miniteljraf.main.minitel.Resources
 import org.jraf.miniteljraf.main.minitel.app.MinitelApp
 
 class ContactScreen(
   context: MinitelApp.Context,
   connection: Minitel.Connection,
-  private val onNavigateToMain: suspend () -> Unit,
-) : JrafScreen(context, connection) {
-  override suspend fun start() {
+  private val onBack: suspend () -> Unit,
+) : ParameterlessJrafScreen(context, connection) {
+  override suspend fun start(startParameters: Unit) {
     connection.screen.drawScreen()
   }
 
@@ -57,8 +57,9 @@ class ContactScreen(
     underline(true)
     characterSize(CharacterSize.TALL)
     print(" BoD@JRAF.org")
-//    characterSize(CharacterSize.NORMAL)
   }
+
+  // TODO Implement a text area to send an email to BoD@JRAF
 
   private suspend fun Minitel.Screen.drawFooter() {
     moveCursor(0, SCREEN_HEIGHT_NORMAL - 2)
@@ -92,7 +93,7 @@ class ContactScreen(
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {
     if (e !is Minitel.KeyboardEvent.FunctionKeyEvent) return
     when (e.functionKey) {
-      FunctionKey.SOMMAIRE, FunctionKey.RETOUR -> onNavigateToMain()
+      FunctionKey.SOMMAIRE, FunctionKey.RETOUR -> onBack()
       else -> {}
     }
   }

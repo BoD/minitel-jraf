@@ -39,21 +39,25 @@ import org.jraf.miniteljraf.util.wrappedLines
 class ProjectsScreen(
   context: MinitelApp.Context,
   connection: Minitel.Connection,
-  private val onNavigateToMain: suspend () -> Unit,
-) : JrafScreen(context, connection) {
-  private val gitHubApi = GitHubApi()
+  private val onBack: suspend () -> Unit,
+  private val onNavigateToProject: suspend (GetRepositoriesQuery.Node) -> Unit,
+) : JrafScreen<Boolean>(context, connection) {
   private var shouldClearScreen = true
   private var page = 0
   private var lastShowedRepo: List<GetRepositoriesQuery.Node> = emptyList()
+  private val letterToRepository = mutableMapOf<Char, GetRepositoriesQuery.Node>()
 
-  override suspend fun start() {
-    connection.screen.drawScreen()
+  override suspend fun start(startParameters: Boolean) {
+    connection.screen.drawScreen(startParameters)
   }
 
-  private suspend fun Minitel.Screen.drawScreen() {
+  private suspend fun Minitel.Screen.drawScreen(shouldRedrawFooter: Boolean) {
     if (shouldClearScreen) {
       clearScreenAndHome()
       drawHeader()
+      drawFooter()
+    }
+    if (shouldRedrawFooter) {
       drawFooter()
     }
     if (page == 0) {
@@ -132,9 +136,10 @@ class ProjectsScreen(
   private suspend fun Minitel.Screen.drawProjects() {
     var y = if (page == 0) 9 else 3
     moveCursor(0, y)
-    val repositories = gitHubApi.getRepositories(after = lastShowedRepo.lastOrNull())
+    val repositories = GitHubApi.getRepositories(after = lastShowedRepo.lastOrNull())
     var index = 0
     var repository: GetRepositoriesQuery.Node
+    letterToRepository.clear()
     while (true) {
       repository = repositories[index]
       val repositoryHeight = 3 + (repository.description ?: "(no description)").wrappedLines(SCREEN_WIDTH_NORMAL - 1).size
@@ -180,6 +185,8 @@ class ProjectsScreen(
       colorForeground(0)
       print(" fork${if (repository.forkCount == 0 || repository.forkCount > 1) "s" else ""}")
 
+      letterToRepository[letter] = repository
+
       index++
       if (index > repositories.lastIndex) {
         break
@@ -200,22 +207,24 @@ class ProjectsScreen(
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {
     when (e) {
       is Minitel.KeyboardEvent.CharacterEvent -> {
-        // TODO
+        val repository = letterToRepository[e.char] ?: return
+        lastShowedRepo = lastShowedRepo.dropLast(1)
+        onNavigateToProject(repository)
       }
 
       is Minitel.KeyboardEvent.FunctionKeyEvent -> when (e.functionKey) {
-        FunctionKey.SOMMAIRE -> onNavigateToMain()
+        FunctionKey.SOMMAIRE -> onBack()
         FunctionKey.RETOUR -> if (page == 0) {
-          onNavigateToMain()
+          onBack()
         } else {
           page--
           lastShowedRepo = lastShowedRepo.dropLast(2)
-          connection.screen.drawScreen()
+          connection.screen.drawScreen(shouldRedrawFooter = false)
         }
 
         FunctionKey.SUITE -> {
           page++
-          connection.screen.drawScreen()
+          connection.screen.drawScreen(shouldRedrawFooter = false)
         }
 
         else -> {}

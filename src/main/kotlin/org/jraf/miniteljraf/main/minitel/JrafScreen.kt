@@ -28,11 +28,20 @@ package org.jraf.miniteljraf.main.minitel
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.miniteljraf.main.minitel.app.MinitelApp
 
-abstract class JrafScreen(
+abstract class JrafScreen<P>(
   protected val context: MinitelApp.Context,
   protected val connection: Minitel.Connection,
 ) {
-  abstract suspend fun start()
+  abstract suspend fun start(startParameters: P)
 
   abstract suspend fun onKeyboard(e: Minitel.KeyboardEvent)
+}
+
+abstract class ParameterlessJrafScreen(
+  context: MinitelApp.Context,
+  connection: Minitel.Connection,
+) : JrafScreen<Unit>(context, connection) {
+  suspend fun start() {
+    start(Unit)
+  }
 }
