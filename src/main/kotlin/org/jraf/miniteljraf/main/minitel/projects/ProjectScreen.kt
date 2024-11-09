@@ -56,7 +56,7 @@ class ProjectScreen(
 
   private suspend fun loadReadme(project: GetRepositoriesQuery.Node) {
     val readmeText = GitHubApi.getReadme(project.name)
-    val plainText = readmeText.toPlainText()
+    val plainText = readmeText.toPlainText().filterNot { it.isISOControl() && !it.isWhitespace() }
     val textLines = plainText.lines()
     readmeLines = textLines.map { line ->
       if (line.startsWith("# ")) {
@@ -76,6 +76,12 @@ class ProjectScreen(
           text = line.drop(4).trim(),
           characterSize = CharacterSize.TALL,
           foregroundColor = 5,
+        )
+      } else if (line.startsWith("#### ")) {
+        Line(
+          text = line.drop(5).trim(),
+          characterSize = CharacterSize.NORMAL,
+          foregroundColor = 4,
         )
       } else {
         Line(
