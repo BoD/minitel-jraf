@@ -25,11 +25,18 @@
 
 package org.jraf.miniteljraf.main.minitel.contact
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.jraf.klibminitel.core.CharacterSize
 import org.jraf.klibminitel.core.FunctionKey
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
+import org.jraf.klibslack.model.Event
+import org.jraf.klibslack.model.MessageAddedEvent
 import org.jraf.miniteljraf.main.minitel.ParameterlessJrafScreen
 import org.jraf.miniteljraf.main.minitel.Resources
 import org.jraf.miniteljraf.main.minitel.app.MinitelApp
@@ -49,8 +56,19 @@ class ContactScreen(
   private var input = ""
   private val messages = mutableListOf<Message>()
 
+  private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+  private var slackJpb: Job? = null
+
   override suspend fun start(startParameters: Unit) {
     connection.screen.drawScreen()
+    slackJpb = coroutineScope.launch {
+      SlackApi.eventFlow.collect { onSlackMessage(it) }
+    }
+  }
+
+  override suspend fun stop() {
+    connection.screen.showCursor(false)
+    slackJpb?.cancel()
   }
 
   private suspend fun Minitel.Screen.drawScreen() {
@@ -79,24 +97,26 @@ class ContactScreen(
   private suspend fun Minitel.Screen.drawFooter() {
     moveCursor(0, SCREEN_HEIGHT_NORMAL - 2)
     color(1, 5)
-    underline(true)
-    print(" ")
-    inverse(true)
-    print(" Retour ")
-    underline(false)
-    inverse(false)
-    print(" go back to the home screen")
-    clearEndOfLine()
-
-    moveCursor(0, SCREEN_HEIGHT_NORMAL - 1)
-    color(1, 5)
+    print(" Send your message")
     underline(true)
     print(" ")
     inverse(true)
     print(" Envoi ")
     underline(false)
     inverse(false)
-    print(" send your message")
+    print(" ")
+    clearEndOfLine()
+
+    moveCursor(0, SCREEN_HEIGHT_NORMAL - 1)
+    color(1, 5)
+    print(" Go back to the home screen")
+    underline(true)
+    print(" ")
+    inverse(true)
+    print(" Retour ")
+    underline(false)
+    inverse(false)
+    print(" ")
     clearEndOfLine()
   }
 
@@ -206,9 +226,21 @@ class ContactScreen(
     showCursor(false)
     drawInputWindow()
     messages += Message.Local(input)
-    messages += Message.Remote("Thank you for your message!", "BoD")
+    SlackApi.sendMessage(input)
     drawMessages()
     drawInput()
+  }
+
+  private suspend fun onSlackMessage(event: Event) {
+    when (event) {
+      is MessageAddedEvent -> {
+        messages += Message.Remote(event.text.escapeEmojis(), "BoD")
+        connection.screen.drawMessages()
+        connection.screen.drawInput()
+      }
+
+      else -> {}
+    }
   }
 
   private fun Char.invertCase(): Char {

@@ -43,13 +43,16 @@ dependencies {
   implementation("com.apollographql.apollo:apollo-runtime:_")
 
   // Logback
-  runtimeOnly("ch.qos.logback:logback-classic:_")
+  implementation("org.slf4j:slf4j-simple:_")
 
   // JSON
   implementation(KotlinX.serialization.json)
 
   // Markdown
   implementation("org.jetbrains:markdown:_")
+
+  // Slack
+  implementation("org.jraf:klibslack:_")
 }
 
 docker {

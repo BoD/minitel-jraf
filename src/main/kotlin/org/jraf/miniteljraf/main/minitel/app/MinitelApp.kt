@@ -45,12 +45,14 @@ class MinitelApp(private val connection: Minitel.Connection) {
   private val screenStack = mutableListOf<JrafScreen<*>>()
 
   private suspend fun <P, S : JrafScreen<P>> pushScreen(screen: S, startParameters: P) {
+    screenStack.lastOrNull()?.stop()
     screenStack.add(screen)
     screen.start(startParameters)
   }
 
   private suspend fun <P, S : JrafScreen<P>> popScreen(startParameters: P, count: Int = 1) {
     repeat(count) {
+      currentScreen.stop()
       screenStack.removeLast()
     }
     @Suppress("UNCHECKED_CAST")
@@ -64,9 +66,9 @@ class MinitelApp(private val connection: Minitel.Connection) {
     connection.screen.disableAcknowledgement()
     connection.screen.localEcho(false)
     connection.screen.scroll(true)
-//    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
+    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
 //    onNavigateToContact()
-    onNavigateToProjects()
+//    onNavigateToProjects()
 
     connection.keyboard.collect { key ->
       currentScreen.onKeyboard(key)

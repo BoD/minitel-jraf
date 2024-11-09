@@ -35,6 +35,8 @@ abstract class JrafScreen<P>(
   abstract suspend fun start(startParameters: P)
 
   abstract suspend fun onKeyboard(e: Minitel.KeyboardEvent)
+
+  open suspend fun stop() {}
 }
 
 abstract class ParameterlessJrafScreen(
