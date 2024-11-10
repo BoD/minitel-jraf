@@ -26,6 +26,7 @@
 package org.jraf.miniteljraf.main.minitel.projects
 
 import com.apollographql.apollo.ApolloClient
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -51,7 +52,12 @@ object GitHubApi {
   suspend fun getRepositories(after: GetRepositoriesQuery.Node?): List<GetRepositoriesQuery.Node> {
     if (repositories == null) {
       val response = apolloClient.query(GetRepositoriesQuery("BoD")).execute()
-      repositories = response.data?.user?.repositories?.nodes.orEmpty().filterNotNull()
+      repositories = response.dataOrThrow().user?.repositories?.nodes.orEmpty().filterNotNull()
+        .sortedWith(
+          compareByDescending<GetRepositoriesQuery.Node> { it.stargazerCount }
+            .thenByDescending { it.forkCount }
+            .thenByDescending { it.updatedAt },
+        )
     }
     if (after == null) {
       return repositories!!
@@ -60,14 +66,15 @@ object GitHubApi {
   }
 
   suspend fun getReadme(repositoryName: String): String {
-    return withContext(kotlinx.coroutines.Dispatchers.IO) {
+    return withContext(Dispatchers.IO) {
       val apiResponse = okHttpClient.newCall(
         Request.Builder()
           .url("https://api.github.com/repos/BoD/${repositoryName}/readme")
           .header("Authorization", "Bearer ${System.getenv("githubOauthKey")}")
           .build(),
       ).execute()
-      val readmeUrl = json.decodeFromString<ReadmeResult>(apiResponse.body!!.string()).download_url
+      val bodyStr = apiResponse.body!!.string()
+      val readmeUrl = json.decodeFromString<ReadmeResult>(bodyStr).download_url
       val readmeResponse = okHttpClient.newCall(
         Request.Builder()
           .url(readmeUrl)

@@ -223,6 +223,9 @@ class ProjectsScreen(
         }
 
         FunctionKey.SUITE -> {
+          if (GitHubApi.getRepositories(after = lastShowedRepo.lastOrNull()).isEmpty()) {
+            return
+          }
           page++
           connection.screen.drawScreen(shouldRedrawFooter = false)
         }

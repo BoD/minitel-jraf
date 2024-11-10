@@ -21,8 +21,8 @@ kotlin {
 }
 
 application {
-//  mainClass.set("org.jraf.miniteljraf.main.MainKt")
-  mainClass.set("org.jraf.miniteljraf.main.minitel.app.MinitelAppKt")
+  mainClass.set("org.jraf.miniteljraf.main.MainKt")
+//  mainClass.set("org.jraf.miniteljraf.main.minitel.app.MinitelAppKt")
 }
 
 dependencies {
@@ -39,8 +39,9 @@ dependencies {
   implementation("org.jraf:klibminitel:_")
 
   // Apollo
-  // implementation(ApolloGraphQL.runtime) // <- points to v3, see https://github.com/Splitties/refreshVersions/issues/722
   implementation("com.apollographql.apollo:apollo-runtime:_")
+  implementation("com.apollographql.adapters:apollo-adapters-core:_")
+  implementation("com.apollographql.adapters:apollo-adapters-kotlinx-datetime:_")
 
   // Logback
   implementation("org.slf4j:slf4j-simple:_")
@@ -79,6 +80,7 @@ tasks.withType<com.bmuschko.gradle.docker.tasks.image.Dockerfile> {
 apollo {
   service("github") {
     packageName.set("org.jraf.miniteljraf.github")
+    mapScalar("DateTime", "kotlinx.datetime.Instant", "com.apollographql.adapter.datetime.KotlinxInstantAdapter")
 
     introspection {
       endpointUrl.set("https://api.github.com/graphql")

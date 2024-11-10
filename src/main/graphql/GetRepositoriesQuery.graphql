@@ -6,6 +6,7 @@ query GetRepositoriesQuery($userLogin: String!) {
         description
         stargazerCount
         forkCount
+        updatedAt
       }
     }
   }

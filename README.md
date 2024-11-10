@@ -16,7 +16,13 @@ DOCKER_USERNAME=<your docker hub login> DOCKER_PASSWORD=<your docker hub passwor
 
 ```
 docker pull bodlulu/minitel-jraf
-docker run -p <PORT TO LISTEN TO>:8080 bodlulu/minitel-jraf
+docker run \
+-p <PORT TO LISTEN TO>:8080 \
+-e githubOauthKey=<GITHUB OAUTH KEY> \
+-e slackAppToken=<SLACK APP TOKEN> \
+-e slackBotUserOAuthToken=<SLACK BOT USER OAUTH TOKEN> \
+-e slackChannelName=<SLACK CHANNEL NAME> \
+bodlulu/minitel-jraf
 ```
 
 ## Licence

@@ -127,12 +127,12 @@ class MainScreen(
   }
 
   private suspend fun Minitel.Screen.menuItem(shortcut: String, caption: String) {
-    val bgColor = Random.nextInt(7) + 1
+    val bgColor = Random.nextInt(5) + 2
     val fgColor = if (bgColor < 4) 7 else 0
     color(bgColor, fgColor)
     characterSize(CharacterSize.TALL)
     print(" $shortcut ")
-    color(0, Random.nextInt(7) + 1)
+    color(0, Random.nextInt(5) + 2)
     print(" $caption")
   }
 

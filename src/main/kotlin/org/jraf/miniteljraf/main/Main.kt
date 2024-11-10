@@ -25,11 +25,9 @@
 
 package org.jraf.miniteljraf.main
 
-import io.ktor.http.CacheControl
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
-import io.ktor.server.http.content.staticResources
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.defaultheaders.DefaultHeaders
@@ -68,13 +66,6 @@ fun main() {
     install(WebSockets)
 
     routing {
-      staticResources("/", "/static") {
-        enableAutoHeadResponse()
-        cacheControl {
-          listOf(CacheControl.MaxAge(3600))
-        }
-      }
-
       webSocket("/ws") {
         val keyboardSource = object : RawSource {
           private val buffer = Buffer()
