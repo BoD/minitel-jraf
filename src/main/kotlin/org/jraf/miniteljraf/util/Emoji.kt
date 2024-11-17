@@ -25,11 +25,21 @@
 
 package org.jraf.miniteljraf.util
 
-import org.jraf.klibminitel.core.Minitel
-import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
+fun String.escapeEmoji(): String {
+  return replace("🙂", ":)")
+    .replace("😊", ":)")
+    .replace("🙁", ":(")
+    .replace("😞", ":(")
+    .replace("😔", ":(")
+    .replace("😁", ":D")
+    .replace("😄", ":D")
+    .replace("😛", ":P")
+    .replace("😮", ":O")
+    .replace("😉", ";)")
+    .replace("😢", ":'(")
+    .replace("😂", ":_)")
+    .replace("…", "...")
+    .replace("™", "TM")
 
-suspend fun Minitel.Screen.printCentered(s: String) {
-  val padding = " ".repeat((SCREEN_WIDTH_NORMAL - s.length) / 2)
-  repeatCharacter(' ', padding.length)
-  print(s)
+    .filter { it.code < 127 }
 }

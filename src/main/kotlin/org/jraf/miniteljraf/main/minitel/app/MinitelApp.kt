@@ -33,6 +33,7 @@ import org.jraf.miniteljraf.github.GetRepositoriesQuery
 import org.jraf.miniteljraf.main.minitel.JrafScreen
 import org.jraf.miniteljraf.main.minitel.contact.ContactScreen
 import org.jraf.miniteljraf.main.minitel.main.MainScreen
+import org.jraf.miniteljraf.main.minitel.projects.MastodonScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectsScreen
 
@@ -69,6 +70,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
     onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
 //    onNavigateToContact()
 //    onNavigateToProjects()
+//    onNavigateToMastodon()
 
     connection.keyboard.collect { key ->
       currentScreen.onKeyboard(key)
@@ -84,6 +86,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
         connection = connection,
         onNavigateToContact = ::onNavigateToContact,
         onNavigateToProjects = ::onNavigateToProjects,
+        onNavigateToMastodon = ::onNavigateToMastodon,
       ),
       mode,
     )
@@ -115,6 +118,20 @@ class MinitelApp(private val connection: Minitel.Connection) {
       false,
     )
   }
+
+  private suspend fun onNavigateToMastodon() {
+    pushScreen(
+      MastodonScreen(
+        context = context,
+        connection = connection,
+        onBack = {
+          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+        },
+      ),
+      false,
+    )
+  }
+
 
   private suspend fun onNavigateToProject(repository: GetRepositoriesQuery.Node) {
     pushScreen(

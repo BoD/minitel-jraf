@@ -34,6 +34,7 @@ import org.jraf.miniteljraf.github.GetRepositoriesQuery
 import org.jraf.miniteljraf.main.minitel.JrafScreen
 import org.jraf.miniteljraf.main.minitel.app.MinitelApp
 import org.jraf.miniteljraf.util.Line
+import org.jraf.miniteljraf.util.escapeEmoji
 import org.jraf.miniteljraf.util.toPlainText
 import org.jraf.miniteljraf.util.wrapped
 
@@ -51,12 +52,12 @@ class ProjectScreen(
 
   override suspend fun start(startParameters: GetRepositoriesQuery.Node) {
     loadReadme(startParameters)
-    connection.screen.drawScreen(startParameters)
+    connection.screen.drawScreen()
   }
 
   private suspend fun loadReadme(project: GetRepositoriesQuery.Node) {
     val readmeText = GitHubApi.getReadme(project.name)
-    val plainText = readmeText.toPlainText().filterNot { it.isISOControl() && !it.isWhitespace() }
+    val plainText = readmeText.toPlainText().escapeEmoji()
     val textLines = plainText.lines()
     readmeLines = textLines.map { line ->
       if (line.startsWith("# ")) {
@@ -94,7 +95,7 @@ class ProjectScreen(
 
   }
 
-  private suspend fun Minitel.Screen.drawScreen(startParameters: GetRepositoriesQuery.Node) {
+  private suspend fun Minitel.Screen.drawScreen() {
     moveCursor(0, 3)
     clearBottomOfScreen()
     drawFooter()

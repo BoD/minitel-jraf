@@ -54,10 +54,14 @@ dependencies {
 
   // Slack
   implementation("org.jraf:klibslack:_")
+
+  // JSoup
+  implementation("org.jsoup:jsoup:_")
 }
 
 docker {
   javaApplication {
+    mainClassName.set("org.jraf.miniteljraf.main.MainKt")
     maintainer.set("BoD <BoD@JRAF.org>")
     ports.set(listOf(8080))
     images.add("bodlulu/${rootProject.name}:latest")

@@ -43,6 +43,7 @@ class MainScreen(
   connection: Minitel.Connection,
   private val onNavigateToContact: suspend () -> Unit,
   private val onNavigateToProjects: suspend () -> Unit,
+  private val onNavigateToMastodon: suspend () -> Unit,
 ) : JrafScreen<MainScreen.StartMode>(context, connection) {
 
   enum class StartMode {
@@ -141,6 +142,7 @@ class MainScreen(
     when (e.char) {
       '1' -> onNavigateToContact()
       '2' -> onNavigateToProjects()
+      '5' -> onNavigateToMastodon()
     }
   }
 }
