@@ -106,8 +106,8 @@ class ContactScreen(
     inverse(false)
     print(" ")
     clearEndOfLine()
+    print("\n")
 
-    moveCursorDown()
     color(1, 5)
     print(" Back to main screen")
     underline(true)
