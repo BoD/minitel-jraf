@@ -41,5 +41,5 @@ fun String.escapeEmoji(): String {
     .replace("…", "...")
     .replace("™", "TM")
 
-    .filter { it.code < 127 }
+    .filter { it.code < 256 }
 }

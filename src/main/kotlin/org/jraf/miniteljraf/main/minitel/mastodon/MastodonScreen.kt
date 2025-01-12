@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.projects
+package org.jraf.miniteljraf.main.minitel.mastodon
 
 import org.jraf.klibminitel.core.CharacterSize
 import org.jraf.klibminitel.core.FunctionKey
@@ -40,6 +40,7 @@ class MastodonScreen(
   connection: Minitel.Connection,
   private val onBack: suspend () -> Unit,
 ) : JrafScreen<Boolean>(context, connection) {
+  private val mastodonApi = MastodonApi()
   private var shouldClearScreen = true
   private var page = 0
   private var lastShowedPosts: List<MastodonApi.Post> = emptyList()
@@ -131,7 +132,7 @@ class MastodonScreen(
   private suspend fun Minitel.Screen.drawPosts() {
     var y = if (page == 0) 8 else 3
     moveCursor(0, y)
-    val posts = MastodonApi.getPosts(after = lastShowedPosts.lastOrNull())
+    val posts = mastodonApi.getPosts(after = lastShowedPosts.lastOrNull())
     var index = 0
     var post: MastodonApi.Post
     while (true) {
@@ -189,7 +190,7 @@ class MastodonScreen(
         }
 
         FunctionKey.SUITE -> {
-          if (MastodonApi.getPosts(after = lastShowedPosts.lastOrNull()).isEmpty()) {
+          if (mastodonApi.getPosts(after = lastShowedPosts.lastOrNull()).isEmpty()) {
             return
           }
           page++

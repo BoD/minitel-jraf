@@ -1,4 +1,5 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 plugins {
   kotlin("jvm")
@@ -61,6 +62,8 @@ dependencies {
 
 docker {
   javaApplication {
+    // Use OpenJ9 instead of the default one
+    baseImage.set("adoptopenjdk/openjdk11-openj9:x86_64-ubuntu-jre-11.0.24_8_openj9-0.46.1")
     mainClassName.set("org.jraf.miniteljraf.main.MainKt")
     maintainer.set("BoD <BoD@JRAF.org>")
     ports.set(listOf(8080))
@@ -77,7 +80,7 @@ tasks.withType<DockerBuildImage> {
   platform.set("linux/amd64")
 }
 
-tasks.withType<com.bmuschko.gradle.docker.tasks.image.Dockerfile> {
+tasks.withType<Dockerfile> {
   environmentVariable("MALLOC_ARENA_MAX", "4")
 }
 

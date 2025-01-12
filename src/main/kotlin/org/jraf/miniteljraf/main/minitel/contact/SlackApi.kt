@@ -28,6 +28,7 @@ package org.jraf.miniteljraf.main.minitel.contact
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.callbackFlow
@@ -40,7 +41,7 @@ import org.jraf.klibslack.model.MessageChangedEvent
 import org.jraf.klibslack.model.MessageDeletedEvent
 import org.jraf.klibslack.model.ReactionAddedEvent
 
-object SlackApi {
+class SlackApi {
   private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
   private val slackClient = SlackClient.newInstance(
@@ -110,6 +111,10 @@ object SlackApi {
 
   suspend fun sendMessage(text: String) {
     slackClient.chatPostMessage(getChannelId(), text)
+  }
+
+  fun close() {
+    coroutineScope.cancel()
   }
 }
 

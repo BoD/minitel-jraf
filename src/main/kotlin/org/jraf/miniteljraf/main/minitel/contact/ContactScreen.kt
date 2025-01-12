@@ -59,16 +59,19 @@ class ContactScreen(
   private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
   private var slackJpb: Job? = null
 
+  private val slackApi = SlackApi()
+
   override suspend fun start(startParameters: Unit) {
     connection.screen.drawScreen()
     slackJpb = coroutineScope.launch {
-      SlackApi.eventFlow.collect { onSlackMessage(it) }
+      slackApi.eventFlow.collect { onSlackMessage(it) }
     }
   }
 
   override suspend fun stop() {
     connection.screen.showCursor(false)
     slackJpb?.cancel()
+    slackApi.close()
   }
 
   private suspend fun Minitel.Screen.drawScreen() {
@@ -226,7 +229,7 @@ class ContactScreen(
     showCursor(false)
     drawInputWindow()
     messages += Message.Local(input)
-    SlackApi.sendMessage(input)
+    slackApi.sendMessage(input)
     drawMessages()
     drawInput()
   }

@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.projects
+package org.jraf.miniteljraf.main.minitel.mastodon
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -34,7 +34,7 @@ import okhttp3.Request
 import org.jraf.miniteljraf.util.escapeEmoji
 import org.jsoup.Jsoup
 
-object MastodonApi {
+class MastodonApi {
   private val okHttpClient = OkHttpClient.Builder()
     .build()
 

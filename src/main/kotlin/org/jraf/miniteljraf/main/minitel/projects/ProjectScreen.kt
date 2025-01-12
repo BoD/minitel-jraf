@@ -49,6 +49,7 @@ class ProjectScreen(
   private lateinit var readmeLines: List<Line>
   private var cursor = 0
   private var pageSize: Int = 0
+  private val gitHubApi = GitHubApi()
 
   override suspend fun start(startParameters: GetRepositoriesQuery.Node) {
     loadReadme(startParameters)
@@ -56,7 +57,7 @@ class ProjectScreen(
   }
 
   private suspend fun loadReadme(project: GetRepositoriesQuery.Node) {
-    val readmeText = GitHubApi.getReadme(project.name)
+    val readmeText = gitHubApi.getReadme(project.name)
     val plainText = readmeText.toPlainText().escapeEmoji()
     val textLines = plainText.lines()
     readmeLines = textLines.map { line ->

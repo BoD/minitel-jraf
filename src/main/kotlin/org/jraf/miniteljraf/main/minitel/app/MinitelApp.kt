@@ -33,7 +33,7 @@ import org.jraf.miniteljraf.github.GetRepositoriesQuery
 import org.jraf.miniteljraf.main.minitel.JrafScreen
 import org.jraf.miniteljraf.main.minitel.contact.ContactScreen
 import org.jraf.miniteljraf.main.minitel.main.MainScreen
-import org.jraf.miniteljraf.main.minitel.projects.MastodonScreen
+import org.jraf.miniteljraf.main.minitel.mastodon.MastodonScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectsScreen
 

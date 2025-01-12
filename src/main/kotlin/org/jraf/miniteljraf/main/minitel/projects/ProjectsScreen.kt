@@ -47,6 +47,7 @@ class ProjectsScreen(
   private var page = 0
   private var lastShowedRepos: List<GetRepositoriesQuery.Node> = emptyList()
   private val letterToRepository = mutableMapOf<Char, GetRepositoriesQuery.Node>()
+  private val gitHubApi = GitHubApi()
 
   override suspend fun start(startParameters: Boolean) {
     connection.screen.drawScreen(startParameters)
@@ -137,7 +138,7 @@ class ProjectsScreen(
   private suspend fun Minitel.Screen.drawProjects() {
     var y = if (page == 0) 9 else 3
     moveCursor(0, y)
-    val repositories = GitHubApi.getRepositories(after = lastShowedRepos.lastOrNull())
+    val repositories = gitHubApi.getRepositories(after = lastShowedRepos.lastOrNull())
     var index = 0
     var repository: GetRepositoriesQuery.Node
     letterToRepository.clear()
@@ -225,7 +226,7 @@ class ProjectsScreen(
         }
 
         FunctionKey.SUITE -> {
-          if (GitHubApi.getRepositories(after = lastShowedRepos.lastOrNull()).isEmpty()) {
+          if (gitHubApi.getRepositories(after = lastShowedRepos.lastOrNull()).isEmpty()) {
             return
           }
           page++

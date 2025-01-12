@@ -34,7 +34,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jraf.miniteljraf.github.GetRepositoriesQuery
 
-object GitHubApi {
+class GitHubApi {
   private val apolloClient = ApolloClient.Builder()
     .serverUrl("https://api.github.com/graphql")
     .addHttpHeader("Authorization", "Bearer ${System.getenv("githubOauthKey")}")
