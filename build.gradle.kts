@@ -87,15 +87,24 @@ tasks.withType<Dockerfile> {
 apollo {
   service("github") {
     packageName.set("org.jraf.miniteljraf.github")
+    srcDir("src/main/graphql/github")
     mapScalar("DateTime", "kotlinx.datetime.Instant", "com.apollographql.adapter.datetime.KotlinxInstantAdapter")
-
     introspection {
       endpointUrl.set("https://api.github.com/graphql")
-      schemaFile.set(file("src/main/graphql/schema.graphqls"))
+      schemaFile.set(file("src/main/graphql/github/schema.graphqls"))
       // Add `githubOauthKey` to your ~/.gradle/gradle.properties file
       val githubOauthKey = project.findProperty("githubOauthKey")?.toString() ?: ""
       headers.put("Authorization", "Bearer $githubOauthKey")
     }
+  }
+  service("resume") {
+    packageName.set("org.jraf.miniteljraf.resume")
+    srcDir("src/main/graphql/resume")
+    introspection {
+      endpointUrl.set("http://server.jraf.org:4000")
+      schemaFile.set(file("src/main/graphql/resume/schema.graphqls"))
+    }
+    mapScalarToKotlinString("Email")
   }
 }
 

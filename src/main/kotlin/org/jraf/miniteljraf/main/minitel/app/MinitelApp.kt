@@ -36,6 +36,7 @@ import org.jraf.miniteljraf.main.minitel.main.MainScreen
 import org.jraf.miniteljraf.main.minitel.mastodon.MastodonScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectsScreen
+import org.jraf.miniteljraf.main.minitel.resume.ResumeScreen
 
 class MinitelApp(private val connection: Minitel.Connection) {
   class Context {
@@ -71,6 +72,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
 //    onNavigateToContact()
 //    onNavigateToProjects()
 //    onNavigateToMastodon()
+//    onNavigateToResume()
 
     connection.keyboard.collect { key ->
       currentScreen.onKeyboard(key)
@@ -86,6 +88,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
         connection = connection,
         onNavigateToContact = ::onNavigateToContact,
         onNavigateToProjects = ::onNavigateToProjects,
+        onNavigateToResume = ::onNavigateToResume,
         onNavigateToMastodon = ::onNavigateToMastodon,
       ),
       mode,
@@ -116,6 +119,19 @@ class MinitelApp(private val connection: Minitel.Connection) {
         onNavigateToProject = ::onNavigateToProject,
       ),
       false,
+    )
+  }
+
+  private suspend fun onNavigateToResume() {
+    pushScreen(
+      ResumeScreen(
+        context = context,
+        connection = connection,
+        onBack = {
+          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+        },
+      ),
+      Unit,
     )
   }
 

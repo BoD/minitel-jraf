@@ -29,7 +29,6 @@ import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
 
 suspend fun Minitel.Screen.printCentered(s: String) {
-  val padding = " ".repeat((SCREEN_WIDTH_NORMAL - s.length) / 2)
-  repeatCharacter(' ', padding.length)
+  repeatCharacter(' ', (SCREEN_WIDTH_NORMAL - s.length) / 2)
   print(s)
 }

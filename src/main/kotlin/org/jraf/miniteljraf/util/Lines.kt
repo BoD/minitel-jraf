@@ -57,15 +57,18 @@ data class Line(
   val text: String,
   val characterSize: CharacterSize,
   val foregroundColor: Int,
+  val backgroundColor: Int = 0,
   val maxWidth: Int = -1,
+  val centered: Boolean = false,
 ) {
   val needsNewLine = maxWidth == -1 || text.length < maxWidth
+  val centeredOffset = if (centered) (characterSize.maxCharactersHorizontal - text.length * characterSize.characterWidth) / 2 else 0
 }
 
 fun Line.wrapped(maxWidth: Int = SCREEN_WIDTH_NORMAL): List<Line> {
   val actualMaxWidth = maxWidth / characterSize.characterWidth
   if (text.length <= actualMaxWidth) {
-    return listOf(this)
+    return listOf(this.copy(maxWidth = actualMaxWidth))
   }
   val lines = mutableListOf<Line>()
   val words = text.split(" ").toMutableList()
