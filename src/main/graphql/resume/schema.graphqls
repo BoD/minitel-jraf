@@ -1,154 +1,3 @@
-type Address {
-  addressLines: [String!]!
-}
-
-scalar Date
-
-type EducationEntry {
-  periodOrYear: PeriodOrYear!
-
-  degree: String!
-
-  institution: Institution
-
-  moreInfo: String
-}
-
-scalar Email
-
-type Experience {
-  period: Period!
-
-  jobTitle: String!
-
-  organization: Organization!
-
-  items: [ExperienceItem!]!
-
-  environment: [String!]!
-}
-
-type ExperienceItem {
-  description: String!
-}
-
-type Identity {
-  firstName: String!
-
-  lastName: String!
-
-  birthDate: Date!
-
-  age: Int!
-
-  nationality: Nationality!
-
-  email: Email!
-
-  phoneNumber: PhoneNumber!
-
-  address: Address!
-}
-
-type Institution {
-  name: String!
-
-  location: String!
-
-  website: Url!
-}
-
-enum Language {
-  EN
-
-  FR
-}
-
-type Meta {
-  lastModified: Date!
-}
-
-type MiscItem {
-  description: String!
-
-  links: [Url!]!
-}
-
-enum Nationality {
-  FRANCE
-}
-
-type Organization {
-  name: String!
-
-  description: String!
-
-  location: String!
-
-  website: Url
-
-  moreInfo: String
-}
-
-type Period {
-  start: PeriodStartDate!
-
-  end: PeriodEndDate!
-}
-
-type PeriodEndDate {
-  """
-  Null means the period is still ongoing
-  """
-  date: String
-}
-
-union PeriodOrYear = Period|Year
-
-type PeriodStartDate {
-  date: String!
-}
-
-type PhoneNumber {
-  countryCode: Int
-
-  number: String!
-}
-
-type Query {
-  meta: Meta
-
-  resume(language: Language!): Resume!
-}
-
-type Resume {
-  experience: [Experience!]!
-
-  education: [EducationEntry!]!
-
-  identity: Identity!
-
-  skills: [SkillCategory!]!
-
-  misc: [MiscItem!]!
-}
-
-type SkillCategory {
-  name: String!
-
-  items: [SkillItem!]!
-}
-
-type SkillItem {
-  description: String!
-}
-
-scalar Url
-
-type Year {
-  year: String
-}
-
 """
 A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.
 """
@@ -193,8 +42,6 @@ type __Type {
 
   description: String
 
-  specifiedByURL: String
-
   fields(includeDeprecated: Boolean = false): [__Field!]
 
   interfaces: [__Type!]
@@ -206,6 +53,8 @@ type __Type {
   inputFields(includeDeprecated: Boolean = false): [__InputValue!]
 
   ofType: __Type
+
+  specifiedByURL: String
 }
 
 """
@@ -313,11 +162,11 @@ type __Directive {
 
   description: String
 
-  isRepeatable: Boolean!
-
   locations: [__DirectiveLocation!]!
 
   args(includeDeprecated: Boolean = false): [__InputValue!]!
+
+  isRepeatable: Boolean!
 }
 
 """
@@ -420,17 +269,178 @@ enum __DirectiveLocation {
   INPUT_FIELD_DEFINITION
 }
 
-directive @defer (label: String, if: Boolean! = true) on FRAGMENT_SPREAD|INLINE_FRAGMENT
+type Address {
+  addressLines: [String!]!
+}
 
-"""
-Directs the executor to include this field or fragment only when the `if` argument is true.
-"""
-directive @include ("Included when true." if: Boolean!) on FIELD|FRAGMENT_SPREAD|INLINE_FRAGMENT
+scalar Date
+
+type EducationEntry {
+  periodOrYear: PeriodOrYear!
+
+  degree: String!
+
+  institution: Institution
+
+  moreInfo(format: TextFormat! = PLAIN_TEXT): String
+}
+
+scalar Email
+
+type Experience {
+  period: Period!
+
+  jobTitle: String!
+
+  organization: Organization!
+
+  items: [ExperienceItem!]!
+
+  environment: [String!]!
+}
+
+type ExperienceItem {
+  description(format: TextFormat! = PLAIN_TEXT): String!
+}
+
+type Identity {
+  firstName: String!
+
+  lastName: String!
+
+  birthDate: Date!
+
+  age: Int!
+
+  nationality: Nationality!
+
+  email: Email!
+
+  phoneNumber: PhoneNumber!
+
+  website: Url!
+
+  address: Address!
+}
+
+type Institution {
+  name: String!
+
+  moreInfo: String
+
+  location: String!
+
+  website: Url!
+}
+
+enum Language {
+  EN
+
+  FR
+}
+
+type Meta {
+  lastModified: Date!
+}
+
+type MiscItem {
+  description(format: TextFormat! = PLAIN_TEXT): String!
+
+  links: [Url!]!
+}
+
+enum Nationality {
+  FRANCE
+}
+
+type Organization {
+  name: String!
+
+  description: String!
+
+  location: String!
+
+  website: Url
+
+  moreInfo(format: TextFormat! = PLAIN_TEXT): String
+}
+
+type Period {
+  start: PeriodStartDate!
+
+  end: PeriodEndDate!
+}
+
+type PeriodEndDate {
+  """
+  Null means the period is still ongoing
+  """
+  date: String
+}
+
+union PeriodOrYear = Period|Year
+
+type PeriodStartDate {
+  date: String!
+}
+
+type PhoneNumber {
+  countryCode: Int
+
+  number: String!
+}
+
+type Query {
+  meta: Meta
+
+  resume(language: Language!): Resume!
+}
+
+type Resume {
+  title: String!
+
+  identity: Identity!
+
+  experience: [Experience!]!
+
+  education: [EducationEntry!]!
+
+  skills: [SkillCategory!]!
+
+  misc: [MiscItem!]!
+}
+
+type SkillCategory {
+  name: String!
+
+  items: [SkillItem!]!
+}
+
+type SkillItem {
+  description: String!
+}
+
+enum TextFormat {
+  PLAIN_TEXT
+
+  HTML
+}
+
+scalar Url
+
+type Year {
+  year: String
+}
 
 """
 Directs the executor to skip this field or fragment when the `if` argument is true.
 """
 directive @skip ("Skipped when true." if: Boolean!) on FIELD|FRAGMENT_SPREAD|INLINE_FRAGMENT
+
+"""
+Directs the executor to include this field or fragment only when the `if` argument is true.
+"""
+directive @include ("Included when true." if: Boolean!) on FIELD|FRAGMENT_SPREAD|INLINE_FRAGMENT
 
 """
 Marks an element of a GraphQL schema as no longer supported.
@@ -441,6 +451,8 @@ directive @deprecated ("Explains why this element was deprecated, usually also i
 Exposes a URL that specifies the behavior of this scalar.
 """
 directive @specifiedBy ("The URL that specifies the behavior of this scalar." url: String!) on SCALAR
+
+directive @defer (label: String, if: Boolean! = true) on FRAGMENT_SPREAD|INLINE_FRAGMENT
 
 schema {
   query: Query

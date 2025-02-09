@@ -3,6 +3,7 @@ query ResumeQuery($language: Language!) {
     lastModified
   }
   resume(language: $language) {
+    title
     identity {
       firstName
       lastName

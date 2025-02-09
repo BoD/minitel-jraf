@@ -52,11 +52,7 @@ class ResumeApi {
         identity(data) +
         emptyLine() +
         Line(
-          text = when (language) {
-            Language.EN -> "SOFTWARE ENGINEER"
-            Language.FR -> "INGÉNIEUR LOGICIEL"
-            else -> throw IllegalStateException()
-          },
+          text = data.resume.title,
           characterSize = CharacterSize.TALL,
           foregroundColor = 7,
           centered = true,
