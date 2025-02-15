@@ -214,7 +214,7 @@ class ResumeScreen(
             return
           }
           previousCursors.removeLast()
-          cursor = previousCursors.last()
+          cursor = previousCursors.lastOrNull() ?: 0
           connection.screen.clearText()
           connection.screen.drawText()
         }
@@ -235,14 +235,13 @@ class ResumeScreen(
 
         else -> {}
       }
-
-      else -> {}
     }
   }
 
   private suspend fun reloadResume() {
     resumeLines = resumeApi.getResume(language)
     cursor = 0
+    previousCursors.clear()
     connection.screen.clearText()
     connection.screen.drawScreen(withHeader = false)
   }

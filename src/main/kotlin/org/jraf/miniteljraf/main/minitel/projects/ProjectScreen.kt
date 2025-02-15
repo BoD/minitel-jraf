@@ -193,7 +193,7 @@ class ProjectScreen(
             return
           }
           previousCursors.removeLast()
-          cursor = previousCursors.last()
+          cursor = previousCursors.lastOrNull() ?: 0
           connection.screen.clearText()
           connection.screen.drawText()
         }
