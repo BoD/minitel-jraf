@@ -38,11 +38,11 @@ class ResumeApi {
     .build()
 
   private val introEn = """
-    Here is my resume. You can also find it in PDF and other forms at http://JRAF.org/blubek
+    Here is my resume. You can also find it in PDF and other forms at https://JRAF.org/blubek
   """.trimIndent()
 
   private val introFr = """
-    Voici mon CV. Vous pouvez aussi le trouver en PDF et autres formats sur http://JRAF.org/blubek
+    Voici mon CV. Vous pouvez aussi le trouver en PDF et autres formats sur https://JRAF.org/blubek
   """.trimIndent()
 
   suspend fun getResume(language: Language): List<Line> {
