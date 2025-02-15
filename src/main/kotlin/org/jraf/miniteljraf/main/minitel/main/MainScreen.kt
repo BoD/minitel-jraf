@@ -162,7 +162,7 @@ class MainScreen(
   }
 
   private suspend fun Minitel.Screen.printDots() {
-    val dotsLength = SCREEN_WIDTH_NORMAL - yourChoiceLabel.length - 1 - envoiLabel.length - 1
+    val dotsLength = SCREEN_WIDTH_NORMAL - yourChoiceLabel.length - 1 - envoiLabel.length - 2
     colorForeground(2)
     repeatCharacter('.', dotsLength)
   }
