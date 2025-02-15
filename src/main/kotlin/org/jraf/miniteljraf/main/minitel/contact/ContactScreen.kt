@@ -61,7 +61,7 @@ class ContactScreen(
 
   private val slackApi = SlackApi()
 
-  override suspend fun start(startParameters: Unit) {
+  override suspend fun start() {
     connection.screen.drawScreen()
     slackJpb = coroutineScope.launch {
       slackApi.eventFlow.collect { onSlackMessage(it) }

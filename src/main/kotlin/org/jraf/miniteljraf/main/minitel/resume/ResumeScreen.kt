@@ -50,7 +50,7 @@ class ResumeScreen(
 
   private var language: Language = Language.EN
 
-  override suspend fun start(startParameters: Unit) {
+  override suspend fun start() {
     resumeLines = resumeApi.getResume(Language.EN)
     connection.screen.drawScreen(withHeader = true)
   }

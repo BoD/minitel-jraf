@@ -43,7 +43,10 @@ abstract class ParameterlessJrafScreen(
   context: MinitelApp.Context,
   connection: Minitel.Connection,
 ) : JrafScreen<Unit>(context, connection) {
-  suspend fun start() {
-    start(Unit)
+
+  final override suspend fun start(startParameters: Unit) {
+    start()
   }
+
+  abstract suspend fun start()
 }

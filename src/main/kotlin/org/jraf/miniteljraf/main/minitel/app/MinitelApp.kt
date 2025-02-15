@@ -34,6 +34,7 @@ import org.jraf.miniteljraf.main.minitel.JrafScreen
 import org.jraf.miniteljraf.main.minitel.contact.ContactScreen
 import org.jraf.miniteljraf.main.minitel.main.MainScreen
 import org.jraf.miniteljraf.main.minitel.mastodon.MastodonScreen
+import org.jraf.miniteljraf.main.minitel.playstore.PlayStoreScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectScreen
 import org.jraf.miniteljraf.main.minitel.projects.ProjectsScreen
 import org.jraf.miniteljraf.main.minitel.resume.ResumeScreen
@@ -71,6 +72,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
     onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
 //    onNavigateToContact()
 //    onNavigateToProjects()
+//    onNavigateToPlayStore()
 //    onNavigateToMastodon()
 //    onNavigateToResume()
 
@@ -88,6 +90,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
         connection = connection,
         onNavigateToContact = ::onNavigateToContact,
         onNavigateToProjects = ::onNavigateToProjects,
+        onNavigateToPlayStore = ::onNavigateToPlayStore,
         onNavigateToResume = ::onNavigateToResume,
         onNavigateToMastodon = ::onNavigateToMastodon,
       ),
@@ -119,6 +122,19 @@ class MinitelApp(private val connection: Minitel.Connection) {
         onNavigateToProject = ::onNavigateToProject,
       ),
       false,
+    )
+  }
+
+  private suspend fun onNavigateToPlayStore() {
+    pushScreen(
+      PlayStoreScreen(
+        context = context,
+        connection = connection,
+        onBack = {
+          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+        },
+      ),
+      Unit,
     )
   }
 
@@ -163,7 +179,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
   }
 }
 
-suspend fun main(av: Array<String>) {
+suspend fun main() {
   val minitel = Minitel(
     keyboard = System.`in`.asSource().buffered(),
     screen = System.out.asSink().buffered(),
