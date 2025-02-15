@@ -70,6 +70,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
     connection.screen.localEcho(false)
     connection.screen.scroll(true)
     onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
+//    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_KEEP_LOGO)
 //    onNavigateToContact()
 //    onNavigateToProjects()
 //    onNavigateToPlayStore()

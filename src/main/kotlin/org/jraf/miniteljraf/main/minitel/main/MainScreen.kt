@@ -27,8 +27,10 @@ package org.jraf.miniteljraf.main.minitel.main
 
 import kotlinx.coroutines.delay
 import org.jraf.klibminitel.core.CharacterSize
+import org.jraf.klibminitel.core.FunctionKey
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
+import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
 import org.jraf.miniteljraf.main.minitel.JrafScreen
 import org.jraf.miniteljraf.main.minitel.Resources
 import org.jraf.miniteljraf.main.minitel.app.MinitelApp
@@ -47,6 +49,8 @@ class MainScreen(
   private val onNavigateToResume: suspend () -> Unit,
   private val onNavigateToMastodon: suspend () -> Unit,
 ) : JrafScreen<MainScreen.StartMode>(context, connection) {
+  val yourChoiceLabel = "Your choice: "
+  val envoiLabel = " Envoi "
 
   enum class StartMode {
     CLEAR_AND_ANIMATE_LOGO,
@@ -55,6 +59,7 @@ class MainScreen(
   }
 
   override suspend fun start(startParameters: StartMode) {
+    input = ""
     connection.screen.drawScreen(startParameters)
   }
 
@@ -77,6 +82,7 @@ class MainScreen(
     }
     drawIntroText()
     drawMenu()
+    drawTextEntrySection()
   }
 
   private suspend fun Minitel.Screen.drawLogo(animate: Boolean) {
@@ -119,13 +125,13 @@ class MainScreen(
     moveCursor(24, 12)
     menuItem("2", "Projects")
 
-    moveCursor(5, 16)
+    moveCursor(5, 14)
     menuItem("3", "Play Store")
 
-    moveCursor(21, 19)
+    moveCursor(21, 16)
     menuItem("4", "Resume")
 
-    moveCursor(1, 22)
+    moveCursor(1, 18)
     menuItem("5", "Mastodon")
   }
 
@@ -139,14 +145,88 @@ class MainScreen(
     print(" $caption")
   }
 
+  var input = ""
+
+  private suspend fun Minitel.Screen.drawTextEntrySection() {
+    moveCursor(1, SCREEN_HEIGHT_NORMAL - 2)
+    colorForeground(4)
+    print(yourChoiceLabel)
+    colorForeground(6)
+    printDots()
+    underline(true)
+    print(" ")
+    inverse(true)
+    print(envoiLabel)
+    moveCursor(1 + yourChoiceLabel.length, SCREEN_HEIGHT_NORMAL - 2)
+    showCursor(true)
+  }
+
+  private suspend fun Minitel.Screen.printDots() {
+    val dotsLength = SCREEN_WIDTH_NORMAL - yourChoiceLabel.length - 1 - envoiLabel.length - 1
+    colorForeground(2)
+    repeatCharacter('.', dotsLength)
+  }
+
+  private suspend fun Minitel.Screen.petitCoquin() {
+    moveCursor(0, -1)
+    colorForeground(7)
+    print("Petit coquin !")
+  }
+
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {
-    if (e !is Minitel.KeyboardEvent.CharacterEvent) return
-    when (e.char) {
-      '1' -> onNavigateToContact()
-      '2' -> onNavigateToProjects()
-      '3' -> onNavigateToPlayStore()
-      '4' -> onNavigateToResume()
-      '5' -> onNavigateToMastodon()
+    when (e) {
+      is Minitel.KeyboardEvent.CharacterEvent -> {
+
+        if (e.char.isISOControl()) return
+        input += e.char
+        connection.screen.print(e.char)
+      }
+
+      is Minitel.KeyboardEvent.FunctionKeyEvent -> {
+        when (e.functionKey) {
+          FunctionKey.CORRECTION -> {
+            if (input.isNotEmpty()) {
+              connection.screen.showCursor(false)
+              input = input.dropLast(1)
+              connection.screen.moveCursorLeft()
+              connection.screen.colorForeground(2)
+              connection.screen.print('.')
+              connection.screen.moveCursorLeft()
+              connection.screen.colorForeground(7)
+              connection.screen.showCursor(true)
+            }
+          }
+
+          FunctionKey.ENVOI -> {
+            when (val i = input.lowercase()) {
+              "1", "contact" -> onNavigateToContact()
+              "2", "projects" -> onNavigateToProjects()
+              "3", "play store", "play", "store" -> onNavigateToPlayStore()
+              "4", "resume" -> onNavigateToResume()
+              "5", "mastodon" -> onNavigateToMastodon()
+              else -> {
+                connection.screen.showCursor(false)
+                if (i == "ulla") {
+                  connection.screen.petitCoquin()
+                }
+                connection.screen.beep()
+                input = ""
+                connection.screen.moveCursor(1 + yourChoiceLabel.length, SCREEN_HEIGHT_NORMAL - 2)
+                connection.screen.printDots()
+                connection.screen.moveCursor(1 + yourChoiceLabel.length, SCREEN_HEIGHT_NORMAL - 2)
+                connection.screen.colorForeground(7)
+                connection.screen.showCursor(true)
+              }
+            }
+          }
+
+          else -> {}
+        }
+      }
     }
+  }
+
+  override suspend fun stop() {
+    connection.screen.showCursor(false)
   }
 }
