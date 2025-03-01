@@ -64,6 +64,7 @@ class MainScreen(
   }
 
   private suspend fun Minitel.Screen.drawScreen(startMode: StartMode) {
+    connection.screen.showCursor(false)
     when (startMode) {
       CLEAR_AND_ANIMATE_LOGO -> {
         clearScreenAndHome()

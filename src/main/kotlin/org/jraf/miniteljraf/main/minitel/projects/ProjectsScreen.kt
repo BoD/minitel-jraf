@@ -210,7 +210,7 @@ class ProjectsScreen(
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {
     when (e) {
       is Minitel.KeyboardEvent.CharacterEvent -> {
-        val repository = letterToRepository[e.char] ?: return
+        val repository = letterToRepository[e.char.uppercase().first()] ?: return
         lastShowedRepos = lastShowedRepos.dropLast(1)
         onNavigateToProject(repository)
       }

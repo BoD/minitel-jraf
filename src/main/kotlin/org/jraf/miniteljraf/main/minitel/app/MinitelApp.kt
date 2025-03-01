@@ -66,8 +66,6 @@ class MinitelApp(private val connection: Minitel.Connection) {
     get() = screenStack.last()
 
   suspend fun start() {
-    connection.screen.disableAcknowledgement()
-    connection.screen.localEcho(false)
     connection.screen.scroll(true)
     onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
 //    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_KEEP_LOGO)
