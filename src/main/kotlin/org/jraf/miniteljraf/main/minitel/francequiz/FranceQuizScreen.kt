@@ -55,7 +55,6 @@ class FranceQuizScreen(
         val questionTextLines = Line(state.question.text).wrapped()
         for (line in questionTextLines) {
           print(line.text)
-          clearEndOfLine()
           if (line.needsNewLine) {
             print("\n")
           }
@@ -67,7 +66,6 @@ class FranceQuizScreen(
           val answerTextLines = Line("${'A' + answerIndex}. $answerText").wrapped(SCREEN_WIDTH_NORMAL - 1)
           for (line in answerTextLines) {
             print(" " + line.text)
-            clearEndOfLine()
             if (line.needsNewLine) {
               print("\n")
             }
@@ -97,8 +95,9 @@ class FranceQuizScreen(
         val questionTextLines = Line(state.question.text).wrapped()
         moveCursor(0, questionTextLines.size + 1)
 
-        for ((answerIndex, answerText) in state.question.answers.withIndex()) {
-          val answerTextLines = Line(
+        val answerLines = state.question.answers.withIndex().map {
+          val (answerIndex, answerText) = it
+          Line(
             text = "${'A' + answerIndex}. $answerText",
             foregroundColor = when (answerIndex) {
               state.question.correctAnswerIndex -> 0
@@ -110,15 +109,35 @@ class FranceQuizScreen(
               else -> 0
             },
           ).wrapped(SCREEN_WIDTH_NORMAL - 1)
-          for (line in answerTextLines) {
-            color(background0To7 = line.backgroundColor, foreground0To7 = line.foregroundColor)
+        }
+
+        val wrongAnswerIndex = if (state.answer != state.question.correctAnswerIndex) {
+          state.answer
+        } else {
+          null
+        }
+        if (wrongAnswerIndex != null) {
+          val y = questionTextLines.size + 1 + (0..<wrongAnswerIndex).sumOf { answerLines[it].size + 1 }
+          moveCursor(0, y)
+          val wrongAnswerLines = answerLines[wrongAnswerIndex]
+          for (line in wrongAnswerLines) {
+            color(line.backgroundColor, line.foregroundColor)
             print(" " + line.text)
-            clearEndOfLine()
             if (line.needsNewLine) {
               print("\n")
             }
           }
-          if (answerIndex < state.question.answers.lastIndex) {
+        }
+
+        val correctAnswerIndex = state.question.correctAnswerIndex
+        val y = questionTextLines.size + 1 + (0..<correctAnswerIndex).sumOf { answerLines[it].size + 1 }
+        moveCursor(0, y)
+        val correctAnswerLines = answerLines[correctAnswerIndex]
+        for (line in correctAnswerLines) {
+          color(line.backgroundColor, line.foregroundColor)
+          print(" " + line.text)
+          clearEndOfLine()
+          if (line.needsNewLine) {
             print("\n")
           }
         }
@@ -148,7 +167,6 @@ class FranceQuizScreen(
         val finishedTextLines = Line(finishedText, centered = true).wrapped()
         for (line in finishedTextLines) {
           print(line.text)
-          clearEndOfLine()
           if (line.needsNewLine) {
             print("\n")
           }
