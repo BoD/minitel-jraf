@@ -55,8 +55,8 @@ fun String.split(maxWidth: Int, firstLineMaxWidth: Int): List<String> {
 
 data class Line(
   val text: String,
-  val characterSize: CharacterSize,
-  val foregroundColor: Int,
+  val characterSize: CharacterSize = CharacterSize.NORMAL,
+  val foregroundColor: Int = 4,
   val backgroundColor: Int = 0,
   val maxWidth: Int = -1,
   val centered: Boolean = false,
@@ -75,21 +75,21 @@ fun Line.wrapped(maxWidth: Int = SCREEN_WIDTH_NORMAL): List<Line> {
   var currentLine = ""
   while (words.isNotEmpty()) {
     val word = words.removeAt(0)
-    if (currentLine.isEmpty()) {
-      currentLine = word
+    val newLine = if (currentLine.isEmpty()) {
+      word
     } else {
-      val newLine = "$currentLine $word"
-      if (newLine.length > actualMaxWidth) {
-        if (word.length > actualMaxWidth) {
-          words.addAll(0, word.split(actualMaxWidth, actualMaxWidth - currentLine.length - 1))
-          continue
-        } else {
-          lines.add(copy(text = currentLine, maxWidth = actualMaxWidth))
-          currentLine = word
-        }
+      "$currentLine $word"
+    }
+    if (newLine.length > actualMaxWidth) {
+      if (word.length > actualMaxWidth) {
+        words.addAll(0, word.split(actualMaxWidth, actualMaxWidth - currentLine.length - 1))
+        continue
       } else {
-        currentLine = newLine
+        lines.add(copy(text = currentLine, maxWidth = actualMaxWidth))
+        currentLine = word
       }
+    } else {
+      currentLine = newLine
     }
   }
   if (currentLine.isNotEmpty()) {

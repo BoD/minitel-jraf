@@ -32,6 +32,7 @@ import org.jraf.klibminitel.core.Minitel
 import org.jraf.miniteljraf.github.GetRepositoriesQuery
 import org.jraf.miniteljraf.main.minitel.JrafScreen
 import org.jraf.miniteljraf.main.minitel.contact.ContactScreen
+import org.jraf.miniteljraf.main.minitel.francequiz.FranceQuizScreen
 import org.jraf.miniteljraf.main.minitel.main.MainScreen
 import org.jraf.miniteljraf.main.minitel.mastodon.MastodonScreen
 import org.jraf.miniteljraf.main.minitel.playstore.PlayStoreScreen
@@ -67,13 +68,14 @@ class MinitelApp(private val connection: Minitel.Connection) {
 
   suspend fun start() {
     connection.screen.scroll(true)
-    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
+//    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO)
 //    onNavigateToMain(MainScreen.StartMode.CLEAR_AND_KEEP_LOGO)
 //    onNavigateToContact()
 //    onNavigateToProjects()
 //    onNavigateToPlayStore()
 //    onNavigateToMastodon()
 //    onNavigateToResume()
+    onNavigateToFranceQuiz()
 
     connection.keyboard.collect { key ->
       currentScreen.onKeyboard(key)
@@ -92,6 +94,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
         onNavigateToPlayStore = ::onNavigateToPlayStore,
         onNavigateToResume = ::onNavigateToResume,
         onNavigateToMastodon = ::onNavigateToMastodon,
+        onNavigateToFranceQuiz = ::onNavigateToFranceQuiz,
       ),
       mode,
     )
@@ -174,6 +177,19 @@ class MinitelApp(private val connection: Minitel.Connection) {
         },
       ),
       repository,
+    )
+  }
+
+  private suspend fun onNavigateToFranceQuiz() {
+    pushScreen(
+      FranceQuizScreen(
+        context = context,
+        connection = connection,
+        onBack = {
+          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+        },
+      ),
+      Unit,
     )
   }
 }

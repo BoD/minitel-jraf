@@ -48,6 +48,7 @@ class MainScreen(
   private val onNavigateToPlayStore: suspend () -> Unit,
   private val onNavigateToResume: suspend () -> Unit,
   private val onNavigateToMastodon: suspend () -> Unit,
+  private val onNavigateToFranceQuiz: suspend () -> Unit,
 ) : JrafScreen<MainScreen.StartMode>(context, connection) {
   val yourChoiceLabel = "Your choice: "
   val envoiLabel = " Envoi "
@@ -205,6 +206,7 @@ class MainScreen(
               "3", "play store", "play", "store" -> onNavigateToPlayStore()
               "4", "resume" -> onNavigateToResume()
               "5", "mastodon" -> onNavigateToMastodon()
+              "6", "france quiz", "france", "quiz" -> onNavigateToFranceQuiz()
               else -> {
                 connection.screen.showCursor(false)
                 if (i == "ulla") {

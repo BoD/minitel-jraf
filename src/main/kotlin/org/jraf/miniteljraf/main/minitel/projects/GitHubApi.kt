@@ -73,14 +73,14 @@ class GitHubApi {
           .header("Authorization", "Bearer ${System.getenv("githubOauthKey")}")
           .build(),
       ).execute()
-      val bodyStr = apiResponse.body!!.string()
+      val bodyStr = apiResponse.body.string()
       val readmeUrl = json.decodeFromString<ReadmeResult>(bodyStr).download_url
       val readmeResponse = okHttpClient.newCall(
         Request.Builder()
           .url(readmeUrl)
           .build(),
       ).execute()
-      readmeResponse.body!!.string()
+      readmeResponse.body.string()
     }
   }
 

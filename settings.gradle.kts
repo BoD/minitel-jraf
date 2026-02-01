@@ -1,6 +1,22 @@
-plugins {
-    // See https://splitties.github.io/refreshVersions/
-    id("de.fayard.refreshVersions") version "0.60.5"
-}
 rootProject.name = "minitel-jraf"
 
+pluginManagement {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+    maven("https://central.sonatype.com/repository/maven-snapshots/")
+  }
+}
+
+dependencyResolutionManagement {
+  @Suppress("UnstableApiUsage")
+  repositories {
+    mavenCentral()
+    maven("https://central.sonatype.com/repository/maven-snapshots/")
+  }
+}
+
+plugins {
+  // See https://jmfayard.github.io/refreshVersions
+  id("de.fayard.refreshVersions") version "0.60.6"
+}

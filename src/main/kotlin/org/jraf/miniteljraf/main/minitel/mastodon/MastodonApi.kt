@@ -52,7 +52,7 @@ class MastodonApi {
             .url("https://mastodon.social/api/v1/accounts/37127/statuses")
             .build(),
         ).execute()
-        val bodyStr = apiResponse.body!!.string()
+        val bodyStr = apiResponse.body.string()
         json.decodeFromString<List<MastodonStatus>>(bodyStr).map { it.toPost() }
       }
     }
