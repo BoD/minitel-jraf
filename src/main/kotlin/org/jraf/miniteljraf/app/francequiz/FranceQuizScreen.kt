@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,22 +23,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.francequiz
+package org.jraf.miniteljraf.app.francequiz
 
+import org.jraf.klibminitel.core.CharacterSize
 import org.jraf.klibminitel.core.FunctionKey
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
-import org.jraf.miniteljraf.main.minitel.ParameterlessJrafScreen
-import org.jraf.miniteljraf.main.minitel.app.MinitelApp
+import org.jraf.miniteljraf.app.ParameterlessMinitelScreen
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.Finished
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.InProgress
 import org.jraf.miniteljraf.util.Line
 import org.jraf.miniteljraf.util.wrapped
 
+private const val HEADER_HEIGHT = 2
+
 class FranceQuizScreen(
-  context: MinitelApp.Context,
   connection: Minitel.Connection,
-  private val onBack: suspend () -> Unit,
-) : ParameterlessJrafScreen(context, connection) {
+) : ParameterlessMinitelScreen(connection) {
   private var state: FranceQuizState = initialState()
 
   override suspend fun start() {
@@ -46,12 +48,19 @@ class FranceQuizScreen(
   }
 
   private suspend fun Minitel.Screen.drawScreen() {
-    when (val state = state) {
-      is FranceQuizState.InProgress.Answering -> {
-        showCursor(false)
-        clearScreenAndHome()
-        colorForeground(7)
+    clearScreenAndHome()
+    drawHeader()
+    drawQuestionAndAnswers()
+  }
 
+  private suspend fun Minitel.Screen.drawQuestionAndAnswers() {
+    when (val state = state) {
+      is InProgress.Answering -> {
+        showCursor(false)
+        drawProgress()
+        clearQuestionAndAnswers()
+        moveCursor(0, HEADER_HEIGHT)
+        colorForeground(7)
         val questionTextLines = Line(state.question.text).wrapped()
         for (line in questionTextLines) {
           print(line.text)
@@ -61,11 +70,21 @@ class FranceQuizScreen(
         }
         print("\n")
 
-        colorForeground(5)
         for ((answerIndex, answerText) in state.question.answers.withIndex()) {
           val answerTextLines = Line("${'A' + answerIndex}. $answerText").wrapped(SCREEN_WIDTH_NORMAL - 1)
-          for (line in answerTextLines) {
-            print(" " + line.text)
+          for ((lineIndex, line) in answerTextLines.withIndex()) {
+            if (lineIndex == 0) {
+              print(" ")
+              colorForeground(7)
+              inverse(true)
+              print(line.text.take(2))
+              colorForeground(5)
+              inverse(false)
+              print(line.text.drop(2))
+            } else {
+              colorForeground(5)
+              print(" " + line.text)
+            }
             if (line.needsNewLine) {
               print("\n")
             }
@@ -90,10 +109,10 @@ class FranceQuizScreen(
         color(background0To7 = 0, foreground0To7 = 7)
       }
 
-      is FranceQuizState.InProgress.QuestionOutcome -> {
+      is InProgress.QuestionOutcome -> {
         showCursor(false)
         val questionTextLines = Line(state.question.text).wrapped()
-        moveCursor(0, questionTextLines.size + 1)
+        moveCursor(0, questionTextLines.size + 1 + HEADER_HEIGHT)
 
         val answerLines = state.question.answers.withIndex().map {
           val (answerIndex, answerText) = it
@@ -117,7 +136,7 @@ class FranceQuizScreen(
           null
         }
         if (wrongAnswerIndex != null) {
-          val y = questionTextLines.size + 1 + (0..<wrongAnswerIndex).sumOf { answerLines[it].size + 1 }
+          val y = questionTextLines.size + 1 + HEADER_HEIGHT + (0..<wrongAnswerIndex).sumOf { answerLines[it].size + 1 }
           moveCursor(0, y)
           val wrongAnswerLines = answerLines[wrongAnswerIndex]
           for (line in wrongAnswerLines) {
@@ -130,12 +149,14 @@ class FranceQuizScreen(
         }
 
         val correctAnswerIndex = state.question.correctAnswerIndex
-        val y = questionTextLines.size + 1 + (0..<correctAnswerIndex).sumOf { answerLines[it].size + 1 }
+        val y = questionTextLines.size + 1 + HEADER_HEIGHT + (0..<correctAnswerIndex).sumOf { answerLines[it].size + 1 }
         moveCursor(0, y)
         val correctAnswerLines = answerLines[correctAnswerIndex]
         for (line in correctAnswerLines) {
           color(line.backgroundColor, line.foregroundColor)
-          print(" " + line.text)
+          print(" ")
+          clearEndOfLine()
+          print(line.text)
           clearEndOfLine()
           if (line.needsNewLine) {
             print("\n")
@@ -143,22 +164,27 @@ class FranceQuizScreen(
         }
 
         val footerY = SCREEN_HEIGHT_NORMAL - 1
-        val outcome = if (state.answer == state.question.correctAnswerIndex) {
-          "Bonne réponse ! Score : ${state.score}/${state.questions.size}"
+        val goodAnswer = state.answer == state.question.correctAnswerIndex
+        val outcome = if (goodAnswer) {
+          "Bonne réponse !"
         } else {
-          "Mauvaise réponse. Score : ${state.score}/${state.questions.size}"
+          "Mauvaise réponse."
         }
+        val score = "Score : ${state.score}/${state.questions.size}"
         moveCursor(0, footerY)
         clearEndOfLine()
-        colorForeground(6)
+        colorForeground(if (goodAnswer) 7 else 2)
         print(outcome)
+        print(" ")
+        colorForeground(5)
+        print(score)
         val suite = " SUITE"
         moveCursor(SCREEN_WIDTH_NORMAL - suite.length - 1, footerY)
         color(background0To7 = 7, foreground0To7 = 0)
         print(suite)
       }
 
-      is FranceQuizState.Finished -> {
+      is Finished -> {
         showCursor(false)
         clearScreenAndHome()
         colorForeground(6)
@@ -182,9 +208,34 @@ class FranceQuizScreen(
     }
   }
 
+  private suspend fun Minitel.Screen.drawHeader() {
+    color(background0To7 = 5, foreground0To7 = 0)
+    print(" ")
+    characterSize(CharacterSize.WIDE)
+    print("France Quiz")
+    characterSize(CharacterSize.NORMAL)
+    clearEndOfLine()
+  }
+
+  private suspend fun Minitel.Screen.drawProgress() {
+    val progress = " ${(state as InProgress).questionIndex + 1}/${(state as InProgress).questions.size}"
+    moveCursor(SCREEN_WIDTH_NORMAL - progress.length - 1, 0)
+    colorForeground(1)
+    print(progress)
+  }
+
+  private suspend fun Minitel.Screen.clearQuestionAndAnswers() {
+    moveCursor(0, 2)
+    repeat(SCREEN_HEIGHT_NORMAL - 2) {
+      clearEndOfLine()
+      print("\n")
+    }
+  }
+
+
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {
     when (val state = state) {
-      is FranceQuizState.InProgress.Answering -> {
+      is InProgress.Answering -> {
         when (e) {
           is Minitel.KeyboardEvent.CharacterEvent -> {
             if (state.answer != null) {
@@ -218,46 +269,44 @@ class FranceQuizScreen(
 
               FunctionKey.ENVOI -> {
                 if (state.answer != null) {
-                  this.state = FranceQuizState.InProgress.QuestionOutcome(
+                  this.state = InProgress.QuestionOutcome(
                     questions = state.questions,
                     questionIndex = state.questionIndex,
                     score = state.score + if (state.answer == state.question.correctAnswerIndex) 1 else 0,
                     answer = state.answer,
                   )
-                  connection.screen.drawScreen()
+                  connection.screen.drawQuestionAndAnswers()
                 }
               }
 
-              FunctionKey.SOMMAIRE -> onBack()
               else -> {}
             }
           }
         }
       }
 
-      is FranceQuizState.InProgress.QuestionOutcome -> {
+      is InProgress.QuestionOutcome -> {
         when (e) {
           is Minitel.KeyboardEvent.FunctionKeyEvent -> {
             when (e.functionKey) {
-              FunctionKey.SUITE -> {
+              FunctionKey.SUITE, FunctionKey.ENVOI -> {
                 if (state.questionIndex < state.questions.lastIndex) {
-                  this.state = FranceQuizState.InProgress.Answering(
+                  this.state = InProgress.Answering(
                     questions = state.questions,
                     questionIndex = state.questionIndex + 1,
                     score = state.score,
                     answer = null,
                   )
-                  connection.screen.drawScreen()
+                  connection.screen.drawQuestionAndAnswers()
                 } else {
-                  this.state = FranceQuizState.Finished(
+                  this.state = Finished(
                     questions = state.questions,
                     score = state.score,
                   )
-                  connection.screen.drawScreen()
+                  connection.screen.drawQuestionAndAnswers()
                 }
               }
 
-              FunctionKey.SOMMAIRE -> onBack()
               else -> {}
             }
           }

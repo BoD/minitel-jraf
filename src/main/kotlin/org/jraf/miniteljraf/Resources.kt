@@ -23,30 +23,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-@file:OptIn(ExperimentalSerializationApi::class)
+package org.jraf.miniteljraf
 
-package org.jraf.miniteljraf.main.minitel.francequiz
+object Resources {
+  val jrafLogo3615Lines =
+    Resources::class.java.getResourceAsStream("/jraf/logo_3615.vdt")!!.bufferedReader().readLines().dropLastWhile { it.isEmpty() }
+  val jrafLogo3615Height = jrafLogo3615Lines.size
+  val jrafLogoJrafLines =
+    Resources::class.java.getResourceAsStream("/jraf/logo_jraf.txt")!!.bufferedReader().readLines().dropLastWhile { it.isEmpty() }
 
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonIgnoreUnknownKeys
-import org.jraf.miniteljraf.main.minitel.Resources
+  val franceQuizSplashScreen = Resources::class.java.getResourceAsStream("/francequiz/splash_screen.vdt")!!.readBytes()
+  val franceQuizQuestions = Resources::class.java.getResourceAsStream("/francequiz/questions.json")!!.reader().readText()
 
-@Serializable
-class JsonQuestions(
-  val questions: List<JsonQuestion>,
-)
-
-
-@Serializable
-@JsonIgnoreUnknownKeys
-class JsonQuestion(
-  val question: String,
-  val correctAnswers: List<String>,
-  val wrongAnswers: List<String>,
-)
-
-fun loadJsonQuestions(): JsonQuestions {
-  return Json.decodeFromString(Resources.franceQuizQuestions)
 }

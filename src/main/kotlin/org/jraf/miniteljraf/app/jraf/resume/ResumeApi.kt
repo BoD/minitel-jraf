@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.resume
+package org.jraf.miniteljraf.app.jraf.resume
 
 import com.apollographql.apollo.ApolloClient
 import org.jraf.klibminitel.core.CharacterSize

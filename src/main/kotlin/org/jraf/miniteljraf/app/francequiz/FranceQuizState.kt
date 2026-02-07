@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.francequiz
+package org.jraf.miniteljraf.app.francequiz
 
 import kotlin.random.Random
 

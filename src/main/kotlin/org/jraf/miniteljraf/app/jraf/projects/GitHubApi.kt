@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.projects
+package org.jraf.miniteljraf.app.jraf.projects
 
 import com.apollographql.apollo.ApolloClient
 import kotlinx.coroutines.Dispatchers

@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,21 +23,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.playstore
+package org.jraf.miniteljraf.app.jraf.playstore
 
 import org.jraf.klibminitel.core.CharacterSize
 import org.jraf.klibminitel.core.FunctionKey
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
-import org.jraf.miniteljraf.main.minitel.ParameterlessJrafScreen
-import org.jraf.miniteljraf.main.minitel.app.MinitelApp
+import org.jraf.miniteljraf.app.ParameterlessMinitelScreen
 
 class PlayStoreScreen(
-  context: MinitelApp.Context,
   connection: Minitel.Connection,
   private val onBack: suspend () -> Unit,
-) : ParameterlessJrafScreen(context, connection) {
+) : ParameterlessMinitelScreen(connection) {
   override suspend fun start() {
     connection.screen.drawScreen()
   }

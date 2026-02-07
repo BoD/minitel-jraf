@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,31 +23,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.projects
+package org.jraf.miniteljraf.app.jraf.mastodon
 
 import org.jraf.klibminitel.core.CharacterSize
 import org.jraf.klibminitel.core.FunctionKey
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
-import org.jraf.miniteljraf.github.GetRepositoriesQuery
-import org.jraf.miniteljraf.main.minitel.JrafScreen
-import org.jraf.miniteljraf.main.minitel.app.MinitelApp
+import org.jraf.miniteljraf.app.MinitelScreen
+import org.jraf.miniteljraf.app.jraf.JrafMinitelApp
 import org.jraf.miniteljraf.util.Line
-import org.jraf.miniteljraf.util.abbreviate
 import org.jraf.miniteljraf.util.wrapped
 
-class ProjectsScreen(
-  context: MinitelApp.Context,
+class MastodonScreen(
+  context: JrafMinitelApp.Context,
   connection: Minitel.Connection,
   private val onBack: suspend () -> Unit,
-  private val onNavigateToProject: suspend (GetRepositoriesQuery.Node) -> Unit,
-) : JrafScreen<Boolean>(context, connection) {
+) : MinitelScreen<JrafMinitelApp.Context, Boolean>(context, connection) {
+  private val mastodonApi = MastodonApi()
   private var shouldClearScreen = true
   private var page = 0
-  private var lastShowedRepos: List<GetRepositoriesQuery.Node> = emptyList()
-  private val letterToRepository = mutableMapOf<Char, GetRepositoriesQuery.Node>()
-  private val gitHubApi = GitHubApi()
+  private var lastShowedPosts: List<MastodonApi.Post> = emptyList()
 
   override suspend fun start(startParameters: Boolean) {
     connection.screen.drawScreen(startParameters)
@@ -64,13 +60,13 @@ class ProjectsScreen(
     }
     if (page == 0) {
       if (!shouldClearScreen) {
-        clearProjects()
+        clearPosts()
       }
       drawText()
     } else {
-      clearProjects()
+      clearPosts()
     }
-    drawProjects()
+    drawPosts()
     shouldClearScreen = false
   }
 
@@ -81,7 +77,7 @@ class ProjectsScreen(
     colorBackground(1)
     print(" 3615 JRAF |")
     colorForeground(7)
-    print(" Projects")
+    print(" Mastodon")
     clearEndOfLine()
     moveCursor(0, 2)
     colorForeground(5)
@@ -93,36 +89,28 @@ class ProjectsScreen(
     colorForeground(5)
     print(
       """
-        Here are few little projects I've been
-        working on. Some of them are even main-
-        tained, I swear!
+        I don't post a lot on Mastodon, but hereare the latest things I've shared.
 
-        See more at:
+        See more at
       """.trimIndent(),
     )
     colorForeground(7)
     underline(true)
-    print(" https://github.com/BoD")
+    print(" https://mastodon.social/@BoD")
   }
 
   private suspend fun Minitel.Screen.drawFooter() {
     moveCursor(0, SCREEN_HEIGHT_NORMAL - 2)
     color(1, 5)
-    print(" Home")
-    underline(true)
-    print(" ")
-    inverse(true)
-    print(" Somm. ")
-    underline(false)
-    inverse(false)
-    print(" Prev")
+    print(" Prev. page")
     underline(true)
     print(" ")
     inverse(true)
     print(" Retour ")
     underline(false)
     inverse(false)
-    print(" Next")
+    repeatCharacter(' ', 3)
+    print("Next page")
     underline(true)
     print(" ")
     inverse(true)
@@ -130,43 +118,40 @@ class ProjectsScreen(
     underline(false)
     inverse(false)
 
-    color(1, 5)
-    print(" or press a letter for more details.")
+    print(" Back to main screen")
+    underline(true)
+    print(" ")
+    inverse(true)
+    print(" Sommaire ")
+    underline(false)
+    inverse(false)
+    print(" ")
     clearEndOfLine()
   }
 
-  private suspend fun Minitel.Screen.drawProjects() {
-    var y = if (page == 0) 9 else 3
+  private suspend fun Minitel.Screen.drawPosts() {
+    var y = if (page == 0) 8 else 3
     moveCursor(0, y)
-    val repositories = gitHubApi.getRepositories(after = lastShowedRepos.lastOrNull())
+    val posts = mastodonApi.getPosts(after = lastShowedPosts.lastOrNull())
     var index = 0
-    var repository: GetRepositoriesQuery.Node
-    letterToRepository.clear()
+    var post: MastodonApi.Post
     while (true) {
-      repository = repositories[index]
-      val descriptionLines = Line(repository.description ?: "(no description)", CharacterSize.NORMAL, 0).wrapped(SCREEN_WIDTH_NORMAL - 1)
-      val repositoryHeight = 3 + descriptionLines.size
-      if (y + repositoryHeight > SCREEN_HEIGHT_NORMAL - 2) {
-        lastShowedRepos += repositories[index - 1]
+      post = posts[index]
+      val textLines = Line(post.text, CharacterSize.NORMAL, 0).wrapped(SCREEN_WIDTH_NORMAL - 1)
+      val postHeight = 2 + textLines.size
+      if (y + postHeight > SCREEN_HEIGHT_NORMAL - 2) {
+        lastShowedPosts += posts[index - 1]
         break
       }
-      y += repositoryHeight
+      y += postHeight
 
-      print('\n')
-      val bg = if (index % 2 == 0) 1 else 2
-      characterSize(CharacterSize.TALL)
+      val bg = if (index % 2 == 0) 2 else 3
       color(bg, 7)
-      val repositoryName = repository.name.abbreviate(SCREEN_WIDTH_NORMAL - 4)
-      print(" $repositoryName")
+      print(" ${post.createdAt}")
       colorForeground(0)
-      repeatCharacter(' ', SCREEN_WIDTH_NORMAL - repositoryName.length - 4)
-      colorBackground(3)
-      val letter = index.toChar() + 'A'.code
-      print(" $letter")
       clearEndOfLine()
-      characterSize(CharacterSize.NORMAL)
       print('\n')
-      for (line in descriptionLines) {
+      for (line in textLines) {
         color(bg, 0)
         print(" " + line.text)
         clearEndOfLine()
@@ -174,31 +159,16 @@ class ProjectsScreen(
           print("\n")
         }
       }
-      val text =
-        "${repository.stargazerCount} star${if (repository.stargazerCount == 0 || repository.stargazerCount > 1) "s" else ""} - ${repository.forkCount} fork${if (repository.forkCount == 0 || repository.forkCount > 1) "s" else ""}"
-      colorBackground(bg)
-      colorForeground(5)
-      repeatCharacter(' ', SCREEN_WIDTH_NORMAL - text.length)
-      print("${repository.stargazerCount}")
-      colorForeground(0)
-      print(" star${if (repository.stargazerCount == 0 || repository.stargazerCount > 1) "s" else ""}")
-      print(" - ")
-      colorForeground(5)
-      print("${repository.forkCount}")
-      colorForeground(0)
-      print(" fork${if (repository.forkCount == 0 || repository.forkCount > 1) "s" else ""}")
-
-      letterToRepository[letter] = repository
-
+      print('\n')
       index++
-      if (index > repositories.lastIndex) {
-        lastShowedRepos += repositories.last()
+      if (index > posts.lastIndex) {
+        lastShowedPosts += posts.last()
         break
       }
     }
   }
 
-  private suspend fun Minitel.Screen.clearProjects() {
+  private suspend fun Minitel.Screen.clearPosts() {
     moveCursor(0, SCREEN_HEIGHT_NORMAL - 3)
     repeat(SCREEN_HEIGHT_NORMAL - 5) {
       colorForeground(0)
@@ -209,24 +179,18 @@ class ProjectsScreen(
 
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {
     when (e) {
-      is Minitel.KeyboardEvent.CharacterEvent -> {
-        val repository = letterToRepository[e.char.uppercase().first()] ?: return
-        lastShowedRepos = lastShowedRepos.dropLast(1)
-        onNavigateToProject(repository)
-      }
-
       is Minitel.KeyboardEvent.FunctionKeyEvent -> when (e.functionKey) {
         FunctionKey.SOMMAIRE -> onBack()
         FunctionKey.RETOUR -> if (page == 0) {
           onBack()
         } else {
           page--
-          lastShowedRepos = lastShowedRepos.dropLast(2)
+          lastShowedPosts = lastShowedPosts.dropLast(2)
           connection.screen.drawScreen(shouldRedrawFooter = false)
         }
 
         FunctionKey.SUITE -> {
-          if (gitHubApi.getRepositories(after = lastShowedRepos.lastOrNull()).isEmpty()) {
+          if (mastodonApi.getPosts(after = lastShowedPosts.lastOrNull()).isEmpty()) {
             return
           }
           page++
@@ -235,6 +199,8 @@ class ProjectsScreen(
 
         else -> {}
       }
+
+      else -> {}
     }
   }
 }

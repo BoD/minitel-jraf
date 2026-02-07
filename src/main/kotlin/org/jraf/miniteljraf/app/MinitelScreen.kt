@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,13 +23,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel
+package org.jraf.miniteljraf.app
 
 import org.jraf.klibminitel.core.Minitel
-import org.jraf.miniteljraf.main.minitel.app.MinitelApp
 
-abstract class JrafScreen<P>(
-  protected val context: MinitelApp.Context,
+abstract class MinitelScreen<C, P>(
+  protected val context: C,
   protected val connection: Minitel.Connection,
 ) {
   abstract suspend fun start(startParameters: P)
@@ -39,10 +38,9 @@ abstract class JrafScreen<P>(
   open suspend fun stop() {}
 }
 
-abstract class ParameterlessJrafScreen(
-  context: MinitelApp.Context,
+abstract class ParameterlessMinitelScreen(
   connection: Minitel.Connection,
-) : JrafScreen<Unit>(context, connection) {
+) : MinitelScreen<Unit, Unit>(Unit, connection) {
 
   final override suspend fun start(startParameters: Unit) {
     start()

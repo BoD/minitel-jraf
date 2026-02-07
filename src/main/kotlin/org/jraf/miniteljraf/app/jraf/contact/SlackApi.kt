@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.contact
+package org.jraf.miniteljraf.app.jraf.contact
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

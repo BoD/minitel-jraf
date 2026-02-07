@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.contact
+package org.jraf.miniteljraf.app.jraf.contact
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,29 +37,27 @@ import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
 import org.jraf.klibslack.model.Event
 import org.jraf.klibslack.model.MessageAddedEvent
-import org.jraf.miniteljraf.main.minitel.ParameterlessJrafScreen
-import org.jraf.miniteljraf.main.minitel.Resources
-import org.jraf.miniteljraf.main.minitel.app.MinitelApp
+import org.jraf.miniteljraf.Resources
+import org.jraf.miniteljraf.app.ParameterlessMinitelScreen
 import org.jraf.miniteljraf.util.Line
 import org.jraf.miniteljraf.util.printCentered
 import org.jraf.miniteljraf.util.wrapped
 
 private const val INPUT_HEIGHT = 3
 private const val FOOTER_HEIGHT = 2
-private val LOGO_AND_INTRO_HEIGHT = Resources.logoHeight + 4
+private val LOGO_AND_INTRO_HEIGHT = Resources.jrafLogo3615Height + 4
 
 class ContactScreen(
-  context: MinitelApp.Context,
   connection: Minitel.Connection,
   private val onBack: suspend () -> Unit,
-) : ParameterlessJrafScreen(context, connection) {
+) : ParameterlessMinitelScreen(connection) {
   private var input = ""
   private val messages = mutableListOf<Message>()
 
   private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
   private var slackJpb: Job? = null
 
-  private val slackApi = SlackApi()
+  private val slackApi = _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.SlackApi()
 
   override suspend fun start() {
     connection.screen.drawScreen()
@@ -82,9 +80,9 @@ class ContactScreen(
   }
 
   private suspend fun Minitel.Screen.drawIntro() {
-    moveCursor(0, Resources.logoHeight)
+    moveCursor(0, Resources.jrafLogo3615Height)
     clearBottomOfScreen()
-    moveCursor(3, Resources.logoHeight + 2)
+    moveCursor(3, Resources.jrafLogo3615Height + 2)
     colorForeground(4)
     print("You can contact me at")
     colorForeground(7)
@@ -124,7 +122,10 @@ class ContactScreen(
   }
 
   private suspend fun Minitel.Screen.drawInputWindow() {
-    moveCursor(0, SCREEN_HEIGHT_NORMAL - INPUT_HEIGHT - FOOTER_HEIGHT)
+    moveCursor(
+      0,
+      SCREEN_HEIGHT_NORMAL - _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.INPUT_HEIGHT - _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.FOOTER_HEIGHT,
+    )
     inverse(true)
     color(background0To7 = 0, foreground0To7 = 3)
     clearEndOfLine()
@@ -137,7 +138,10 @@ class ContactScreen(
   }
 
   private suspend fun Minitel.Screen.drawInput() {
-    moveCursor(0, SCREEN_HEIGHT_NORMAL - INPUT_HEIGHT - FOOTER_HEIGHT)
+    moveCursor(
+      0,
+      SCREEN_HEIGHT_NORMAL - _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.INPUT_HEIGHT - _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.FOOTER_HEIGHT,
+    )
     inverse(true)
     color(background0To7 = 0, foreground0To7 = 3)
     print(input)
@@ -145,7 +149,7 @@ class ContactScreen(
   }
 
   private suspend fun Minitel.Screen.updateCursor() {
-    showCursor(input.length < SCREEN_WIDTH_NORMAL * INPUT_HEIGHT)
+    showCursor(input.length < SCREEN_WIDTH_NORMAL * _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.INPUT_HEIGHT)
   }
 
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {

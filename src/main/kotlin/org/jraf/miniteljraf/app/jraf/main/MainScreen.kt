@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.main
+package org.jraf.miniteljraf.app.jraf.main
 
 import kotlinx.coroutines.delay
 import org.jraf.klibminitel.core.CharacterSize
@@ -31,25 +31,24 @@ import org.jraf.klibminitel.core.FunctionKey
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
-import org.jraf.miniteljraf.main.minitel.JrafScreen
-import org.jraf.miniteljraf.main.minitel.Resources
-import org.jraf.miniteljraf.main.minitel.app.MinitelApp
-import org.jraf.miniteljraf.main.minitel.main.MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO
-import org.jraf.miniteljraf.main.minitel.main.MainScreen.StartMode.CLEAR_AND_DRAW_LOGO
-import org.jraf.miniteljraf.main.minitel.main.MainScreen.StartMode.CLEAR_AND_KEEP_LOGO
+import org.jraf.miniteljraf.Resources
+import org.jraf.miniteljraf.app.MinitelScreen
+import org.jraf.miniteljraf.app.jraf.JrafMinitelApp
+import org.jraf.miniteljraf.app.jraf.main.MainScreen.StartMode.CLEAR_AND_ANIMATE_LOGO
+import org.jraf.miniteljraf.app.jraf.main.MainScreen.StartMode.CLEAR_AND_DRAW_LOGO
+import org.jraf.miniteljraf.app.jraf.main.MainScreen.StartMode.CLEAR_AND_KEEP_LOGO
 import org.jraf.miniteljraf.util.printCentered
 import kotlin.random.Random
 
 class MainScreen(
-  context: MinitelApp.Context,
+  context: JrafMinitelApp.Context,
   connection: Minitel.Connection,
   private val onNavigateToContact: suspend () -> Unit,
   private val onNavigateToProjects: suspend () -> Unit,
   private val onNavigateToPlayStore: suspend () -> Unit,
   private val onNavigateToResume: suspend () -> Unit,
   private val onNavigateToMastodon: suspend () -> Unit,
-  private val onNavigateToFranceQuiz: suspend () -> Unit,
-) : JrafScreen<MainScreen.StartMode>(context, connection) {
+) : MinitelScreen<JrafMinitelApp.Context, MainScreen.StartMode>(context, connection) {
   val yourChoiceLabel = "Your choice: "
   val envoiLabel = " Envoi "
 
@@ -78,7 +77,7 @@ class MainScreen(
       }
 
       CLEAR_AND_KEEP_LOGO -> {
-        moveCursor(0, Resources.logoHeight)
+        moveCursor(0, Resources.jrafLogo3615Height)
         clearBottomOfScreen()
       }
     }
@@ -89,16 +88,16 @@ class MainScreen(
 
   private suspend fun Minitel.Screen.drawLogo(animate: Boolean) {
     if (animate) {
-      moveCursor(0, SCREEN_HEIGHT_NORMAL / 2 - Resources.logoHeight / 2)
+      moveCursor(0, SCREEN_HEIGHT_NORMAL / 2 - Resources.jrafLogo3615Height / 2)
     }
-    for ((index, logo3615Line) in Resources.logo3615Lines.withIndex()) {
+    for ((index, logo3615Line) in Resources.jrafLogo3615Lines.withIndex()) {
       graphicsMode(true)
       print(" ")
       raw(logo3615Line)
       graphicsMode(false)
       color(0, 7)
       print(" ")
-      print(Resources.logoJrafLines[index])
+      print(Resources.jrafLogoJrafLines[index])
       print('\n')
     }
     if (animate) {
@@ -106,7 +105,7 @@ class MainScreen(
       delay(3200)
       // Animate (scroll up)
       moveCursor(0, SCREEN_HEIGHT_NORMAL - 1)
-      repeat(SCREEN_HEIGHT_NORMAL / 2 - Resources.logoHeight / 2) {
+      repeat(SCREEN_HEIGHT_NORMAL / 2 - Resources.jrafLogo3615Height / 2) {
         delay(100)
         raw('\n')
       }
@@ -114,7 +113,7 @@ class MainScreen(
   }
 
   private suspend fun Minitel.Screen.drawIntroText() {
-    moveCursor(0, Resources.logoHeight + 1)
+    moveCursor(0, Resources.jrafLogo3615Height + 1)
     colorForeground(5)
     printCentered("Welcome to Benoît \"BoD\" Lubek's\n")
     printCentered("personal minitel site.")
@@ -206,7 +205,6 @@ class MainScreen(
               "3", "play store", "play", "store" -> onNavigateToPlayStore()
               "4", "resume" -> onNavigateToResume()
               "5", "mastodon" -> onNavigateToMastodon()
-              "6", "france quiz", "france", "quiz" -> onNavigateToFranceQuiz()
               else -> {
                 connection.screen.showCursor(false)
                 if (i == "ulla") {
