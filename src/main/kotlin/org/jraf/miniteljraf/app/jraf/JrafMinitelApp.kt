@@ -25,9 +25,6 @@
 
 package org.jraf.miniteljraf.app.jraf
 
-import kotlinx.io.asSink
-import kotlinx.io.asSource
-import kotlinx.io.buffered
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.miniteljraf.app.MinitelScreen
 import org.jraf.miniteljraf.app.jraf.contact.ContactScreen
@@ -171,15 +168,5 @@ class JrafMinitelApp(private val connection: Minitel.Connection) {
       ),
       repository,
     )
-  }
-}
-
-suspend fun main() {
-  val minitel = Minitel(
-    keyboard = System.`in`.asSource().buffered(),
-    screen = System.out.asSink().buffered(),
-  )
-  minitel.connect {
-    JrafMinitelApp(this).start()
   }
 }
