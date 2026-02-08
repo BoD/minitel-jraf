@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,26 +23,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.projects
+package org.jraf.miniteljraf.app.jraf.projects
 
 import org.jraf.klibminitel.core.CharacterSize
 import org.jraf.klibminitel.core.FunctionKey
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
+import org.jraf.miniteljraf.app.MinitelScreen
+import org.jraf.miniteljraf.app.jraf.JrafMinitelApp
 import org.jraf.miniteljraf.github.GetRepositoriesQuery
-import org.jraf.miniteljraf.main.minitel.JrafScreen
-import org.jraf.miniteljraf.main.minitel.app.MinitelApp
 import org.jraf.miniteljraf.util.Line
 import org.jraf.miniteljraf.util.escapeEmoji
 import org.jraf.miniteljraf.util.toPlainText
 import org.jraf.miniteljraf.util.wrapped
 
 class ProjectScreen(
-  context: MinitelApp.Context,
+  context: JrafMinitelApp.Context,
   connection: Minitel.Connection,
   private val onBack: suspend () -> Unit,
-) : JrafScreen<GetRepositoriesQuery.Node>(
+) : MinitelScreen<JrafMinitelApp.Context, GetRepositoriesQuery.Node>(
   context = context,
   connection = connection,
 ) {

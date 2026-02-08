@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,37 +23,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.app
+package org.jraf.miniteljraf.app.jraf
 
 import kotlinx.io.asSink
 import kotlinx.io.asSource
 import kotlinx.io.buffered
 import org.jraf.klibminitel.core.Minitel
+import org.jraf.miniteljraf.app.MinitelScreen
+import org.jraf.miniteljraf.app.jraf.contact.ContactScreen
+import org.jraf.miniteljraf.app.jraf.main.MainScreen
+import org.jraf.miniteljraf.app.jraf.mastodon.MastodonScreen
+import org.jraf.miniteljraf.app.jraf.playstore.PlayStoreScreen
+import org.jraf.miniteljraf.app.jraf.projects.ProjectScreen
+import org.jraf.miniteljraf.app.jraf.projects.ProjectsScreen
+import org.jraf.miniteljraf.app.jraf.resume.ResumeScreen
 import org.jraf.miniteljraf.github.GetRepositoriesQuery
-import org.jraf.miniteljraf.main.minitel.JrafScreen
-import org.jraf.miniteljraf.main.minitel.contact.ContactScreen
-import org.jraf.miniteljraf.main.minitel.main.MainScreen
-import org.jraf.miniteljraf.main.minitel.mastodon.MastodonScreen
-import org.jraf.miniteljraf.main.minitel.playstore.PlayStoreScreen
-import org.jraf.miniteljraf.main.minitel.projects.ProjectScreen
-import org.jraf.miniteljraf.main.minitel.projects.ProjectsScreen
-import org.jraf.miniteljraf.main.minitel.resume.ResumeScreen
 
-class MinitelApp(private val connection: Minitel.Connection) {
-  class Context {
-  }
+class JrafMinitelApp(private val connection: Minitel.Connection) {
+  class Context
 
   private val context = Context()
 
-  private val screenStack = mutableListOf<JrafScreen<*>>()
+  private val screenStack = mutableListOf<MinitelScreen<*, *>>()
 
-  private suspend fun <P, S : JrafScreen<P>> pushScreen(screen: S, startParameters: P) {
+  private suspend fun <C, P, S : MinitelScreen<C, P>> pushScreen(screen: S, startParameters: P) {
     screenStack.lastOrNull()?.stop()
     screenStack.add(screen)
     screen.start(startParameters)
   }
 
-  private suspend fun <P, S : JrafScreen<P>> popScreen(startParameters: P, count: Int = 1) {
+  private suspend fun <C, P, S : MinitelScreen<C, P>> popScreen(startParameters: P, count: Int = 1) {
     repeat(count) {
       currentScreen.stop()
       screenStack.removeLast()
@@ -62,7 +61,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
     (currentScreen as S).start(startParameters)
   }
 
-  private val currentScreen: JrafScreen<*>
+  private val currentScreen: MinitelScreen<*, *>
     get() = screenStack.last()
 
   suspend fun start() {
@@ -100,10 +99,9 @@ class MinitelApp(private val connection: Minitel.Connection) {
   private suspend fun onNavigateToContact() {
     pushScreen(
       ContactScreen(
-        context = context,
         connection = connection,
         onBack = {
-          popScreen(MainScreen.StartMode.CLEAR_AND_KEEP_LOGO)
+          popScreen<Unit, _, _>(MainScreen.StartMode.CLEAR_AND_KEEP_LOGO)
         },
       ),
       Unit,
@@ -116,7 +114,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
         context = context,
         connection = connection,
         onBack = {
-          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+          popScreen<Unit, _, _>(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
         },
         onNavigateToProject = ::onNavigateToProject,
       ),
@@ -127,10 +125,9 @@ class MinitelApp(private val connection: Minitel.Connection) {
   private suspend fun onNavigateToPlayStore() {
     pushScreen(
       PlayStoreScreen(
-        context = context,
         connection = connection,
         onBack = {
-          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+          popScreen<Unit, _, _>(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
         },
       ),
       Unit,
@@ -140,10 +137,9 @@ class MinitelApp(private val connection: Minitel.Connection) {
   private suspend fun onNavigateToResume() {
     pushScreen(
       ResumeScreen(
-        context = context,
         connection = connection,
         onBack = {
-          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+          popScreen<Unit, _, _>(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
         },
       ),
       Unit,
@@ -156,7 +152,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
         context = context,
         connection = connection,
         onBack = {
-          popScreen(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
+          popScreen<Unit, _, _>(MainScreen.StartMode.CLEAR_AND_DRAW_LOGO)
         },
       ),
       false,
@@ -170,7 +166,7 @@ class MinitelApp(private val connection: Minitel.Connection) {
         context = context,
         connection = connection,
         onBack = {
-          popScreen(true)
+          popScreen<Unit, _, _>(true)
         },
       ),
       repository,
@@ -184,6 +180,6 @@ suspend fun main() {
     screen = System.out.asSink().buffered(),
   )
   minitel.connect {
-    MinitelApp(this).start()
+    JrafMinitelApp(this).start()
   }
 }

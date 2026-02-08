@@ -45,7 +45,8 @@ import kotlinx.io.RawSource
 import kotlinx.io.buffered
 import kotlinx.serialization.json.Json
 import org.jraf.klibminitel.core.Minitel
-import org.jraf.miniteljraf.main.minitel.app.MinitelApp
+import org.jraf.miniteljraf.app.francequiz.FranceQuizMinitelApp
+import org.jraf.miniteljraf.app.jraf.JrafMinitelApp
 import org.slf4j.simple.SimpleLogger
 
 private const val DEFAULT_PORT = 8080
@@ -117,7 +118,16 @@ fun main() {
         )
 
         minitel.connect {
-          MinitelApp(this).start()
+          val app = call.request.queryParameters["app"] ?: "jraf"
+          when (app) {
+            "francequiz" -> {
+              FranceQuizMinitelApp(this).start()
+            }
+
+            else -> {
+              JrafMinitelApp(this).start()
+            }
+          }
         }
       }
     }

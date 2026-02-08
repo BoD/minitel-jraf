@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel.mastodon
+package org.jraf.miniteljraf.app.jraf.mastodon
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -52,7 +52,7 @@ class MastodonApi {
             .url("https://mastodon.social/api/v1/accounts/37127/statuses")
             .build(),
         ).execute()
-        val bodyStr = apiResponse.body!!.string()
+        val bodyStr = apiResponse.body.string()
         json.decodeFromString<List<MastodonStatus>>(bodyStr).map { it.toPost() }
       }
     }

@@ -7,7 +7,7 @@
  *                              /___/
  * repository.
  *
- * Copyright (C) 2024-present Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2026-present Benoit 'BoD' Lubek (BoD@JRAF.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,13 +23,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.jraf.miniteljraf.main.minitel
+@file:OptIn(ExperimentalSerializationApi::class)
 
-object Resources {
-  val logo3615Lines =
-    Resources::class.java.getResourceAsStream("/videotex/logo_3615.vdt")!!.bufferedReader().readLines().dropLastWhile { it.isEmpty() }
-  val logoJrafLines =
-    Resources::class.java.getResourceAsStream("/videotex/logo_jraf.txt")!!.bufferedReader().readLines().dropLastWhile { it.isEmpty() }
+package org.jraf.miniteljraf.app.francequiz
 
-  val logoHeight = Resources.logo3615Lines.size
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonIgnoreUnknownKeys
+import org.jraf.miniteljraf.Resources
+
+@Serializable
+class JsonQuestions(
+  val questions: List<JsonQuestion>,
+)
+
+
+@Serializable
+@JsonIgnoreUnknownKeys
+class JsonQuestion(
+  val question: String,
+  val correctAnswers: List<String>,
+  val wrongAnswers: List<String>,
+)
+
+fun loadJsonQuestions(): JsonQuestions {
+  return Json.decodeFromString(Resources.franceQuizQuestions)
 }

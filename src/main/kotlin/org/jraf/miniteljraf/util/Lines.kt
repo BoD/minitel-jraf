@@ -26,6 +26,7 @@
 package org.jraf.miniteljraf.util
 
 import org.jraf.klibminitel.core.CharacterSize
+import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
 
 fun String.abbreviate(maxWidth: Int = SCREEN_WIDTH_NORMAL): String {
@@ -55,13 +56,14 @@ fun String.split(maxWidth: Int, firstLineMaxWidth: Int): List<String> {
 
 data class Line(
   val text: String,
-  val characterSize: CharacterSize,
-  val foregroundColor: Int,
+  val characterSize: CharacterSize = CharacterSize.NORMAL,
+  val foregroundColor: Int = 4,
   val backgroundColor: Int = 0,
   val maxWidth: Int = -1,
   val centered: Boolean = false,
+  val ignoreMarkupCharacters: Set<Char> = emptySet(),
 ) {
-  val needsNewLine = maxWidth == -1 || text.length < maxWidth
+  val needsNewLine = maxWidth == -1 || text.filterNot { it in ignoreMarkupCharacters }.length < maxWidth
   val centeredOffset = if (centered) (characterSize.maxCharactersHorizontal - text.length * characterSize.characterWidth) / 2 else 0
 }
 
@@ -75,25 +77,48 @@ fun Line.wrapped(maxWidth: Int = SCREEN_WIDTH_NORMAL): List<Line> {
   var currentLine = ""
   while (words.isNotEmpty()) {
     val word = words.removeAt(0)
-    if (currentLine.isEmpty()) {
-      currentLine = word
+    val newLine = if (currentLine.isEmpty()) {
+      word
     } else {
-      val newLine = "$currentLine $word"
-      if (newLine.length > actualMaxWidth) {
-        if (word.length > actualMaxWidth) {
-          words.addAll(0, word.split(actualMaxWidth, actualMaxWidth - currentLine.length - 1))
-          continue
-        } else {
-          lines.add(copy(text = currentLine, maxWidth = actualMaxWidth))
-          currentLine = word
-        }
+      "$currentLine $word"
+    }
+    if (newLine.filterNot { it in ignoreMarkupCharacters }.length > actualMaxWidth) {
+      if (word.length > actualMaxWidth) {
+        words.addAll(0, word.split(actualMaxWidth, actualMaxWidth - currentLine.length - 1))
+        continue
       } else {
-        currentLine = newLine
+        lines.add(copy(text = currentLine, maxWidth = actualMaxWidth))
+        currentLine = word
       }
+    } else {
+      currentLine = newLine
     }
   }
   if (currentLine.isNotEmpty()) {
     lines.add(copy(text = currentLine, maxWidth = actualMaxWidth))
   }
   return lines
+}
+
+suspend fun Minitel.Screen.printFormattedText(
+  text: String,
+  normalColor: Int = 5,
+  highlightColor: Int = 7,
+) {
+  val lines = text.split('\n').flatMap { Line(it, ignoreMarkupCharacters = setOf('_')).wrapped() }
+  for ((i, line) in lines.withIndex()) {
+    val pieces = line.text.split('_')
+    for ((index, piece) in pieces.withIndex()) {
+      if (index % 2 == 1) {
+        colorForeground(highlightColor)
+        print(piece)
+      } else {
+        colorForeground(normalColor)
+        print(piece)
+      }
+    }
+    if (line.needsNewLine && i < lines.lastIndex) {
+      print("\n")
+    }
+  }
 }

@@ -1,70 +1,67 @@
+
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile.CopyFileInstruction
 
 plugins {
-  kotlin("jvm")
+  alias(libs.plugins.kotlin.jvm)
   id("application")
-  id("com.bmuschko.docker-java-application")
-  id("com.apollographql.apollo")
-  kotlin("plugin.serialization")
+  alias(libs.plugins.dockerJavaApplication)
+  alias(libs.plugins.apollo)
+  alias(libs.plugins.kotlin.serialization)
 }
 
 group = "org.jraf"
 version = "1.0.0"
 
-repositories {
-  mavenLocal()
-  mavenCentral()
-}
-
 kotlin {
   jvmToolchain(11)
+  compilerOptions {
+    optIn.add("kotlin.time.ExperimentalTime")
+  }
 }
 
 application {
   mainClass.set("org.jraf.miniteljraf.main.MainKt")
-//  mainClass.set("org.jraf.miniteljraf.main.minitel.app.MinitelAppKt")
 }
 
 dependencies {
   // Ktor
-  implementation(Ktor.server.core)
-  implementation(Ktor.server.netty)
-  implementation(Ktor.server.defaultHeaders)
-  implementation(Ktor.server.statusPages)
-  implementation(Ktor.server.contentNegotiation)
-  implementation(Ktor.server.websockets)
-  implementation(Ktor.plugins.serialization.kotlinx.json)
+  implementation(libs.ktor.server.core)
+  implementation(libs.ktor.server.netty)
+  implementation(libs.ktor.server.defaultHeaders)
+  implementation(libs.ktor.server.statusPages)
+  implementation(libs.ktor.server.contentNegotiation)
+  implementation(libs.ktor.server.websockets)
+  implementation(libs.ktor.serialization.kotlinx.json)
 
   // Minitel
-  implementation("org.jraf:klibminitel:_")
+  implementation(libs.klibminitel)
 
   // Apollo
-  implementation("com.apollographql.apollo:apollo-runtime:_")
-  implementation("com.apollographql.adapters:apollo-adapters-core:_")
-  implementation("com.apollographql.adapters:apollo-adapters-kotlinx-datetime:_")
+  implementation(libs.apollo.runtime)
+  implementation(libs.apollo.adapters.core)
 
   // Logback
-  implementation("org.slf4j:slf4j-simple:_")
+  implementation(libs.slf4j.simple)
 
   // JSON
-  implementation(KotlinX.serialization.json)
+  implementation(libs.kotlinx.serialization.json)
 
   // Markdown
-  implementation("org.jetbrains:markdown:_")
+  implementation(libs.markdown)
 
   // Slack
-  implementation("org.jraf:klibslack:_")
+  implementation(libs.klibslack)
 
   // JSoup
-  implementation("org.jsoup:jsoup:_")
+  implementation(libs.jsoup)
 }
 
 docker {
   javaApplication {
     // Use OpenJ9 instead of the default one
-    baseImage.set("adoptopenjdk/openjdk11-openj9:x86_64-ubuntu-jre-11.0.24_8_openj9-0.46.1")
-    mainClassName.set("org.jraf.miniteljraf.main.MainKt")
+    baseImage.set("adoptopenjdk/openjdk11-openj9:x86_64-ubuntu-jre-11.0.26_4_openj9-0.49.0")
     maintainer.set("BoD <BoD@JRAF.org>")
     ports.set(listOf(8080))
     images.add("bodlulu/${rootProject.name}:latest")
@@ -81,14 +78,20 @@ tasks.withType<DockerBuildImage> {
 }
 
 tasks.withType<Dockerfile> {
-  environmentVariable("MALLOC_ARENA_MAX", "4")
+  // Move the COPY instructions to the end
+  // See https://github.com/bmuschko/gradle-docker-plugin/issues/1093
+  instructions.set(
+    instructions.get().sortedBy { instruction ->
+      if (instruction.keyword == CopyFileInstruction.KEYWORD) 1 else 0
+    }
+  )
 }
 
 apollo {
   service("github") {
     packageName.set("org.jraf.miniteljraf.github")
     srcDir("src/main/graphql/github")
-    mapScalar("DateTime", "kotlinx.datetime.Instant", "com.apollographql.adapter.datetime.KotlinxInstantAdapter")
+    mapScalar("DateTime", "kotlin.time.Instant", "com.apollographql.adapter.core.KotlinInstantAdapter")
     introspection {
       endpointUrl.set("https://api.github.com/graphql")
       schemaFile.set(file("src/main/graphql/github/schema.graphqls"))
