@@ -25,6 +25,8 @@
 
 package org.jraf.miniteljraf.app.francequiz
 
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.QuizConfigured.InProgress.Answering
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.QuizIntro
 import kotlin.random.Random
 
 class Question(
@@ -34,46 +36,46 @@ class Question(
 )
 
 sealed interface FranceQuizState {
-  val questions: List<Question>
-  val score: Int
+  data object QuizIntro : FranceQuizState
 
-  sealed interface InProgress : FranceQuizState {
-    override val questions: List<Question>
-    override val score: Int
-    val questionIndex: Int
-
-    val question get() = questions[questionIndex]
-
-    data class Answering(
-      override val questions: List<Question>,
-      override val questionIndex: Int,
-      override val score: Int,
-
-      val answer: Int?,
-    ) : InProgress
-
-    data class QuestionOutcome(
-      override val questions: List<Question>,
-      override val questionIndex: Int,
-      override val score: Int,
-
-      val answer: Int,
-    ) : InProgress
-  }
-
-  data class Finished(
-    override val questions: List<Question>,
-    override val score: Int,
+  data class QuizConfiguration(
+    val questionCount: Int?,
   ) : FranceQuizState
+
+  sealed interface QuizConfigured : FranceQuizState {
+    val questions: List<Question>
+    val score: Int
+
+    sealed interface InProgress : QuizConfigured {
+      override val questions: List<Question>
+      override val score: Int
+      val questionIndex: Int
+
+      val question get() = questions[questionIndex]
+
+      data class Answering(
+        override val questions: List<Question>,
+        override val questionIndex: Int,
+        override val score: Int,
+
+        val answer: Int?,
+      ) : InProgress
+
+      data class QuestionOutcome(
+        override val questions: List<Question>,
+        override val questionIndex: Int,
+        override val score: Int,
+
+        val answer: Int,
+      ) : InProgress
+    }
+
+    data class Finished(
+      override val questions: List<Question>,
+      override val score: Int,
+    ) : QuizConfigured
+  }
 }
-
-
-fun testState(): FranceQuizState = FranceQuizState.InProgress.Answering(
-  questions = testQuestions(),
-  questionIndex = 0,
-  score = 0,
-  answer = null,
-)
 
 private fun testQuestions(): List<Question> = listOf(
   Question(
@@ -93,15 +95,17 @@ private fun testQuestions(): List<Question> = listOf(
   ),
 )
 
-fun initialState(): FranceQuizState = FranceQuizState.InProgress.Answering(
-  questions = loadQuestions(),
+fun initialState(): FranceQuizState = QuizIntro
+
+fun questionsState(questionCount: Int) = Answering(
+  questions = loadQuestions(questionCount),
   questionIndex = 0,
   score = 0,
   answer = null,
 )
 
-private fun loadQuestions(): List<Question> {
-  val jsonQuestions = loadJsonQuestions().questions.shuffled().take(40)
+private fun loadQuestions(count: Int): List<Question> {
+  val jsonQuestions = loadJsonQuestions().questions.shuffled().take(count)
   return jsonQuestions.map { jsonQuestion ->
     val answers = jsonQuestion.wrongAnswers.shuffled().take(3).toMutableList()
     val correctAnswerIndex = Random.nextInt(0, answers.size + 1)

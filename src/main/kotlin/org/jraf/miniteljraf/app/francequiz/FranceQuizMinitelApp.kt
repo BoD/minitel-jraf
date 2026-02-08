@@ -32,7 +32,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class FranceQuizMinitelApp(private val connection: Minitel.Connection) {
   suspend fun start() {
-//    splashScreen()
+    splashScreen()
 
     val screen = FranceQuizScreen(connection)
     screen.start()

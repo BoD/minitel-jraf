@@ -31,9 +31,14 @@ import org.jraf.klibminitel.core.Minitel
 import org.jraf.klibminitel.core.SCREEN_HEIGHT_NORMAL
 import org.jraf.klibminitel.core.SCREEN_WIDTH_NORMAL
 import org.jraf.miniteljraf.app.ParameterlessMinitelScreen
-import org.jraf.miniteljraf.app.francequiz.FranceQuizState.Finished
-import org.jraf.miniteljraf.app.francequiz.FranceQuizState.InProgress
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.QuizConfiguration
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.QuizConfigured.Finished
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.QuizConfigured.InProgress
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.QuizConfigured.InProgress.Answering
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.QuizConfigured.InProgress.QuestionOutcome
+import org.jraf.miniteljraf.app.francequiz.FranceQuizState.QuizIntro
 import org.jraf.miniteljraf.util.Line
+import org.jraf.miniteljraf.util.printFormattedText
 import org.jraf.miniteljraf.util.wrapped
 
 private const val HEADER_HEIGHT = 2
@@ -50,15 +55,106 @@ class FranceQuizScreen(
   private suspend fun Minitel.Screen.drawScreen() {
     clearScreenAndHome()
     drawHeader()
-    drawQuestionAndAnswers()
+    when (state) {
+      is QuizIntro -> drawQuizIntro()
+      is QuizConfiguration -> drawQuizConfiguration()
+      else -> drawQuestionAndAnswers()
+    }
+  }
+
+  private suspend fun Minitel.Screen.drawQuizIntro() {
+    moveCursor(0, HEADER_HEIGHT)
+    val introText = """
+      _Bienvenue sur France Quiz !_
+      
+      Ce quiz va tester vos connaissances sur la France à travers une série de questions à choix multiples.
+      
+      Il est conçu pour vous entraîner à _l'Examen Civique_, que doivent passer les personnes souhaitant obtenir la nationalité française.
+      
+      Les questions couvrent:
+      - Les grands repères de l'histoire 
+        de France
+      - Les principes, symboles et
+        institutions de la République
+      - L'exercice de la citoyenneté française
+      - La place de la France dans l'Europe et 
+        dans le monde
+    """.trimIndent()
+    printFormattedText(text = introText)
+
+    val footerY = SCREEN_HEIGHT_NORMAL - 1
+    val suite = " SUITE "
+    moveCursor(SCREEN_WIDTH_NORMAL - suite.length, footerY)
+    color(background0To7 = 7, foreground0To7 = 0)
+    print(suite)
+  }
+
+  private suspend fun Minitel.Screen.drawQuizConfiguration() {
+    clearBelowHeader()
+    moveCursor(0, HEADER_HEIGHT)
+    val introText = """
+      L'Examen Civique comporte _40 questions_, et pour le réussir il faut répondre correctement à au moins _32_ d'entre elles (40% de bonnes réponses).
+      
+      Pour ce quiz, vous pouvez choisir le nombre de questions que vous voulez affronter :
+      
+    """.trimIndent()
+    printFormattedText(text = introText)
+    print("\n")
+    val answers = listOf("10 questions", "20 questions", "40 questions")
+    printAnswers(answers)
+
+    printYourChoice()
+  }
+
+  private suspend fun Minitel.Screen.printAnswers(answers: List<String>) {
+    for ((answerIndex, answerText) in answers.withIndex()) {
+      val answerTextLines = Line("${'A' + answerIndex}. $answerText").wrapped(SCREEN_WIDTH_NORMAL - 1)
+      for ((lineIndex, line) in answerTextLines.withIndex()) {
+        if (lineIndex == 0) {
+          print(" ")
+          colorForeground(7)
+          inverse(true)
+          print(line.text.take(2))
+          colorForeground(5)
+          inverse(false)
+          print(line.text.drop(2))
+        } else {
+          colorForeground(5)
+          print(" " + line.text)
+        }
+        if (line.needsNewLine) {
+          print("\n")
+        }
+      }
+      if (answerIndex < answers.lastIndex) {
+        print("\n")
+      }
+    }
+  }
+
+  private suspend fun Minitel.Screen.printYourChoice() {
+    val footerY = SCREEN_HEIGHT_NORMAL - 1
+    val yourChoice = "Votre choix : "
+    moveCursor(0, footerY)
+    clearEndOfLine()
+    colorForeground(6)
+    print(yourChoice)
+    val envoi = " ENVOI "
+    moveCursor(SCREEN_WIDTH_NORMAL - envoi.length, footerY)
+    color(background0To7 = 7, foreground0To7 = 0)
+    print(envoi)
+    showCursor(true)
+    moveCursor(yourChoice.length, footerY)
+    color(background0To7 = 0, foreground0To7 = 7)
   }
 
   private suspend fun Minitel.Screen.drawQuestionAndAnswers() {
     when (val state = state) {
-      is InProgress.Answering -> {
+      is QuizIntro, is QuizConfiguration -> throw IllegalStateException()
+      is Answering -> {
         showCursor(false)
         drawProgress()
-        clearQuestionAndAnswers()
+        clearBelowHeader()
         moveCursor(0, HEADER_HEIGHT)
         colorForeground(7)
         val questionTextLines = Line(state.question.text).wrapped()
@@ -70,46 +166,12 @@ class FranceQuizScreen(
         }
         print("\n")
 
-        for ((answerIndex, answerText) in state.question.answers.withIndex()) {
-          val answerTextLines = Line("${'A' + answerIndex}. $answerText").wrapped(SCREEN_WIDTH_NORMAL - 1)
-          for ((lineIndex, line) in answerTextLines.withIndex()) {
-            if (lineIndex == 0) {
-              print(" ")
-              colorForeground(7)
-              inverse(true)
-              print(line.text.take(2))
-              colorForeground(5)
-              inverse(false)
-              print(line.text.drop(2))
-            } else {
-              colorForeground(5)
-              print(" " + line.text)
-            }
-            if (line.needsNewLine) {
-              print("\n")
-            }
-          }
-          if (answerIndex < state.question.answers.lastIndex) {
-            print("\n")
-          }
-        }
+        printAnswers(state.question.answers)
 
-        val footerY = SCREEN_HEIGHT_NORMAL - 1
-        val yourChoice = "Votre choix : "
-        moveCursor(0, footerY)
-        clearEndOfLine()
-        colorForeground(6)
-        print(yourChoice)
-        val envoi = " ENVOI"
-        moveCursor(SCREEN_WIDTH_NORMAL - envoi.length - 1, footerY)
-        color(background0To7 = 7, foreground0To7 = 0)
-        print(envoi)
-        showCursor(true)
-        moveCursor(yourChoice.length, footerY)
-        color(background0To7 = 0, foreground0To7 = 7)
+        printYourChoice()
       }
 
-      is InProgress.QuestionOutcome -> {
+      is QuestionOutcome -> {
         showCursor(false)
         val questionTextLines = Line(state.question.text).wrapped()
         moveCursor(0, questionTextLines.size + 1 + HEADER_HEIGHT)
@@ -178,30 +240,43 @@ class FranceQuizScreen(
         print(" ")
         colorForeground(5)
         print(score)
-        val suite = " SUITE"
-        moveCursor(SCREEN_WIDTH_NORMAL - suite.length - 1, footerY)
+        val suite = " SUITE "
+        moveCursor(SCREEN_WIDTH_NORMAL - suite.length, footerY)
         color(background0To7 = 7, foreground0To7 = 0)
         print(suite)
       }
 
       is Finished -> {
         showCursor(false)
-        clearScreenAndHome()
-        colorForeground(6)
-
-        val finishedText = "Quiz terminé ! Votre score final est ${state.score}/${state.questions.size}."
-        val finishedTextLines = Line(finishedText, centered = true).wrapped()
-        for (line in finishedTextLines) {
-          print(line.text)
-          if (line.needsNewLine) {
-            print("\n")
-          }
+        clearBelowHeader()
+        moveCursor(0, HEADER_HEIGHT)
+        val correctPercentage = state.score * 100 / state.questions.size
+        val finishedText = """
+          _Quiz terminé !_
+          
+          Votre score final est _${state.score}/${state.questions.size}_, soit _$correctPercentage%_ de bonnes réponses.
+        """.trimIndent() + "\n\n" + if (correctPercentage >= 80) {
+          """
+            Félicitations, vous auriez réussi l'Examen Civique !
+            
+            N'hésitez pas à refaire le quiz pour vous entraîner encore !
+          """.trimIndent()
+        } else {
+          """
+            Malheureusement, avec moins de 80%, vous n'auriez pas réussi l'Examen Civique.
+            
+            N'hésitez pas à refaire le quiz pour vous entraîner !
+          """.trimIndent()
         }
-        print("\n")
+        printFormattedText(text = finishedText)
+
+        print("\n\n\n\n")
+        colorForeground(2)
+        print("Réalisé par Benoît Lubek (BoD@JRAF.org)\net Carmen Alvarez (c@rmen.ca)")
 
         val footerY = SCREEN_HEIGHT_NORMAL - 1
-        val retour = " RETOUR"
-        moveCursor(SCREEN_WIDTH_NORMAL - retour.length - 1, footerY)
+        val retour = " RETOUR "
+        moveCursor(SCREEN_WIDTH_NORMAL - retour.length, footerY)
         color(background0To7 = 7, foreground0To7 = 0)
         print(retour)
       }
@@ -224,18 +299,78 @@ class FranceQuizScreen(
     print(progress)
   }
 
-  private suspend fun Minitel.Screen.clearQuestionAndAnswers() {
-    moveCursor(0, 2)
+  private suspend fun Minitel.Screen.clearBelowHeader() {
+    moveCursor(0, 1)
     repeat(SCREEN_HEIGHT_NORMAL - 2) {
-      clearEndOfLine()
       print("\n")
+      colorBackground(0)
+      clearEndOfLine()
     }
   }
 
 
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {
     when (val state = state) {
-      is InProgress.Answering -> {
+      is QuizIntro -> {
+        if (e is Minitel.KeyboardEvent.FunctionKeyEvent && e.functionKey == FunctionKey.SUITE) {
+          this.state = QuizConfiguration(questionCount = null)
+          connection.screen.drawQuizConfiguration()
+        }
+      }
+
+      is QuizConfiguration -> {
+        when (e) {
+          is Minitel.KeyboardEvent.CharacterEvent -> {
+            if (state.questionCount != null) {
+              // Answer already given
+              connection.screen.beep()
+              return
+            }
+            val inputChar = e.char.uppercaseChar()
+            if (inputChar in 'A'..'C') {
+              this.state = state.copy(
+                questionCount = when (inputChar) {
+                  'A' -> 10
+                  'B' -> 20
+                  'C' -> 40
+                  else -> throw IllegalStateException()
+                },
+              )
+              connection.screen.print(inputChar)
+            } else {
+              connection.screen.beep()
+            }
+          }
+
+          is Minitel.KeyboardEvent.FunctionKeyEvent -> {
+            when (e.functionKey) {
+              FunctionKey.CORRECTION -> {
+                if (state.questionCount == null) {
+                  // No answer to correct
+                  connection.screen.beep()
+                  return
+                }
+                this.state = state.copy(questionCount = null)
+                connection.screen.moveCursorLeft()
+                connection.screen.print(' ')
+                connection.screen.moveCursorLeft()
+              }
+
+              FunctionKey.ENVOI -> {
+                if (state.questionCount != null) {
+                  this.state = questionsState(state.questionCount)
+                  connection.screen.drawQuestionAndAnswers()
+                }
+              }
+
+              else -> {}
+            }
+          }
+        }
+      }
+
+
+      is Answering -> {
         when (e) {
           is Minitel.KeyboardEvent.CharacterEvent -> {
             if (state.answer != null) {
@@ -269,7 +404,7 @@ class FranceQuizScreen(
 
               FunctionKey.ENVOI -> {
                 if (state.answer != null) {
-                  this.state = InProgress.QuestionOutcome(
+                  this.state = QuestionOutcome(
                     questions = state.questions,
                     questionIndex = state.questionIndex,
                     score = state.score + if (state.answer == state.question.correctAnswerIndex) 1 else 0,
@@ -285,13 +420,13 @@ class FranceQuizScreen(
         }
       }
 
-      is InProgress.QuestionOutcome -> {
+      is QuestionOutcome -> {
         when (e) {
           is Minitel.KeyboardEvent.FunctionKeyEvent -> {
             when (e.functionKey) {
               FunctionKey.SUITE, FunctionKey.ENVOI -> {
                 if (state.questionIndex < state.questions.lastIndex) {
-                  this.state = InProgress.Answering(
+                  this.state = Answering(
                     questions = state.questions,
                     questionIndex = state.questionIndex + 1,
                     score = state.score,
@@ -315,7 +450,12 @@ class FranceQuizScreen(
         }
       }
 
-      else -> {}
+      is Finished -> {
+        if (e is Minitel.KeyboardEvent.FunctionKeyEvent && e.functionKey == FunctionKey.RETOUR) {
+          this.state = QuizConfiguration(null)
+          connection.screen.drawScreen()
+        }
+      }
     }
   }
 }

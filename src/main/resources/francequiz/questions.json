@@ -163,6 +163,21 @@
       ]
     },
     {
+      "question": "Auprès de quelle institution les parents peuvent inscrire leurs enfants à l'école publique ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "La mairie pour l'école maternelle",
+        "L'établissement scolaire directement pour le collège",
+        "Le lycée d'affectation, souvent via la plateforme en ligne Éduconnect"
+      ],
+      "wrongAnswers": [
+        "La plateforme Parcoursup",
+        "La Préfecture",
+        "La CAF (Caisse d'Allocations Familiales)",
+        "Le ministère de l'Éducation nationale à Paris"
+      ]
+    },
+    {
       "question": "Combien d'États font partie de l'Union européenne au 1er janvier 2025 ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -468,13 +483,12 @@
       "question": "Des parents ne respectent pas l'obligation d'instruction pour leurs enfants. Quelle sanction maximale risquent-ils ?",
       "theme": "Vivre dans la société française",
       "correctAnswers": [
-        "Une amende pouvant aller jusqu'à 1 500 €.",
-        "6 mois de prison et 7500 € d'amende, après mise en demure"
+        "6 mois de prison et 7500 € d'amende"
       ],
       "wrongAnswers": [
         "La suppression définitive des allocations familiales",
         "Le retrait immédiat de l'autorité parentale.",
-        "1 mois de prison et 2000€ d'amende",
+        "1 mois de prison et 2000 € d'amende",
         "Une amende pouvant aller jusqu'à 2500 €"
       ]
     },
@@ -530,6 +544,37 @@
       ]
     },
     {
+      "question": "En France, il est possible pour l'État de financer :",
+      "theme": "Principes et valeurs de la République",
+      "correctAnswers": [
+        "l'entretien des cathédrales",
+        "les salaires des ministres des cultes en Alsace et en Moselle",
+        "Des services d'aumônerie dans les hôpitaux, les prisons ou les lycées",
+        "La restauration de monuments historiques à caractère religieux"
+      ],
+      "wrongAnswers": [
+        "La construction de nouveaux lieux de culte.",
+        "les salaires de tous les prêtres, imams et rabbins de France",
+        "Les campagnes électorales des candidats se présentant au nom d'une religion",
+        "L’achat de livres de prières ou de matériel pour les cérémonies religieuses."
+      ]
+    },
+    {
+      "question": "En France, la conduite sans permis d'une moto est :",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "puni d'un an d'emprisonnement et de 15 000 euros d'amende",
+        "une infraction pouvant faire l'objet d'une Amende Forfaitaire Délictuelle (AFD)",
+        "une cause de confiscation obligatoire du véhicule"
+      ],
+      "wrongAnswers": [
+        "une simple contravention punie d'une amende de 135 €",
+        "une infraction qui n'entraîne jamais de peine de prison.",
+        "une infraction couverte par l'assurance",
+        "un acte autorisé si la moto fait moins de 125 cm³"
+      ]
+    },
+    {
       "question": "En France, les impôts permettent de financer les dépenses publiques. Quelle proposition est correcte ?",
       "theme": "Principes et valeurs de la République",
       "correctAnswers": [
@@ -555,6 +600,34 @@
         "1848",
         "1914",
         "1492"
+      ]
+    },
+    {
+      "question": "En quelle année l'euro est-il devenu la monnaie officielle de la France ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "1999 - la monnaie officielle au niveau juridique et pour les transactions bancaires",
+        "2002 - la mise en circulation des pièces et des billets"
+      ],
+      "wrongAnswers": [
+        "1992",
+        "2000",
+        "2005",
+        "1958"
+      ]
+    },
+    {
+      "question": "En quelle année l'Union européenne a-t-elle été fondée?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "1992"
+      ],
+      "wrongAnswers": [
+        "1951",
+        "1957",
+        "2007",
+        "1999",
+        "2002"
       ]
     },
     {
@@ -594,6 +667,19 @@
       ]
     },
     {
+      "question": "En quelle année Napoléon Ier est-il devenu empereur ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "1804"
+      ],
+      "wrongAnswers": [
+        "1769",
+        "1821",
+        "1815",
+        "1814"
+      ]
+    },
+    {
       "question": "En quoi consiste le devoir de solidarité ?",
       "theme": "Droits et devoirs",
       "correctAnswers": [
@@ -604,6 +690,108 @@
         "À voter à toutes les élections",
         "À travailler gratuitement pour l'État",
         "À dénoncer ses voisins"
+      ]
+    },
+    {
+      "question": "En tant que parent d'élève, il est possible de :",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Accompagner votre enfant dans sa scolarité",
+        "Avoir un suivi de la scolarité des enfants",
+        "Voter pour des représentants des parents d’élèves"
+      ],
+      "wrongAnswers": [
+        "Choisir les manuels scolaires utilisés en class",
+        "Sanctionner les élèves qui ne respectent pas le règlement",
+        "Recruter les enseignants de l'école",
+        "Interdire l'enseignement d'une partie du programme pour des motifs religieux"
+      ]
+    },
+    {
+      "question": "Est-ce légal d'être marié à plusieurs personnes en même temps ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Non"
+      ],
+      "wrongAnswers": [
+        "Oui, si vous êtes marié uniquement selon une loi étrangère",
+        "Oui, si vous êtes séparé de corps",
+        "Oui, si vous êtes en instance de divorce",
+        "Oui, si vous avez l'accord écrit de votre premier conjoint"
+      ]
+    },
+    {
+      "question": "Est-ce obligatoire de déclarer ses impôts chaque année en France ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Oui, si vous êtes domicilié en France et vous y habitez pendant plus de six mois par an",
+        "Oui, si votre activité professionnelle principale est en France",
+        "Oui, si vous avez en France le centre de vos intérêts économiques",
+        "Oui, pour les personnes non domiciliées en France si elles disposent de revenus de source française"
+      ],
+      "wrongAnswers": [
+        "Oui, si vous êtes domicilié en France et vous y habitez pendant plus de trois mois par an",
+        "Non, si vous n'avez pas de revenus",
+        "Non, car avec le prélèvement à la source, l'impôt est déjà payé",
+        "Non, si vous votre seule source de revenu est un stage",
+        "Non, si vous êtes de nationalité étrangère"
+      ]
+    },
+    {
+      "question": "Est-ce possible de punir physiquement ses enfants ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Non, le Code pénal réprime les violences quelle que soit leur nature"
+      ],
+      "wrongAnswers": [
+        "Oui, s'il n'y a pas de blessures permanentes.",
+        "Non, mais les insultes, les remarques désobligeantes, les humiliations et les menaces ne sont pas punissables par la loi car elles sont trop difficiles à prouver.",
+        "Oui, si la punition reste proportionnée à la faute de l'enfant",
+        "Oui, dans le cadre du \"droit de correction\" reconnu aux parents"
+      ]
+    },
+    {
+      "question": "Est-il obligatoire de porter secours à une personne en danger ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Oui, sous peine de 5 ans d'emprisonnement et 75 000 € d'amende."
+      ],
+      "wrongAnswers": [
+        "Oui, même si l'assistance expose le témoin à un péril",
+        "Uniquement si le témoin est aussi en danger",
+        "Non, c'est un acte de charité facultatif qui relève de la conscience de chacun",
+        "Non, car vous risquez d'être poursuivi en justice si votre aide est inefficace",
+        "Uniquement si vous possédez un diplôme de secourisme ou une formation médicale"
+      ]
+    },
+    {
+      "question": "Est-il possible de licencier une femme enceinte ou en congé maternité, en raison de sa grossesse ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Non pendant le congé maternité, puisque la salariée bénéficie d'une protection absolue",
+        "Non, mais si l'employeur et la salariée sont d'accord, il est possible de rompre le contrat par rupture conventionnelle.",
+        "Non, et le père est également protégé contre le licenciement pendant les 10 semaines qui suivent la naissance de son enfant."
+      ],
+      "wrongAnswers": [
+        "Oui si l'employeur justifie d'une impossibilité de maintenir le contrat de travail pour un motif lié à la maternité",
+        "Oui, si la salarié enceinte n'a pas informé son employeur de son état.",
+        "Oui, si la lettre de licenciement précise le motif du licenciement",
+        "Oui, à condition que l'employeur lui verse une indemnité compensatrice"
+      ]
+    },
+    {
+      "question": "Être juré d'assises est :",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Un devoir citoyen obligatoire.",
+        "Une mission de justice rendue au nom du peuple français.",
+        "Une fonction indemnisée par l'État"
+      ],
+      "wrongAnswers": [
+        "Un acte volontaire réservé aux personnes inscrites sur une liste de bénévoles.",
+        "Une fonction réservée exclusivement aux personnes ayant un diplôme en droit.",
+        "Un rôle réservé aux fonctionnaires de police et de justice",
+        "Une fonction que l'on peut déléguer à une personne de son choix"
       ]
     },
     {
@@ -619,6 +807,21 @@
       ]
     },
     {
+      "question": "L'article 4 de la Déclaration des droits de l'homme et du citoyen affirme que \"la liberté consiste à pouvoir faire tout ce qui ne nuit pas à autrui\". Qu'est-ce que cela signifie ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "La liberté de chacun s'arrête là où commence celle des autres.",
+        "La loi peut interdire les actions nuisibles à la société.",
+        "Ma liberté n'est pas totale ; elle doit respecter les droits d'autrui."
+      ],
+      "wrongAnswers": [
+        "Chaque citoyen est libre de faire absolument tout ce qu'il veut sans aucune limite.",
+        "La liberté est un droit qui permet de ne pas respecter les lois si on les juge injustes.",
+        "Seul l'État est libre, les citoyens doivent uniquement obéir.",
+        "La liberté signifie que l'on peut nuire aux autres si cela est nécessaire pour son propre succè"
+      ]
+    },
+    {
       "question": "L'avortement est-il possible en France ?",
       "theme": "Vivre dans la société française",
       "correctAnswers": [
@@ -628,6 +831,19 @@
         "Non, sauf cas médical",
         "Uniquement avec accord du maire",
         "Oui, sans aucune limite de temps pendant toute la grossesse."
+      ]
+    },
+    {
+      "question": "L'inscription à l'Assurance maladie est :",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Ouverte à toute personne qui travaille ou réside en France de manière stable et régulière",
+        "Obligatoire *"
+      ],
+      "wrongAnswers": [
+        "Réservée uniquement aux citoyens français",
+        "Payante et accessible uniquement aux personnes ayant un emploi",
+        "Obligatoire pour tous, y compris les touristes et les personnes en séjour irrégulier."
       ]
     },
     {
@@ -642,6 +858,36 @@
         "automatique pour chaque citoyen français",
         "obligatoire sous peine de sanction administrative",
         "possible uniquement à son domicile principal"
+      ]
+    },
+    {
+      "question": "L'instruction des enfants est obligatoire de :",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "3 ans à 16 ans"
+      ],
+      "wrongAnswers": [
+        "6 ans à 16 ans",
+        "3 ans à 14 ans",
+        "6 ans à 18 ans",
+        "Jusqu'à l'obtention du diplôme"
+      ]
+    },
+    {
+      "question": "La contraception :",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "l'ensemble des moyens visant à éviter une grossesse",
+        "s'adresse aux femmes et aux hommes",
+        "est remboursé selon le dispositif choisi",
+        "autorisée aux jeunes filles mineures, avec ordonnance selon le dispositif choisi, sans le consentement des parents ou du représentant légal"
+      ],
+      "wrongAnswers": [
+        "obligatoirement soumise à l'autorisation des parents pour les mineures",
+        "uniquement prescrite par un médecin généraliste",
+        "interdite avant l'âge de 18 ans",
+        "est remboursée uniquement pour les femmes",
+        "est toujours remboursée par l'Assurance Maladie"
       ]
     },
     {
@@ -685,6 +931,132 @@
         "National, régional, départemental",
         "L'Assemblée nationale, le sénat, le conseil constitutionnel",
         "Liberté, fraternité, égalité"
+      ]
+    },
+    {
+      "question": "La vente d'alcool en France est interdite aux personnes de moins de :",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "18 ans"
+      ],
+      "wrongAnswers": [
+        "16 ans",
+        "21 ans",
+        "19 ans",
+        "15 ans"
+      ]
+    },
+    {
+      "question": "Laquelle de ces citations est inscrite dans la Déclaration des Droits de l'Homme et du Citoyen de 1789 ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Les hommes naissent et demeurent libres et égaux en droits",
+        "La Liberté consiste à pouvoir faire tout ce qui ne nuit pas à autrui",
+        "La Loi est l'expression de la volonté générale",
+        "Tout homme étant présumé innocent jusqu'à ce qu'il ait été déclaré coupable"
+      ],
+      "wrongAnswers": [
+        "La République est une et indivisible, laïque, démocratique et sociale",
+        "Le but de la société est le bonheur commun et la protection des faibles",
+        "Nul ne peut être inquiété pour sa condition sociale ou sa fortune",
+        "La fraternité est le premier devoir de chaque citoyen envers la Nation"
+      ]
+    },
+    {
+      "question": "Le 11 novembre est un jour férié. À quoi correspond cette date ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La fin de la Première Guerre mondiale",
+        "L’Armistice signé en 1918"
+      ],
+      "wrongAnswers": [
+        "Le traité de Versailles",
+        "La fin de la Seconde Guerre mondiale en Europe",
+        "La Toussaint",
+        "La fête du Travail",
+        "Débarquement de Normandie"
+      ]
+    },
+    {
+      "question": "Le non-respect du code de la route est :",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Un délit ou une infraction puni(e) par des amendes, des retraits de points ou des peines de prison selon la gravité",
+        "Passible de sanctions administratives et pénales, comme le retrait du permis de conduire ou une amende forfaitaire",
+        "Un comportement dangereux qui peut entraîner des accidents, des blessures ou des décès, et qui est sanctionné par la loi",
+        "Un manquement aux règles de sécurité routière, pouvant entraîner des sanctions graduelles (amende, suspension de permis, stage de sensibilisation, etc.)"
+      ],
+      "wrongAnswers": [
+        "Une faute qui ne concerne que les conducteurs professionnels",
+        "Un comportement toléré si aucun accident n’est causé",
+        "Une infraction qui ne peut jamais entraîner de peine de prison",
+        "Un manquement qui ne peut pas entraîner de retrait de points sur le permis de conduire"
+      ]
+    },
+    {
+      "question": "Le stationnement sur une place réservée aux personnes handicapées :",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "encourt une contravention de 4e catégorie dès lors que votre véhicule ne dispose par d'une des deux cartes prévue à cet effet",
+        "sans CMI S ni Carte européenne de stationnement est punie d'une amende de 135 euros",
+        "est gratuit avec la CMI stationnement en voirie"
+      ],
+      "wrongAnswers": [
+        "Est autorisé pour un arrêt de courte durée (moins de 10 minutes) si vous restez au volant",
+        "Est autorisé si le parking est complet et qu'aucune autre place n'est disponible",
+        "Est toléré le dimanche et les jours fériés pour tout le monde",
+        "Est permis si vous avez une personne âgée à bord, même sans carte",
+        "Donne lieu à une simple amende de 17 € (amende forfaitaire de base)"
+      ]
+    },
+    {
+      "question": "Lequel de ces crimes ou délits peut entrainer la privation des droits civils et politiques par un juge ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Le détournement de fonds publics ou la corruption",
+        "Les actes de terrorisme",
+        "Les violences graves ou homicides volontaires",
+        "La fraude fiscale aggravée"
+      ],
+      "wrongAnswers": [
+        "Un simple excès de vitesse ou une infraction au Code de la route",
+        "Le non-paiement d'une amende de stationnement",
+        "Une rupture abusive de contrat de travail (licenciement illégal)",
+        "Le défaut de présentation de sa carte d'identité lors d'un contrôle"
+      ]
+    },
+    {
+      "question": "Lequel de ces pays est un pays fondateur de l'Union Européenne ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Allemagne",
+        "France",
+        "Italie",
+        "Pays-Bas"
+      ],
+      "wrongAnswers": [
+        "Espagne",
+        "Portugal",
+        "Royaume-Uni",
+        "Suisse",
+        "Danemark"
+      ]
+    },
+    {
+      "question": "Lequel de ces personnages a un lien avec la République française ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Marianne",
+        "Jean Jaurès",
+        "Charles de Gaulle",
+        "L'Abbé Grégoire"
+      ],
+      "wrongAnswers": [
+        "Louis XIV",
+        "Louis XVI",
+        "Vercingétorix",
+        "Charlemagne",
+        "Clovis"
       ]
     },
     {
@@ -749,6 +1121,19 @@
       ]
     },
     {
+      "question": "Lors de la seconde guerre mondiale, à quelle date la ville de Paris a-t-elle été libérée ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "25 août 1944"
+      ],
+      "wrongAnswers": [
+        "5 juin 1944",
+        "11 novembre 1918",
+        "8 mai 1945",
+        "18 juin 1940"
+      ]
+    },
+    {
       "question": "Où est le siège de la Banque centrale européenne ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -787,6 +1172,36 @@
       ]
     },
     {
+      "question": "Où faut-il déclarer la naissance d'un enfant ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "À la mairie du lieu de naissance"
+      ],
+      "wrongAnswers": [
+        "À la mairie du domicile des parents",
+        "À la préfecture du département",
+        "Au commissariat de police ou à la gendarmerie",
+        "Uniquement à la maternité (hôpital ou clinique)",
+        "À l'ambassade de votre pays d'origine"
+      ]
+    },
+    {
+      "question": "Où peut-on voir des peintures préhistoriques en France ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Les grottes de Lascaux",
+        "Les grottes de Chauvet",
+        "Les grottes de Cosquer"
+      ],
+      "wrongAnswers": [
+        "Les catacombes de Paris",
+        "Le musée du Louvre",
+        "La grotte d'Altamira",
+        "Les grottes de l'Himalaya",
+        "Le château de Versailles"
+      ]
+    },
+    {
       "question": "Où peut-on voir la devise de la République ?",
       "theme": "Principes et valeurs de la République",
       "correctAnswers": [
@@ -816,6 +1231,40 @@
       ]
     },
     {
+      "question": "Parmi ces textes, lequel a été adopté sous Napoléon Ier ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Le Code civil des Français",
+        "Le Code de procédure civile",
+        "Le Code de commerce",
+        "Le Code pénal"
+      ],
+      "wrongAnswers": [
+        "La Déclaration des Droits de l'Homme et du Citoyen",
+        "La Constitution de la Ve République",
+        "La Loi de séparation des Églises et de l'État",
+        "La loi instaurant les congés payés",
+        "L'édit de Nantes"
+      ]
+    },
+    {
+      "question": "Pendant quelles journées peut-on visiter gratuitement des lieux culturels en France ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "L’accès aux collections de la plupart des musées nationaux est gratuit le premier dimanche de chaque mois.",
+        "Les Journées européennes du patrimoine (JEP) sont des manifestations nationales et internationales annuelles qui permettent au public la découverte de nombreux édifices et autres lieux qui ne sont souvent qu'exceptionnellement ouverts au public, ou de musées qui vont alors modifier leur offre voire leur tarification pour l'occasion.",
+        "La nuit européenne des musées",
+        "La fête de la musique"
+      ],
+      "wrongAnswers": [
+        "Le 14 juillet",
+        "Lors de la Fête des voisins",
+        "Chaque samedi de l'année",
+        "Pendant toute la durée des vacances scolaires",
+        "Pendant les \"Journées du Patrimoine mondial de l'UNESCO\""
+      ]
+    },
+    {
       "question": "Peut-on brûler publiquement un drapeau français ?",
       "theme": "Principes et valeurs de la République",
       "correctAnswers": [
@@ -825,6 +1274,54 @@
         "Oui, car la liberté d'expression permet de détruire n'importe quel symbole public.",
         "Oui, mais seulement si le drapeau appartient à la personne qui le brûle.",
         "Non, sauf si l'acte a lieu lors d'une manifestation autorisée par la préfecture."
+      ]
+    },
+    {
+      "question": "Pour obtenir une carte d'identité, il faut :",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Se rendre (souvent avec rendez-vous) dans une mairie équipée d'une station d'enregistrement (et souvent faire une pré-demande en ligne)",
+        "1 justificatif de domicile de moins de 1 an",
+        "1 photo d'identité de moins de 6 mois et conforme aux normes"
+      ],
+      "wrongAnswers": [
+        "Se rendre directement au Commissariat de police",
+        "Demander au Président de la République par courrier",
+        "Aller à la Préfecture sans rendez-vous",
+        "Payer une taxe de 100 €"
+      ]
+    },
+    {
+      "question": "Pour quel motif peut-on limiter la liberté d'expression ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Pour assurer la sauvegarde de l'ordre public",
+        "Pour protéger les individus contre l'injure ou la diffamation",
+        "Pour sanctionner l'incitation à la haine, à la violence ou à la discrimination",
+        "Pour garantir la neutralité du service public"
+      ],
+      "wrongAnswers": [
+        "Pour empêcher toute critique envers le Gouvernement ou le Président",
+        "Pour interdire les idées qui déplaisent à la majorité de la population",
+        "Pour censurer des informations journalistiques dérangeantes",
+        "Pour des motifs de simple convenance personnelle"
+      ]
+    },
+    {
+      "question": "Pourquoi l'année 1958 est importante pour la France ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "C'est l'année de la création de la Ve République",
+        "C'est l'année du retour au pouvoir du Général de Gaulle",
+        "C'est l'année de l'adoption par référendum de la Constitution actuelle",
+        "C'est la fin de la IVe République"
+      ],
+      "wrongAnswers": [
+        "C'est l'année de la fin de la Seconde Guerre mondiale",
+        "C'est l'année où les femmes ont obtenu le droit de vote",
+        "C'est l'année de la construction du Mur de Berlin",
+        "C'est l'année où la France a adopté l'Euro comme monnaie",
+        "C'est l'année de la signature du Traité de Rome"
       ]
     },
     {
@@ -853,6 +1350,35 @@
         "L'État respecte toujours la loi",
         "Le président de la Republique n'a pas d'immunité durant son mandat",
         "C'est un État où le Gouvernement a tous les droits pour maintenir l'ordre."
+      ]
+    },
+    {
+      "question": "Qu'est-ce que la citoyenneté numérique ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "C’est l’équilibre entre la liberté d’expression et la responsabilité de chaque utilisateur sur les plateformes numériques",
+        "C’est une composante essentielle de la vitalité de la démocratie, qui repose sur des usages citoyens et responsables en ligne",
+        "C’est une démarche qui passe par l’éducation aux médias, afin que chaque citoyen puisse agir de manière éclairée et critique"
+      ],
+      "wrongAnswers": [
+        "C’est un système où seule la régulation par les plateformes (algorithmes) suffit à protéger la démocratie",
+        "C’est le droit de s'affranchir de ses responsabilités grâce à l'utilisation d'un pseudonyme",
+        "C’est une éducation réservée uniquement aux experts en informatique et aux ingénieurs",
+        "C’est l'idée que la liberté numérique signifie l'absence totale de lois ou de règles de civilité."
+      ]
+    },
+    {
+      "question": "Qu'est-ce que la France d'outre-mer ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "L'ensemble des territoires sous souveraineté française situés hors d'Europe",
+        "Les Départements et Régions d’Outre-Mer (DROM) et les Collectivités d’Outre-Mer (COM)"
+      ],
+      "wrongAnswers": [
+        "Les pays étrangers qui parlent français (la Francophonie)",
+        "Les départements situés dans le sud de la France métropolitaine",
+        "Des colonies qui n'ont pas le droit de vote",
+        "Des pays alliés de la France mais indépendants"
       ]
     },
     {
@@ -887,6 +1413,112 @@
       ]
     },
     {
+      "question": "Qu'est-ce que la Shoah ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Le génocide des Juifs organisé par l’Allemagne nazie pendant la Seconde Guerre mondiale",
+        "L'extermination de six millions de Juifs, organisée de manière industrielle par l'État nazi entre 1941 et 1945",
+        "Le plus grand génocide de l’histoire",
+        "Un crime contre l’humanité"
+      ],
+      "wrongAnswers": [
+        "Une bataille militaire majeure",
+        "Une révolte de prisonniers de guerre",
+        "L'ensemble des victimes civiles de la Seconde Guerre mondiale",
+        "Un mouvement politique allemand"
+      ]
+    },
+    {
+      "question": "Qu'est-ce que le devoir de mémoire ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Il consiste à préserver et à transmettre aux plus jeunes la mémoire de ceux qui ont défendu le territoire national.",
+        "Il vise à partager les valeurs républicaines portées par les femmes et les hommes s'étant battus pour les idéaux de la France.",
+        "Il permet d'honorer l'engagement des citoyens qui se sont sacrifiés pour la liberté et la défense de la patrie",
+        "Il sert à entretenir le lien entre les générations autour de l'histoire commune et des valeurs de la République."
+      ],
+      "wrongAnswers": [
+        "Il consiste à oublier les erreurs du passé pour ne célébrer que les victoires militaires",
+        "Il oblige les jeunes à s'engager dans l'armée dès la fin de leur scolarité",
+        "Il consiste à réciter par cœur la biographie de tous les présidents de la République",
+        "Il sert uniquement à décorer les monuments aux morts lors des jours fériés"
+      ]
+    },
+    {
+      "question": "Qu'est-ce que le principe de confidentialité dans le domaine de la santé ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "L'obligation pour tout professionnel de santé de ne pas divulguer les informations concernant un patient à des tiers non autorisés.",
+        "Chaque professionnel qui connaît ou suit votre état de santé doit respecter le secret médical.",
+        "Un professionnel de santé qui a des informations sur vous ne doit pas les communiquer à d'autres personnes."
+      ],
+      "wrongAnswers": [
+        "L'interdiction pour le patient de parler de sa maladie à sa famille",
+        "Le droit pour un médecin de cacher le diagnostic au patient lui-même",
+        "Une règle qui ne s'applique qu'aux médecins",
+        "Le droit pour l'employeur d'accéder au dossier médical de son salarié"
+      ]
+    },
+    {
+      "question": "Qu'est-ce que le SMIC ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Salaire horaire minimum légal en dessous duquel le salarié ne peut pas être rémunéré.",
+        "Smic (salaire minimum interprofessionnel de croissance)",
+        "1 823,03 € brut mensuel pour les majeurs",
+        "Il est indexé sur l'inflation mesurée pour les 20 % des ménages ayant les revenus les plus faibles"
+      ],
+      "wrongAnswers": [
+        "1 443,11 € mensuel pour les majeurs",
+        "C'est le salaire moyen constaté dans le secteur privé en France",
+        "C'est une allocation de solidarité versée par la CAF aux personnes sans activité",
+        "C'est le plafond de ressources à ne pas dépasser pour payer l'impôt sur le revenu",
+        "C'est un salaire fixé librement par chaque employeur en fonction des bénéfices de l'entreprise"
+      ]
+    },
+    {
+      "question": "Qu'est-ce que le tiers payant ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "La dispense d'avance des frais de santé",
+        "Un dispositif permettant de ne payer que la part non prise en charge",
+        "Un mécanisme de paiement direct par l'Assurance Maladie au professionnel de santé",
+        "Le dispositif qui permet au patient de ne pas avancer les frais de santé qui sont pris en charge par l'Assurance Maladie et la complémentaire santé"
+      ],
+      "wrongAnswers": [
+        "Une assurance privée réservée aux personnes les plus riches",
+        "Le fait de payer ses soins en trois fois sans frais",
+        "Une taxe supplémentaire prélevée sur le salaire",
+        "L'obligation de consulter trois médecins différents avant d'être remboursé"
+      ]
+    },
+    {
+      "question": "Quand a eu lieu la Première guerre mondiale ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "1914 - 1918"
+      ],
+      "wrongAnswers": [
+        "1939-1945",
+        "1954 - 1962",
+        "1789 - 1799",
+        "1870 - 1871"
+      ]
+    },
+    {
+      "question": "Quand a eu lieu la Seconde guerre mondiale ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "1939-1945"
+      ],
+      "wrongAnswers": [
+        "1914 - 1918",
+        "1936 - 1939",
+        "1940 - 1944",
+        "1939 - 1941"
+      ]
+    },
+    {
       "question": "Quand est célébrée la journée de l'Europe ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -897,6 +1529,19 @@
         "Le 1 mai",
         "Le 11 novembre",
         "Le 14 juillet"
+      ]
+    },
+    {
+      "question": "Quand faut-il déclarer son enfant au service d'état civil ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Dans les 5 jours qui suivent le jour de l'accouchement"
+      ],
+      "wrongAnswers": [
+        "Dans les 3 jours qui suivent l'accouchement",
+        "Dans le mois qui suit la sortie de la maternité",
+        "Dès que l'enfant a reçu son premier vaccin",
+        "Dans les 24 heures qui suivent la naissance"
       ]
     },
     {
@@ -913,6 +1558,20 @@
       ]
     },
     {
+      "question": "Que célèbre-t-on le 8 mai ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La fin de la Seconde Guerre mondiale en Europe"
+      ],
+      "wrongAnswers": [
+        "L'Armistice de la Première Guerre mondiale",
+        "La Fête nationale",
+        "La Fête du Travail",
+        "La signature de la Déclaration des Droits de l'Homme",
+        "L'Appel du 18 juin"
+      ]
+    },
+    {
       "question": "Que commémore la fête nationale ?",
       "theme": "Principes et valeurs de la République",
       "correctAnswers": [
@@ -924,6 +1583,23 @@
         "La fin de la Première Guerre mondiale",
         "La fin de la Guerre d’Algérie",
         "La fin de la Seconde Guerre mondiale"
+      ]
+    },
+    {
+      "question": "Que dit l'article 1er de la Constitution française ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "La France est une République indivisible, laïque, démocratique et sociale",
+        "La loi favorise l'égal accès des femmes et des hommes aux mandats électoraux et fonctions électives, ainsi qu'aux responsabilités professionnelles et sociales",
+        "La France assure l'égalité devant la loi de tous les citoyens sans distinction d'origine, de race ou de religion",
+        "La France respecte toutes les croyances. Son organisation est décentralisée."
+      ],
+      "wrongAnswers": [
+        "La France assure l'égalité uniquement entre les citoyens nés sur le territoire national",
+        "La langue de la République est le français",
+        "La France est une République fédérale composée de régions autonomes",
+        "La souveraineté nationale appartient au peuple",
+        "Le Président de la République veille au respect de la Constitution"
       ]
     },
     {
@@ -980,6 +1656,20 @@
       ]
     },
     {
+      "question": "Que permet la liberté de circulation ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Elle permet aux citoyens de circuler en France et dans l'ensemble des pays membres de l'espace Schengen",
+        "Voyager sans contrôle systématique aux frontières intérieures de l'espace Schengen (pour les États membres)"
+      ],
+      "wrongAnswers": [
+        "Entrer dans des propriétés privées sans autorisation",
+        "Circuler librement sans jamais avoir à présenter de document d'identité en cas de contrôle légal",
+        "Voter aux élections présidentielles de n'importe quel pays de l'Union européenne où l'on circule",
+        "S'installer dans n'importe quel pays du monde sans avoir besoin de visa ou de passeport"
+      ]
+    },
+    {
       "question": "Que porte Marianne sur la tête ?",
       "theme": "Principes et valeurs de la République",
       "correctAnswers": [
@@ -993,6 +1683,37 @@
       ]
     },
     {
+      "question": "Que signifie être citoyen d'un État ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Avoir la nationalité du pays et bénéficier de sa protection",
+        "Jouir de droits civiques et politiques",
+        "Être l'auteur indirect des lois en élisant des représentants qui les voten",
+        "Rrespecter la loi"
+      ],
+      "wrongAnswers": [
+        "Être obligé d'appartenir à un parti politique",
+        "Faire le service militaire obligatoire de 12 mois",
+        "Être obligé de voter à chaque élection",
+        "Posséder un titre de séjour permanent"
+      ]
+    },
+    {
+      "question": "Que signifie la date du 14 juillet pour les Français ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La prise de la Bastille (1789)",
+        "La première Fête de la Fédération (1790)",
+        "La Fête nationale française"
+      ],
+      "wrongAnswers": [
+        "L'anniversaire de la naissance de la République",
+        "La fin de la Seconde Guerre mondiale",
+        "Le jour de l'armistice de la Grande Guerre",
+        "Le jour de la signature de la Constitution actuelle"
+      ]
+    },
+    {
       "question": "Que signifie le mot \"fraternité\" dans la devise française ?",
       "theme": "Principes et valeurs de la République",
       "correctAnswers": [
@@ -1003,6 +1724,53 @@
         "L'amitié entre les peuples",
         "L'obéissance aux lois",
         "L'appartenance à une religion"
+      ]
+    },
+    {
+      "question": "Que sont les droits fondamentaux ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Les droits et les libertés élémentaires que tout le monde doit respecter pour assurer le bien-être de chacun",
+        "Les droits liés à la personne humaine",
+        "Les droits sociaux et économiques",
+        "Les droits dits \"de troisième génération\" qui sont collectifs"
+      ],
+      "wrongAnswers": [
+        "Des privilèges réservés uniquement aux citoyens français",
+        "Des règles qui changent à chaque nouvelle élection",
+        "Le droit de ne pas payer d'impôts",
+        "Le droit de faire tout ce que l'on veut sans limites"
+      ]
+    },
+    {
+      "question": "Que symbolise le 1er mai ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La Fête du travail",
+        "La commémoration des luttes pour la journée de 8 heures"
+      ],
+      "wrongAnswers": [
+        "La fête du Printemps",
+        "L'anniversaire de la signature de l'Armistice de 1945",
+        "La célébration de la déclaration des Droits de l'Homme",
+        "Une fête religieuse en l'honneur de Saint-Joseph",
+        "Le jour où l'on célèbre la fondation de la Sécurité sociale"
+      ]
+    },
+    {
+      "question": "Quel célèbre philosophe des Lumières a dénoncé l'esclavage ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Montesquieu",
+        "Voltaire",
+        "Condorcet"
+      ],
+      "wrongAnswers": [
+        "Napoléon Bonaparte",
+        "René Descartes",
+        "Molière",
+        "Louis XIV",
+        "Jean de La Fontaine"
       ]
     },
     {
@@ -1042,6 +1810,19 @@
       ]
     },
     {
+      "question": "Quel est l'âge de la majorité civile en France ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "18 ans"
+      ],
+      "wrongAnswers": [
+        "16 ans",
+        "15 ans",
+        "21 ans",
+        "23 ans"
+      ]
+    },
+    {
       "question": "Quel est l'hymne de l'Union Européenne ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -1053,6 +1834,22 @@
         "Chant de la Liberté",
         "Oui, nous aimons ces pays",
         "Hymne aux gens de l'Europe"
+      ]
+    },
+    {
+      "question": "Quel est l'objectif des lois scolaires de la IIIe République ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Elles visent à rendre l'école primaire publique gratuite, laïque et obligatoire",
+        "Elles visent à soustraire l'enseignement à l'influence de l'Église",
+        "Elles ont pour objectif de renforcer l'unité nationale"
+      ],
+      "wrongAnswers": [
+        "Elles visent à rendre l'école payante pour financer les guerres coloniales",
+        "Elles ont pour but d'interdire aux filles d'aller à l'école",
+        "Elles visaient à rendre l'enseignement du catéchisme obligatoire à l'école",
+        "Elles avaient pour objectif de supprimer les vacances scolaires",
+        "Elles visaient à limiter l'enseignement aux seules langues régionales"
       ]
     },
     {
@@ -1081,6 +1878,47 @@
       ]
     },
     {
+      "question": "Quel est le chef-lieu de la région Auvergne-Rhône-Alpes ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Lyon"
+      ],
+      "wrongAnswers": [
+        "Saint-Étienne",
+        "Clermont-Ferrand",
+        "Grenoble",
+        "Annecy",
+        "Valence"
+      ]
+    },
+    {
+      "question": "Quel est le chef-lieu de la région Bretagne ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Rennes"
+      ],
+      "wrongAnswers": [
+        "Brest",
+        "Lannion",
+        "Quimper",
+        "Finistère"
+      ]
+    },
+    {
+      "question": "Quel est le chef-lieu de la région Provence-Alpes-Côte d'Azur ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Marseilles"
+      ],
+      "wrongAnswers": [
+        "Nice",
+        "Aix-en-Provence",
+        "Toulon",
+        "Cannes",
+        "Lyon"
+      ]
+    },
+    {
       "question": "Quel est le dernier État à avoir intégré l'Union européenne ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -1104,6 +1942,19 @@
         "La Roumanie",
         "Le Royaume-Uni",
         "L'Ukraine"
+      ]
+    },
+    {
+      "question": "Quel est le principal port maritime de France ? *",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Marseille FOS"
+      ],
+      "wrongAnswers": [
+        "Le port de Brest",
+        "Le port de Nice",
+        "Le port de La Rochelle",
+        "Le port de Saint-Malo"
       ]
     },
     {
@@ -1163,6 +2014,35 @@
       ]
     },
     {
+      "question": "Quel est le texte fondateur établissant les droits et les devoirs de chaque citoyen ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "La Déclaration des Droits de l'Homme et du Citoyen",
+        "La Déclaration de 1789"
+      ],
+      "wrongAnswers": [
+        "Le Code Civil",
+        "Le Code Pénal",
+        "La Charte de l'Environnement",
+        "Le Traité de Rome",
+        "La Déclaration Universelle des Droits de l'Homme (1948)"
+      ]
+    },
+    {
+      "question": "Quel était le principal port français impliqué dans la traite négrière au XVIIIe siècle ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Nantes"
+      ],
+      "wrongAnswers": [
+        "Le Havre",
+        "Bordeaux",
+        "La Rochelle",
+        "Brest",
+        "Cherbourg"
+      ]
+    },
+    {
       "question": "Quel État a quitté l'Union Européenne en 2020 ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -1187,15 +2067,94 @@
       ]
     },
     {
-      "question": "Quel jour célèbre-t-on officiellement la laïcité en France ?",
-      "theme": "Principes et valeurs de la République",
+      "question": "Quel mariage est reconnu légalement ?",
+      "theme": "Vivre dans la société française",
       "correctAnswers": [
-        "9 décembre",
-        "9 mai"
+        "Le mariage civil est le seul mariage reconnu en France"
       ],
       "wrongAnswers": [
-        "11 novembre",
-        "14 juillet"
+        "Le mariage religieux seul",
+        "Le mariage célébré par un notaire",
+        "Le mariage célébré à l'étranger sans transcription",
+        "Le mariage coutumier sans passage à la mairie"
+      ]
+    },
+    {
+      "question": "Quel monument historique se trouve sur une île en Normandie ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Le Mont-Saint-Michel",
+        "L'Abbaye du Mont-Saint-Michel",
+        "Le village médiéval et l'abbaye du Mont-Saint-Michel"
+      ],
+      "wrongAnswers": [
+        "Le Château d'If",
+        "La Cité de Carcassonne",
+        "La Statue de la Liberté",
+        "Les Falaises d'Étretat",
+        "Le Fort Boyard"
+      ]
+    },
+    {
+      "question": "Quel motif d'absence est accepté par l'école ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Maladie de l'enfant (ou d'un de ses proches s'il est contagieux)",
+        "Réunion solennelle de famille (mariage, enterrement, etc.)",
+        "Empêchement causé par un problème accidentel dans les transports",
+        "Enfant qui suit ses représentants légaux (déplacement en dehors des vacances scolaires)"
+      ],
+      "wrongAnswers": [
+        "Partir en vacances un jour plus tôt",
+        "L'anniversaire de l'enfant",
+        "Le manque de sommeil",
+        "Garder un petit frère ou une petite sœur",
+        "Un rendez-vous chez le coiffeur"
+      ]
+    },
+    {
+      "question": "Quel musée est situé à Paris ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Le Musée du Louvre",
+        "Le Musée d'Orsay",
+        "Le Centre Pompidou",
+        "Le Musée du Quai Branly - Jacques Chirac"
+      ],
+      "wrongAnswers": [
+        "Le Musée des Confluences",
+        "Le Mucem",
+        "Le Musée Guggenheim",
+        "Le Palais des Papes",
+        "Le Centre Pompidou-Metz"
+      ]
+    },
+    {
+      "question": "Quel numéro d'urgence permet d'appeler la police ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "17"
+      ],
+      "wrongAnswers": [
+        "18",
+        "15",
+        "115",
+        "911",
+        "119"
+      ]
+    },
+    {
+      "question": "Quel numéro d'urgence permet d'appeler le SAMU ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "15"
+      ],
+      "wrongAnswers": [
+        "17",
+        "18",
+        "17",
+        "911",
+        "196"
       ]
     },
     {
@@ -1209,6 +2168,85 @@
         "L'Avare",
         "Alcools",
         "La Vie devant soi"
+      ]
+    },
+    {
+      "question": "Quel pays a été une colonie française ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Sénégal",
+        "Algérie",
+        "Cambodge",
+        "Tunisie"
+      ],
+      "wrongAnswers": [
+        "L'Inde",
+        "Bresil",
+        "Groenland",
+        "Jamaïque",
+        "Angola"
+      ]
+    },
+    {
+      "question": "Quel peintre célèbre a peint les Nymphéas ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Monet"
+      ],
+      "wrongAnswers": [
+        "Manet",
+        "Auguste Renoir",
+        "Paul Cézanne",
+        "Vincent van Gogh",
+        "Pablo Picass"
+      ]
+    },
+    {
+      "question": "Quel peintre est français ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Claude Monet",
+        "Eugène Delacroix",
+        "Auguste Renoi",
+        "Paul Cézanne"
+      ],
+      "wrongAnswers": [
+        "Vincent van Gogh",
+        "Pablo Picasso",
+        "Leonardo da Vinci",
+        "Salvador Dalí",
+        "Rembrandt"
+      ]
+    },
+    {
+      "question": "Quel plat est une spécialité de la cuisine française ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Le Pot-au-feu",
+        "Le Bœuf Bourguignon",
+        "La Quiche Lorraine",
+        "Le Cassoulet"
+      ],
+      "wrongAnswers": [
+        "Le Couscous",
+        "La Pizza",
+        "La Paëlla",
+        "La Poutine",
+        "Le Hamburger"
+      ]
+    },
+    {
+      "question": "Quel roi de France a été guillotiné pendant la Révolution française ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Louis XVI"
+      ],
+      "wrongAnswers": [
+        "Louis XIV",
+        "Napoléon Bonaparte",
+        "Henri IV",
+        "Louis-Philippe Ier",
+        "Robespierre"
       ]
     },
     {
@@ -1290,6 +2328,62 @@
       ]
     },
     {
+      "question": "Quelle action peut réaliser le locataire d'un logement sans l'autorisation du propriétaire ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Héberger gratuitement des proches",
+        "Aménager et d'utiliser les lieux librement",
+        "Rafraîchissement des peintures murales",
+        "Changement de moquette"
+      ],
+      "wrongAnswers": [
+        "De gros travaux de transformation du local",
+        "Des travaux de transformations qui mettent en péril le bon fonctionnement des équipements ou la sécurité du local",
+        "Sous-louer le logement",
+        "Repeindre les murs avec des couleurs \"extravagantes\""
+      ]
+    },
+    {
+      "question": "Quelle aide permet aux personnes qui ont des difficultés financières d'avoir un avocat ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "L'aide juridictionnelle"
+      ],
+      "wrongAnswers": [
+        "Le Revenu de Solidarité Active (RSA)",
+        "La protection diplomatique",
+        "Le médiateur de la République",
+        "Le crédit d'impôt pour frais de notaire",
+        "Le Défenseur des droits"
+      ]
+    },
+    {
+      "question": "Quelle chaîne de montagnes est située entre la France et l'Espagne ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Les Pyrénées"
+      ],
+      "wrongAnswers": [
+        "Les Alpes",
+        "Le Jura",
+        "Les Vosges",
+        "Le Massif central"
+      ]
+    },
+    {
+      "question": "Quelle chaîne de montagnes est située entre la France et l'Italie ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Les Alpes"
+      ],
+      "wrongAnswers": [
+        "Les Pyrénées",
+        "Le Jura",
+        "Les Vosges",
+        "Le Massif central"
+      ]
+    },
+    {
       "question": "Quelle collectivité territoriale est responsable des transports régionaux ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -1345,6 +2439,19 @@
       ]
     },
     {
+      "question": "Quelle est l'infraction la plus grave ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Le crime"
+      ],
+      "wrongAnswers": [
+        "Le délit",
+        "La contravention",
+        "L'incivilité",
+        "Le blâme"
+      ]
+    },
+    {
       "question": "Quelle est l'une des voies possibles pour modifier la Constitution ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -1356,6 +2463,22 @@
         "Un vote unique à la majorité simple de l'Assemblée nationale.",
         "Une décision souveraine du Conseil constitutionnel.",
         "L'utilisation de l'article 49.3 par le Gouvernement."
+      ]
+    },
+    {
+      "question": "Quelle est la définition de l'autorité parentale ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "L'ensemble des droits et des devoirs que les parents ont vis-à-vis de leur enfant mineur.",
+        "Les parents doivent protéger l'enfant dans sa sécurité, sa santé, sa vie privée et sa moralité",
+        "Les parents ont un devoir de commandement et de surveillance sur l'enfant et ses biens."
+      ],
+      "wrongAnswers": [
+        "Le pouvoir de vie ou de mort des parents sur leurs enfants",
+        "Le droit pour les parents d'utiliser leurs enfants comme main-d'œuvre gratuite",
+        "Une aide financière versée par l'État aux familles nombreuses",
+        "Le droit de choisir la religion de ses enfants sans leur demander leur avis une fois adultes",
+        "Le droit de punir physiquement ses enfants de manière violente"
       ]
     },
     {
@@ -1421,6 +2544,19 @@
       ]
     },
     {
+      "question": "Quelle est la durée légale du temps de travail par semaine ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "35 heures"
+      ],
+      "wrongAnswers": [
+        "39 heures",
+        "40 heures",
+        "48 heures",
+        "32 heures"
+      ]
+    },
+    {
       "question": "Quelle est la plus haute montagne de France ?",
       "theme": "Histoire, géographie et culture",
       "correctAnswers": [
@@ -1430,6 +2566,128 @@
         "Le Jura",
         "Les Pyrénées",
         "Le Massif Central"
+      ]
+    },
+    {
+      "question": "Quelle est la population approximative de la France en 2025 ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "68,6 millions"
+      ],
+      "wrongAnswers": [
+        "63,2 millions",
+        "302 millions",
+        "450 millions",
+        "81,2 millions"
+      ]
+    },
+    {
+      "question": "Quelle est la première démarche à réaliser pour chercher un emploi ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "S'inscrire à France Travail (anciennement Pôle emploi)"
+      ],
+      "wrongAnswers": [
+        "S'inscrire à la mairie de son domicile",
+        "Envoyer une lettre au Président de la République",
+        "S'inscrire obligatoirement dans une agence d'intérim",
+        "Attendre de recevoir une convocation de la Préfecture",
+        "S'inscrire à la Sécurité sociale"
+      ]
+    },
+    {
+      "question": "Quelle est la première étape de la construction européenne en 1951 ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La fondation de la Communauté européenne du charbon et de l'acier (CECA)",
+        "La signature du traité de Paris",
+        "La mise en commun de la production de charbon et d'acier entre six pays européens"
+      ],
+      "wrongAnswers": [
+        "La création de l'Union européenne",
+        "L'adoption de l'Euro comme monnaie unique",
+        "La signature du traité de Rome",
+        "La chute du Mur de Berlin",
+        "La création de l'OTAN"
+      ]
+    },
+    {
+      "question": "Quelle île est française ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La Corse",
+        "La Réunion",
+        "La Guadeloupe",
+        "La Martinique"
+      ],
+      "wrongAnswers": [
+        "Madagascar",
+        "Île Maurice",
+        "Sainte-Lucie",
+        "Guyane"
+      ]
+    },
+    {
+      "question": "Quelle île est un département d'outre-mer français ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La Réunion",
+        "La Guadeloupe",
+        "La Martinique",
+        "Mayotte"
+      ],
+      "wrongAnswers": [
+        "La Guyane",
+        "Tahiti",
+        "Nouvelle-Calédonie",
+        "Saint-Barthélemy",
+        "La Corse"
+      ]
+    },
+    {
+      "question": "Quelle île fait partie des Antilles françaises ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La Guadeloupe",
+        "La Martinique",
+        "Saint-Barthélemy"
+      ],
+      "wrongAnswers": [
+        "La Réunion",
+        "Tahiti",
+        "La Corse",
+        "Haïti",
+        "La Dominique"
+      ]
+    },
+    {
+      "question": "Quelle île française est située dans l'océan indien ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La Réunion",
+        "Mayotte"
+      ],
+      "wrongAnswers": [
+        "La Martinique",
+        "L'Île Maurice",
+        "Madagascar",
+        "Tahiti",
+        "La Guadeloupe"
+      ]
+    },
+    {
+      "question": "Quelle île française se trouve au sud-est du continent africain ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La Réunion",
+        "Mayotte"
+      ],
+      "wrongAnswers": [
+        "La Martinique",
+        "Madagascar",
+        "L'île Maurice",
+        "Tahiti",
+        "La Corse"
       ]
     },
     {
@@ -1446,6 +2704,116 @@
       ]
     },
     {
+      "question": "Quelle instruction est prévue pour les enfants qui ne parlent pas français ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "UPE2A",
+        "Unité pédagogique pour élèves allophones arrivants",
+        "Un enseignement du Français Langue de Scolarisation (FLS)",
+        "L'orientation par le CASNAV"
+      ],
+      "wrongAnswers": [
+        "L'obligation d'attendre de parler couramment français",
+        "Le placement dans une école spécialisée réservée aux étrangers",
+        "L'obligation pour les parents de payer des cours privés de français",
+        "L'envoi automatique en classe de SEGPA"
+      ]
+    },
+    {
+      "question": "Quelle mer ou océan borde la France métropolitaine ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "L'océan Atlantique",
+        "La mer Méditerranée",
+        "La Manche",
+        "La mer du Nord"
+      ],
+      "wrongAnswers": [
+        "La mer Rouge",
+        "L'océan Indien",
+        "La mer Morte",
+        "La mer Baltique",
+        "L'océan Pacifique"
+      ]
+    },
+    {
+      "question": "Quelle mer se situe entre la France et l'Angleterre ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "La Manche"
+      ],
+      "wrongAnswers": [
+        "La mer Noire",
+        "La mer Morte",
+        "L'océan Atlantique",
+        "La mer Méditerranée",
+        "La mer Morte"
+      ]
+    },
+    {
+      "question": "Quelle organisation a été créée en 1945 après la Seconde Guerre mondiale ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "L'ONU (Organisation des Nations Unies)"
+      ],
+      "wrongAnswers": [
+        "La SDN (Société des Nations)",
+        "L'OTAN",
+        "L'Union Européenne"
+      ]
+    },
+    {
+      "question": "Quelle région française est réputée pour ses stations de ski ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Auvergne-Rhône-Alpes",
+        "Occitanie",
+        "Provence-Alpes-Côte d'Azur",
+        "Grand Est"
+      ],
+      "wrongAnswers": [
+        "L'Île-de-France",
+        "La Bretagne",
+        "Les Pays de la Loire",
+        "La Normandie",
+        "Les Hauts-de-France"
+      ]
+    },
+    {
+      "question": "Quelle situation est une atteinte à la dignité humaine ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "La discrimination",
+        "Le travail forcé ou l'esclavage",
+        "Les violences physiques ou psychologiques",
+        "Les conditions de logement insalubres ou indignes"
+      ],
+      "wrongAnswers": [
+        "Le fait de devoir payer des impôts",
+        "Le fait d'être condamné à une peine de prison par un tribunal",
+        "Le fait de ne pas obtenir un rendez-vous immédiat à la mairie",
+        "Le licenciement pour faute réelle et sérieuse",
+        "Le licenciement pour faute simple"
+      ]
+    },
+    {
+      "question": "Quelle ville française fait partie des 10 plus grandes métropoles du pays ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Paris",
+        "Lyon",
+        "Marseilles",
+        "Toulouse"
+      ],
+      "wrongAnswers": [
+        "Brest",
+        "Rouen",
+        "Avignon",
+        "Grenoble",
+        "Nancy"
+      ]
+    },
+    {
       "question": "Quelles sont des conditions d'éligibilité pour se présenter à la présidence en France ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -1459,6 +2827,20 @@
         "Être né.e sur le territoire français (droit du sol)",
         "Être citoyen.ne de l'Union européenne résidant en France",
         "Avoir au minimum 35 ans"
+      ]
+    },
+    {
+      "question": "Quelles sont les affaires traitées par le conseil de prud'hommes ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Les litiges individuels entre un employeur et un salarié survenus à l'occasion de tout contrat de travail"
+      ],
+      "wrongAnswers": [
+        "Les conflits entre deux entreprises",
+        "Les infractions au Code de la route commises pendant le travail",
+        "Les litiges entre l'État et ses fonctionnaires",
+        "Les divorces et les problèmes de garde d'enfants",
+        "Les vols commis dans l'entreprise"
       ]
     },
     {
@@ -1489,6 +2871,35 @@
       ]
     },
     {
+      "question": "Quels sont les textes qui définissent les règles au travail ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Le code du travail",
+        "La convention collective",
+        "Le contrat du travail",
+        "Le règlement intérieur"
+      ],
+      "wrongAnswers": [
+        "Le Code civil",
+        "Le carnet de liaison",
+        "Le journal de bord de l'employeur",
+        "La Constitution européenne"
+      ]
+    },
+    {
+      "question": "Qui a aboli l'esclavage en France ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Victor Schoelcher"
+      ],
+      "wrongAnswers": [
+        "Napoléon Bonaparte",
+        "Charles de Gaulle",
+        "Jules Ferry",
+        "Louis XIV"
+      ]
+    },
+    {
       "question": "Qui a composé l'hymne de l'Union européenne ?",
       "theme": "Système institutionnel et politique",
       "correctAnswers": [
@@ -1498,6 +2909,51 @@
         "Rouget de Lisle",
         "Bach",
         "Gilles Vigneault"
+      ]
+    },
+    {
+      "question": "Qui a été président de la Ve République ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Charles de Gaulle",
+        "Georges Pompidou",
+        "Valéry Giscard d’Estaing",
+        "François Mitterrand"
+      ],
+      "wrongAnswers": [
+        "Napoléon Bonaparte",
+        "François Fillon",
+        "Dominique de Villepin",
+        "Lionel Jospin",
+        "Alain Juppé"
+      ]
+    },
+    {
+      "question": "Qui a le droit de se syndiquer ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Tout salarié",
+        "Les personnes qui ont cessé d'exercer leur activité professionnelle peuvent adhérer ou continuer à adhérer à un syndicat professionnel de leur choix"
+      ],
+      "wrongAnswers": [
+        "Uniquement les salariés en CDI",
+        "Uniquement les citoyens français",
+        "Seulement les cadres et les chefs d'équipe",
+        "Les militaires en activité"
+      ]
+    },
+    {
+      "question": "Qui a peint \"La liberté guidant le peuple\" ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Eugène Delacroix"
+      ],
+      "wrongAnswers": [
+        "Claude Monet",
+        "Théodore Géricault",
+        "Jacques-Louis David",
+        "Pablo Picasso",
+        "Leonardo da Vinci"
       ]
     },
     {
@@ -1589,6 +3045,102 @@
       ]
     },
     {
+      "question": "Qui était Albert Camus ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "L'auteur de L'Etranger",
+        "Le lauréat du prix Nobel de littérature (1957)",
+        "Un philosophe, écrivain et journaliste militant",
+        "Né en Algérie et mort dans un accident de voiture"
+      ],
+      "wrongAnswers": [
+        "Un ancien Président de la République",
+        "L'inventeur du vaccin contre la rage",
+        "Un peintre impressionniste",
+        "Un collaborateur pendant la guerre"
+      ]
+    },
+    {
+      "question": "Qui était Auguste Renoir ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Un célèbre peintre impressionniste.",
+        "L'auteur du tableau Le Bal du moulin de la Galette",
+        "Un artiste connu pour ses scènes de la vie quotidienne parisienne et ses portraits",
+        "L'un des fondateurs du groupe des Impressionnistes"
+      ],
+      "wrongAnswers": [
+        "Un sculpteur qui a fait Le Penseur",
+        "Le chef de la Résistance à Lyon",
+        "Un réalisateur de cinéma de la Nouvelle Vague",
+        "Un écrivain auteur de Germinal"
+      ]
+    },
+    {
+      "question": "Qui était Auguste Rodin ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Un sculpteur français majeur.",
+        "L'auteur de la célèbre statue Le Penseur",
+        "Le créateur des Bourgeois de Calais",
+        "Considéré comme le père de la sculpture moderne"
+      ],
+      "wrongAnswers": [
+        "Un peintre impressionniste",
+        "L'inventeur de la photographie",
+        "L'architecte de la Tour Eiffel",
+        "Un célèbre compositeur de musique"
+      ]
+    },
+    {
+      "question": "Qui était Charles Baudelaire ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Un poète français du XIXe siècle",
+        "L'auteur du recueil de poèmes Les Fleurs du Mal",
+        "Le traducteur en français des œuvres d'Edgar Allan Poe",
+        "A une influence considérable sur la poésie française à partir de la fin du XIXe siècle"
+      ],
+      "wrongAnswers": [
+        "Un homme politique sous la Ve République.",
+        "Le sculpteur du Penseur",
+        "L'auteur de la pièce de théâtre Le Cid",
+        "Un célèbre général de l'armée de Napoléon"
+      ]
+    },
+    {
+      "question": "Qui était George Sand ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Une écrivaine célèbre pour ses \"romans champêtres\" (comme La Mare au Diable)",
+        "Une figure de l'émancipation des femmes",
+        "De son vrai nom Amantine Aurore Lucile Dupin",
+        "Compte parmi les écrivains les plus prolifiques"
+      ],
+      "wrongAnswers": [
+        "La première femme Présidente de la République",
+        "L'épouse de Napoléon Bonaparte",
+        "Une célèbre cantatrice d'opéra",
+        "L'auteur de Harry Potter"
+      ]
+    },
+    {
+      "question": "Qui était Marguerite Yourcenar ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Une écrivaine et académicienne française.",
+        "La première femme élue à l'Académie française (1980)",
+        "L'auteure du célèbre roman historique Mémoires d'Hadrien",
+        "Une grande voyageuse"
+      ],
+      "wrongAnswers": [
+        "La créatrice de la maison de couture Chanel",
+        "Une résistante fusillée pendant la guerre",
+        "L'épouse de Victor Hugo",
+        "Une scientifique ayant découvert le radium"
+      ]
+    },
+    {
       "question": "Qui était Marie Curie ?",
       "theme": "Histoire, géographie et culture",
       "correctAnswers": [
@@ -1615,6 +3167,53 @@
       ]
     },
     {
+      "question": "Qui était Monsieur Rouget de Lisle ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "L'auteur et le compositeur de La Marseillaise",
+        "Un officier français",
+        "Celui qui a écrit le \"Chant de guerre pour l'armée du Rhin\""
+      ],
+      "wrongAnswers": [
+        "Le premier Président de la République",
+        "Le couturier qui a inventé la robe de mariée",
+        "Le général qui a gagné la bataille de Verdun",
+        "L'architecte qui a construit l'Arc de Triomphe"
+      ]
+    },
+    {
+      "question": "Qui était Paul Cézanne ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Un célèbre peintre français post-impressionniste",
+        "L'auteur de nombreuses peintures de la montagne Sainte-Victoire",
+        "Un artiste originaire d'Aix-en-Provence",
+        "Il est considéré comme le « père de l'art moderne »"
+      ],
+      "wrongAnswers": [
+        "Un sculpteur qui a fait des statues de cire",
+        "L'inventeur de la photographie couleur.",
+        "Un écrivain de la même époque que Baudelaire",
+        "Le premier ministre de Napoléon III"
+      ]
+    },
+    {
+      "question": "Qui était Simone de Beauvoir ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Une grande écrivaine et philosophe existentialiste",
+        "L'auteure de l'essai féministe mondialement connu Le Deuxième Sexe",
+        "La compagne de vie du philosophe Jean-Paul Sartre",
+        "Une militante engagée pour les droits des femmes"
+      ],
+      "wrongAnswers": [
+        "La première femme à avoir été élue à l'Académie française",
+        "Une ministre de la Santé qui a fait voter la loi sur l'IVG",
+        "L'épouse de Charles de Gaulle",
+        "Une scientifique ayant découvert la radioactivité"
+      ]
+    },
+    {
       "question": "Qui était Simone Veil ?",
       "theme": "Histoire, géographie et culture",
       "correctAnswers": [
@@ -1624,6 +3223,39 @@
         "Une célèbre chanteuse",
         "Une reine de France",
         "Une scientifique célèbre pour sa découverte de la radioactivité"
+      ]
+    },
+    {
+      "question": "Qui était un célèbre compositeur français ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Claude Debussy",
+        "Maurice Ravel",
+        "Camille Saint-Saëns",
+        "Gabriel Fauré"
+      ],
+      "wrongAnswers": [
+        "Frédéric Chopin",
+        "Wolfgang Amadeus Mozart",
+        "Ludwig van Beethoven",
+        "Antonio Vivaldi",
+        "Johann Sebastian Bach"
+      ]
+    },
+    {
+      "question": "Qui était une figure de la Résistance française pendant la Seconde Guerre mondiale ?",
+      "theme": "Histoire, géographie et culture",
+      "correctAnswers": [
+        "Jean Moulin",
+        "Charles de Gaulle",
+        "Lucie Aubrac",
+        "Guy Môquet"
+      ],
+      "wrongAnswers": [
+        "Philippe Pétain",
+        "Victor Hugo",
+        "Léon Blum",
+        "Jean Jaurès"
       ]
     },
     {
@@ -1648,6 +3280,52 @@
         "Le département",
         "La région",
         "L'État"
+      ]
+    },
+    {
+      "question": "Qui peut demander le divorce de personnes mariées ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "L'un ou l'autre des époux",
+        "Les deux époux d'un commun accord"
+      ],
+      "wrongAnswers": [
+        "Uniquement le mari",
+        "Le maire",
+        "Les enfants du couple",
+        "Les parents des mariés",
+        "Uniquement l'époux qui n'a pas commis de faute"
+      ]
+    },
+    {
+      "question": "Qui peut demander un congé parental d'éducation ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Tout salarié ayant au moins 1 an d'ancienneté",
+        "Le père ou la mère de l'enfant",
+        "Les parents adoptifs"
+      ],
+      "wrongAnswers": [
+        "Uniquement la mère",
+        "Uniquement les fonctionnaires",
+        "Toute personne, même si elle vient de commencer son contrat hier",
+        "Seulement pour le premier enfant"
+      ]
+    },
+    {
+      "question": "Qui peut être appelé à faire partie d'un jury d'assises en France ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Tout citoyen français âgé d'au moins 23 ans",
+        "Tout citoyen inscrit sur les listes électorales",
+        "Tout citoyen sachant lire et écrire en français",
+        "Tout citoyen jouissant de ses droits civils, politiques et de famille"
+      ],
+      "wrongAnswers": [
+        "Les membres du Gouvernement, les députés et les sénateurs",
+        "Les magistrats et les agents de la police ou de la gendarmeri",
+        "Les personnes condamnées pour un crime ou un délit grave",
+        "Les proches (parents, conjoints) de l'accusé ou de la victime"
       ]
     },
     {
@@ -1719,6 +3397,23 @@
       ]
     },
     {
+      "question": "S'agissant de l'accueil des enfants en situation de handicap à l'école, laquelle des propositions est vraie ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Vivre avec et comme les autres, les enfants en situation de handicap peuvent bénéficier d'un emploi du temps aménagé.",
+        "La scolarisation de l'enfant peut se dérouler à temps plein ou à temps partiel, en internat, semi-internat ou externat.",
+        "Le parcours scolaire de l'enfant fait l'objet d'un projet personnalisé de scolarisation (PPS)",
+        "Si les difficultés de l'enfant sont importantes, il peut bénéficier d'une aide individuelle assurée notamment par un accompagnant d’élèves en situation de handicap (AESH)"
+      ],
+      "wrongAnswers": [
+        "Les enfants en situation de handicap ne peuvent être scolarisés qu’en établissement spécialisé.",
+        "L’accueil des enfants en situation de handicap à l’école dépend de la bonne volonté des enseignants",
+        "Les enfants en situation de handicap doivent passer un test pour être admis à l’école",
+        "Seuls les enfants dont le handicap est léger peuvent être scolarisés en milieu ordinaire",
+        "Les écoles privées ne sont pas concernées par l’obligation d’accueil des enfants en situation de handicap"
+      ]
+    },
+    {
       "question": "Selon la Constitution, la France est une République...",
       "theme": "Principes et valeurs de la République",
       "correctAnswers": [
@@ -1744,6 +3439,21 @@
       ]
     },
     {
+      "question": "Si une machine à laver est cassée, il est possible de :",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Faire jouer la garantie légale de conformité si l'appareil a été acheté il y a moins de 2 ans",
+        "Demander la réparation ou le remplacement gratuit, si l'appareil a été acheté il y a moins de 2 ans",
+        "Faire jouer la garantie commerciale, si la garantie légale est expirée"
+      ],
+      "wrongAnswers": [
+        "Exiger le remboursement immédiat en espèces sans diagnostic",
+        "Rapporter la machine à la mairie",
+        "Demander à sa banque d'annuler le paiement",
+        "Jeter votre appareil avec vos ordures ménagères"
+      ]
+    },
+    {
       "question": "Sous quel président a été abolie la peine de mort en France ?",
       "theme": "Histoire, géographie et culture",
       "correctAnswers": [
@@ -1753,6 +3463,23 @@
         "Charles de Gaulle",
         "Valéry Giscard d'Estaing",
         "Jacques Chirac"
+      ]
+    },
+    {
+      "question": "Suite à une interpellation par la police, il est possible de :",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "se taire",
+        "faire l'objet d'une vérification d'identité",
+        "être soumis à une palpation de sécurité par un agent de même sexe pour s'assurer de l'absence d'objets dangereux",
+        "être placé en garde à vue"
+      ],
+      "wrongAnswers": [
+        "refuser de montrer ses papiers d’identité",
+        "s’enfuir ou résister physiquement si on estime que l'interpellation est injuste",
+        "être maintenu en cellule de dégrisement pendant 72 heures sans voir un avocat",
+        "être contraint de signer un procès-verbal",
+        "contacter un avocat immédiatement dans la rue"
       ]
     },
     {
@@ -1771,6 +3498,34 @@
       ]
     },
     {
+      "question": "Tous les citoyens français ont-ils une religion ?",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Non"
+      ],
+      "wrongAnswers": [
+        "Oui, le catholicisme est la religion d'État",
+        "Oui, tous les Français doivent être chrétiens",
+        "Non, les religions sont interdites en France",
+        "Tout citoyen français est considéré comme catholique par défaut, sauf s'il fait une démarche officielle pour s'y opposer"
+      ]
+    },
+    {
+      "question": "Travailler sans être déclaré est :",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "un délit",
+        "passible de lourdes sanctions pénales",
+        "considéré comme du travail dissimulé"
+      ],
+      "wrongAnswers": [
+        "une pratique autorisée si le salarié est d'accord",
+        "une simple contravention",
+        "un avantage pour le salarié qui gagne plus d'argent",
+        "légal si la durée du travail est inférieure à 10 heures par semaine"
+      ]
+    },
+    {
       "question": "Une des valeurs de la devise républicaine est l'Égalité. Qu'est-ce que cela signifie ?",
       "theme": "Principes et valeurs de la République",
       "correctAnswers": [
@@ -1780,6 +3535,64 @@
         "Les libertés fondamentales sont garanties : liberté de pensée, liberté de croyance, liberté de s’exprimer, liberté de se réunir...",
         "La volonté de vivre ensemble des citoyens français se traduit par la solidarité entre les citoyens",
         "Chaque citoyen est soumis au même taux d'imposition"
+      ]
+    },
+    {
+      "question": "Une femme peut-elle créer son entreprise ?",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Oui"
+      ],
+      "wrongAnswers": [
+        "Non, elle doit avoir la signature de son conjoint",
+        "Seulement si elle est célibataire",
+        "Oui, mais uniquement dans les secteurs de la mode ou de l'esthétique",
+        "Elle a besoin d'un tuteur masculin pour obtenir un prêt"
+      ]
+    },
+    {
+      "question": "Une personne déclare ne croire en aucun dieu. On peut dire :",
+      "theme": "Principes et valeurs de la République",
+      "correctAnswers": [
+        "qu'elle est athée",
+        "qu'elle exerce sa liberté de conscience",
+        "qu'elle est libre de ne pas avoir de religion"
+      ],
+      "wrongAnswers": [
+        "qu'elle est laïque",
+        "qu'elle est obligée de se convertir",
+        "qu'elle n'a pas le droit de voter",
+        "qu'elle commet un délit"
+      ]
+    },
+    {
+      "question": "Une personne est privée de ses droits civils et politiques pendant 5 ans suite à une condamnation. Parmi ces propositions laquelle est correcte ? Pendant 5 ans,...",
+      "theme": "Droits et devoirs",
+      "correctAnswers": [
+        "Elle ne peut pas voter",
+        "Elle ne peut pas être élue",
+        "Elle ne peut pas exercer une fonction publique",
+        "Elle ne peut pas être désignée comme juré d'assises"
+      ],
+      "wrongAnswers": [
+        "Elle ne peut plus travailler dans le secteur privé",
+        "Elle perd sa nationalité française",
+        "Elle n'a plus le droit d'utiliser sa carte vitale",
+        "Elle est obligée de quitter le territoire français"
+      ]
+    },
+    {
+      "question": "Une personne étrangère, en situation régulière, peut créer son entreprise :",
+      "theme": "Vivre dans la société française",
+      "correctAnswers": [
+        "Oui, à condition de posséder un titre de séjour qui autorise l'exercice d'une activité professionnelle",
+        "Oui, en respectant les formalités de création (immatriculation, déclaration)"
+      ],
+      "wrongAnswers": [
+        "Uniquement si elle crée une association à but non lucratif",
+        "Seulement si elle est mariée avec un Français",
+        "Non, car elle ne possède pas le droit de vote",
+        "Non, car il faut obligatoirement avoir la nationalité français"
       ]
     },
     {
