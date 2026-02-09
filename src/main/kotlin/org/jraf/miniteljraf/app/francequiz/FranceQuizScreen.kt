@@ -93,7 +93,7 @@ class FranceQuizScreen(
     clearBelowHeader()
     moveCursor(0, HEADER_HEIGHT)
     val introText = """
-      L'Examen Civique comporte _40 questions_, et pour le réussir il faut répondre correctement à au moins _32_ d'entre elles (40% de bonnes réponses).
+      L'Examen Civique comporte _40 questions_, et pour le réussir il faut répondre correctement à au moins _32_ d'entre elles (80% de bonnes réponses).
       
       Pour ce quiz, vous pouvez choisir le nombre de questions que vous voulez affronter :
       
