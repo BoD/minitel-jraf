@@ -53,6 +53,7 @@ class FranceQuizMinitelApp(private val connection: Minitel.Connection) {
 
   private suspend fun splashScreen() {
     with(connection.screen) {
+      showCursor(false)
       clearScreenAndHome()
       graphicsMode(true)
       raw(Resources.franceQuizSplashScreen)
