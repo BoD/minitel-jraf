@@ -137,7 +137,10 @@ class MastodonScreen(
     var post: MastodonApi.Post
     while (true) {
       post = posts[index]
-      val textLines = Line(post.text, CharacterSize.NORMAL, 0).wrapped(SCREEN_WIDTH_NORMAL - 1)
+      val maxLines = SCREEN_HEIGHT_NORMAL - 2 - 2 - if (page == 0) 8 else 3
+      val textLines = Line(post.text, CharacterSize.NORMAL, 0)
+        .wrapped(SCREEN_WIDTH_NORMAL - 1)
+        .take(maxLines)
       val postHeight = 2 + textLines.size
       if (y + postHeight > SCREEN_HEIGHT_NORMAL - 2) {
         lastShowedPosts += posts[index - 1]

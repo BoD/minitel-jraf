@@ -1,13 +1,13 @@
 [versions]
-kotlin = "2.3.20-Beta2"
-ktor = "3.4.0"
+kotlin = "2.3.20"
+ktor = "3.4.2"
 kotlinx-serialization = "1.10.0"
-apollo = "5.0.0-alpha.4"
+apollo = "5.0.0-alpha.6"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-dockerJavaApplication = { id = "com.bmuschko.docker-java-application", version = "9.4.0" }
+dockerJavaApplication = { id = "com.bmuschko.docker-java-application", version = "10.0.0" }
 apollo = { id = "com.apollographql.apollo", version.ref = "apollo" }
 
 [libraries]

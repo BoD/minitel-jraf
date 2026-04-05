@@ -57,7 +57,7 @@ class ContactScreen(
   private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
   private var slackJpb: Job? = null
 
-  private val slackApi = _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.SlackApi()
+  private val slackApi = SlackApi()
 
   override suspend fun start() {
     connection.screen.drawScreen()
@@ -124,7 +124,7 @@ class ContactScreen(
   private suspend fun Minitel.Screen.drawInputWindow() {
     moveCursor(
       0,
-      SCREEN_HEIGHT_NORMAL - _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.INPUT_HEIGHT - _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.FOOTER_HEIGHT,
+      SCREEN_HEIGHT_NORMAL - INPUT_HEIGHT - FOOTER_HEIGHT,
     )
     inverse(true)
     color(background0To7 = 0, foreground0To7 = 3)
@@ -140,7 +140,7 @@ class ContactScreen(
   private suspend fun Minitel.Screen.drawInput() {
     moveCursor(
       0,
-      SCREEN_HEIGHT_NORMAL - _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.INPUT_HEIGHT - _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.FOOTER_HEIGHT,
+      SCREEN_HEIGHT_NORMAL - INPUT_HEIGHT - FOOTER_HEIGHT,
     )
     inverse(true)
     color(background0To7 = 0, foreground0To7 = 3)
@@ -149,7 +149,7 @@ class ContactScreen(
   }
 
   private suspend fun Minitel.Screen.updateCursor() {
-    showCursor(input.length < SCREEN_WIDTH_NORMAL * _root_ide_package_.org.jraf.miniteljraf.app.jraf.contact.INPUT_HEIGHT)
+    showCursor(input.length < SCREEN_WIDTH_NORMAL * INPUT_HEIGHT)
   }
 
   override suspend fun onKeyboard(e: Minitel.KeyboardEvent) {
