@@ -142,7 +142,6 @@ class ResumeApi {
             text = when (language) {
               Language.EN -> "Environment: "
               Language.FR -> "Environnement : "
-              else -> throw IllegalStateException()
             } + experience.environment.joinToString(", "),
             characterSize = CharacterSize.NORMAL,
             foregroundColor = 5,

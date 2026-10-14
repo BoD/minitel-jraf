@@ -35,9 +35,10 @@ import org.intellij.markdown.ast.accept
 import org.intellij.markdown.ast.getTextInNode
 import org.intellij.markdown.ast.visitors.RecursiveVisitor
 import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
+import org.intellij.markdown.parser.CancellationToken
 import org.intellij.markdown.parser.MarkdownParser
 
-private class PlainTextVisitor(private val readmeText: String) : RecursiveVisitor() {
+private class PlainTextVisitor(private val readmeText: CharSequence) : RecursiveVisitor() {
   val plainText = StringBuilder()
   var level = 0
 
@@ -121,8 +122,8 @@ private fun ASTNode.recursiveFindChildOfType(type: IElementType): ASTNode? {
   return null
 }
 
-fun String.toPlainText(): String {
-  val markdownAst = MarkdownParser(GFMFlavourDescriptor()).buildMarkdownTreeFromString(this)
+fun CharSequence.toPlainText(): String {
+  val markdownAst = MarkdownParser(GFMFlavourDescriptor(), true, CancellationToken.NonCancellable).buildMarkdownTreeFromString(this)
   val plainTextVisitor = PlainTextVisitor(this)
   markdownAst.accept(plainTextVisitor)
   return plainTextVisitor.plainText.toString().replace(Regex("\\n{3,}"), "\n\n")

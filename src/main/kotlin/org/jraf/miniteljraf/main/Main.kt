@@ -47,22 +47,12 @@ import kotlinx.serialization.json.Json
 import org.jraf.klibminitel.core.Minitel
 import org.jraf.miniteljraf.app.francequiz.FranceQuizMinitelApp
 import org.jraf.miniteljraf.app.jraf.JrafMinitelApp
-import org.slf4j.simple.SimpleLogger
 
 private const val DEFAULT_PORT = 8080
 
 private const val ENV_PORT = "PORT"
 
-private fun initLogs() {
-  // This must be done before any logger is initialized
-  System.setProperty(SimpleLogger.LOG_FILE_KEY, "System.out")
-  System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "trace")
-  System.setProperty(SimpleLogger.SHOW_DATE_TIME_KEY, "true")
-  System.setProperty(SimpleLogger.DATE_TIME_FORMAT_KEY, "yyyy-MM-dd HH:mm:ss")
-}
-
 fun main() {
-  initLogs()
   val listenPort = System.getenv(ENV_PORT)?.toInt() ?: DEFAULT_PORT
   embeddedServer(Netty, listenPort) {
     install(DefaultHeaders)

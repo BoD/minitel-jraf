@@ -15,7 +15,7 @@ group = "org.jraf"
 version = "1.0.0"
 
 kotlin {
-  jvmToolchain(11)
+  jvmToolchain(25)
   compilerOptions {
     optIn.add("kotlin.time.ExperimentalTime")
   }
@@ -42,8 +42,9 @@ dependencies {
   implementation(libs.apollo.runtime)
   implementation(libs.apollo.adapters.core)
 
-  // Logback
-  implementation(libs.slf4j.simple)
+  // Logging
+  implementation(libs.klibnanolog)
+  implementation(libs.logback)
 
   // JSON
   implementation(libs.kotlinx.serialization.json)
@@ -60,8 +61,7 @@ dependencies {
 
 docker {
   javaApplication {
-    // Use OpenJ9 instead of the default one
-    baseImage.set("adoptopenjdk/openjdk11-openj9:x86_64-ubuntu-jre-11.0.26_4_openj9-0.49.0")
+    baseImage.set("eclipse-temurin:25")
     maintainer.set("BoD <BoD@JRAF.org>")
     ports.set(listOf(8080))
     images.add("bodlulu/${rootProject.name}:latest")
@@ -78,6 +78,21 @@ tasks.withType<DockerBuildImage> {
 }
 
 tasks.withType<Dockerfile> {
+  // Install curl
+  runCommand("apt-get update")
+  runCommand("apt-get install -y curl")
+
+  // Download the OpenTelemetry Java agent
+  runCommand("curl -L -O https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar")
+
+  // OpenTelemetry Java agent configuration
+  environmentVariable(
+    mapOf(
+      "JAVA_TOOL_OPTIONS" to "-javaagent:opentelemetry-javaagent.jar",
+      "OTEL_SERVICE_NAME" to rootProject.name.lowercase(),
+    )
+  )
+
   // Move the COPY instructions to the end
   // See https://github.com/bmuschko/gradle-docker-plugin/issues/1093
   instructions.set(
@@ -96,8 +111,7 @@ apollo {
       endpointUrl.set("https://api.github.com/graphql")
       schemaFile.set(file("src/main/graphql/github/schema.graphqls"))
       // Add `githubOauthKey` to your ~/.gradle/gradle.properties file
-      val githubOauthKey = project.findProperty("githubOauthKey")?.toString() ?: ""
-      headers.put("Authorization", "Bearer $githubOauthKey")
+      headers.put("Authorization", "Bearer ${project.findProperty("githubOauthKey")}")
     }
   }
   service("resume") {
@@ -111,6 +125,7 @@ apollo {
   }
 }
 
+// `./gradlew downloadGithubApolloSchemaFromIntrospection downloadResumeApolloSchemaFromIntrospection` to download the schemas
 // `./gradlew distZip` to create a zip distribution
 // `./gradlew refreshVersions` to update dependencies
 // `DOCKER_USERNAME=<your docker hub login> DOCKER_PASSWORD=<your docker hub password> ./gradlew dockerPushImage` to build and push the image
