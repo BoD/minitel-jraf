@@ -9,13 +9,13 @@ plugins {
   alias(libs.plugins.dockerJavaApplication)
   alias(libs.plugins.apollo)
   alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.tapmoc)
 }
 
 group = "org.jraf"
 version = "1.0.0"
 
 kotlin {
-  jvmToolchain(25)
   compilerOptions {
     optIn.add("kotlin.time.ExperimentalTime")
   }
@@ -123,6 +123,12 @@ apollo {
     }
     mapScalarToKotlinString("Email")
   }
+}
+
+tapmoc {
+  java(25)
+  kotlin(libs.versions.kotlin.get())
+  checkDependencies()
 }
 
 // `./gradlew downloadGithubApolloSchemaFromIntrospection downloadResumeApolloSchemaFromIntrospection` to download the schemas

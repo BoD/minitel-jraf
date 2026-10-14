@@ -11,12 +11,14 @@ markdown = "0.7.17"
 klibslack = "1.0.2"
 jsoup = "1.23.2"
 dockerJavaApplication = "10.0.0"
+tapmoc = "0.5.0"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dockerJavaApplication = { id = "com.bmuschko.docker-java-application", version.ref = "dockerJavaApplication" }
 apollo = { id = "com.apollographql.apollo", version.ref = "apollo" }
+tapmoc = { id = "com.gradleup.tapmoc", version.ref = "tapmoc" }
 
 [libraries]
 ktor-server-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
